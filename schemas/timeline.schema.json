@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tennis Rally Timeline",
+  "description": "Structured timeline for tennis rally segments. Output from segmentation and input for export.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["clip_id", "start", "end", "duration", "keep"],
+    "properties": {
+      "clip_id": {
+        "type": "string",
+        "description": "Unique clip identifier, e.g., 'point_001'"
+      },
+      "video_id": {
+        "type": "string",
+        "description": "Source video identifier, e.g., 'session_2026_06_24_cam1'"
+      },
+      "start": {
+        "type": "number",
+        "description": "Start time in seconds from video beginning",
+        "minimum": 0
+      },
+      "end": {
+        "type": "number",
+        "description": "End time in seconds from video beginning",
+        "minimum": 0
+      },
+      "duration": {
+        "type": "number",
+        "description": "Segment duration in seconds (end - start)",
+        "minimum": 0
+      },
+      "label": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Segment labels, e.g., ['rally', 'long_rally']"
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Segmentation confidence in [0, 1]",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "features": {
+        "type": "object",
+        "description": "Rally-level aggregated features"
+      },
+      "keep": {
+        "type": "boolean",
+        "description": "Whether to include this segment in export"
+      },
+      "notes": {
+        "type": "string",
+        "description": "Optional human annotation notes"
+      }
+    }
+  }
+}

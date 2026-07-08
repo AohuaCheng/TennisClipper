@@ -1,0 +1,42 @@
+# Tennis Rally Clipper - Python Dependencies
+# 推荐环境管理器: uv (https://github.com/astral-sh/uv)
+# 安装: curl -LsSf https://astral.sh/uv/install.sh | sh
+#
+# 快速开始:
+#   uv pip install -r requirements.txt
+#   source .venv/bin/activate
+
+# ============ Phase 1: MVP 核心 (必须安装) ============
+# 视频处理与基础计算 — 总体积约 150MB
+opencv-python>=4.8.0          # 视频读取、运动检测、图像处理
+numpy>=1.24.0                   # 数值计算
+pandas>=2.0.0                   # 时间轴 CSV/JSON 处理
+
+# CLI 与配置
+click>=8.1.0                    # 命令行接口
+pyyaml>=6.0                     # YAML 配置文件支持
+
+# ============ Phase 2: 球员检测与姿态 (Phase 3 启用) ============
+# 取消注释以安装。注意：ultralytics 会安装 PyTorch，体积较大（~2GB）
+# ultralytics>=8.0.0             # YOLOv8 人体检测
+# mediapipe>=0.10.0              # 轻量姿态估计（Google MediaPipe）
+
+# ============ Phase 3: 运动分析增强 (Phase 3 启用) ============
+scipy>=1.10.0                   # 信号处理、滤波 (音频击球声检测)
+
+# ============ Phase 4: 机器学习分类器 (Phase 4 启用) ============
+# scikit-learn>=1.3.0            # 传统机器学习
+# lightgbm>=4.0.0                # 梯度提升（可选）
+
+# ============ Phase 5: LLM 语义筛选 (Phase 5 启用) ============
+# openai>=1.0.0                  # 可选: OpenAI API
+# 注意: 本地 LLM 需要 torch + transformers，体积很大，按需安装
+# torch>=2.0.0; sys_platform == 'darwin'  # macOS CPU 版本
+# transformers>=4.30.0             # Hugging Face Transformers
+
+# ============ 开发依赖 (可选) ============
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+# black>=23.0.0
+# ruff>=0.1.0
+# matplotlib>=3.7.0              # 调试时可视化 active score 曲线

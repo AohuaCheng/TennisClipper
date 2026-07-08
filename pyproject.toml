@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tennis-rally-clipper"
+version = "0.1.0"
+description = "A local-first tool for cutting long amateur tennis videos into rally clips"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Aohua Cheng"},
+]
+keywords = ["tennis", "video", "clip", "rally", "opencv", "ffmpeg"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+]
+
+dependencies = [
+    "opencv-python>=4.8.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "click>=8.1.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+vision = [
+    "ultralytics>=8.0.0",
+    "mediapipe>=0.10.0",
+]
+ml = [
+    "scikit-learn>=1.3.0",
+    "lightgbm>=4.0.0",
+]
+llm = [
+    "openai>=1.0.0",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.scripts]
+tenniscut = "tenniscut.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/AohuaCheng/TennisClipper"
+Repository = "https://github.com/AohuaCheng/TennisClipper"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tenniscut*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

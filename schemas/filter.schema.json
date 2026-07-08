@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Export Filter",
+  "description": "Structured filter for segment selection during export.",
+  "type": "object",
+  "properties": {
+    "min_duration": {
+      "type": "number",
+      "description": "Minimum segment duration in seconds",
+      "minimum": 0
+    },
+    "max_duration": {
+      "type": "number",
+      "description": "Maximum segment duration in seconds",
+      "minimum": 0
+    },
+    "include_labels": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Labels that must be present for inclusion"
+    },
+    "exclude_labels": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Labels that exclude a segment"
+    },
+    "pre_roll": {
+      "type": "number",
+      "description": "Seconds to include before segment start",
+      "minimum": 0
+    },
+    "post_roll": {
+      "type": "number",
+      "description": "Seconds to include after segment end",
+      "minimum": 0
+    },
+    "max_total_duration": {
+      "type": "number",
+      "description": "Maximum total output duration in seconds",
+      "minimum": 0
+    },
+    "sort_by": {
+      "type": "string",
+      "enum": ["time", "duration", "confidence", "motion"],
+      "description": "How to sort segments before applying max_total_duration"
+    }
+  }
+}
