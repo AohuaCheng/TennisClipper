@@ -142,7 +142,9 @@ def scan(session_name: str, preset: str, use_proxy: bool):
         frames_processed += 1
         if prev_frame is not None:
             energy = compute_motion_energy(frame, prev_frame)
-            current_time = frames_processed / scan_fps
+            # Timestamp the difference between prev_frame and current frame.
+            # frames_processed is 1-based, so the actual elapsed time is (N-1)/fps.
+            current_time = (frames_processed - 1) / scan_fps
             motion_data.append({
                 "t": current_time,
                 "motion_energy": energy,
@@ -351,7 +353,9 @@ def process(session_name: str, min_rally: float, max_gap: float,
         frames_processed += 1
         if prev_frame is not None:
             energy = compute_motion_energy(frame, prev_frame)
-            current_time = frames_processed / scan_fps
+            # Timestamp the difference between prev_frame and current frame.
+            # frames_processed is 1-based, so the actual elapsed time is (N-1)/fps.
+            current_time = (frames_processed - 1) / scan_fps
             motion_data.append({
                 "t": current_time,
                 "motion_energy": energy,

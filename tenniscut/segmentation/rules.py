@@ -71,7 +71,11 @@ def segment_by_threshold(
     for s, e in merged:
         duration = e - s
         if duration > 60.0:
-            result.extend(split_long_segment(s, e, active_scores, max_duration=60.0))
+            result.extend(
+                split_long_segment(
+                    s, e, active_scores, max_duration=60.0, sampling_rate=sampling_rate
+                )
+            )
         else:
             result.append((s, e))
 
@@ -79,7 +83,11 @@ def segment_by_threshold(
 
 
 def split_long_segment(
-    start: float, end: float, active_scores: List[float], max_duration: float = 60.0
+    start: float,
+    end: float,
+    active_scores: List[float],
+    max_duration: float = 60.0,
+    sampling_rate: float = 1.0,
 ) -> List[Tuple[float, float]]:
     """Split segments that are suspiciously long (likely multiple rallies).
 
@@ -87,27 +95,39 @@ def split_long_segment(
     Falls back to evenly spaced split if no clear minimum is found.
 
     Args:
-        start: Segment start time.
-        end: Segment end time.
+        start: Segment start time in seconds.
+        end: Segment end time in seconds.
         active_scores: Full active score array for finding minima.
-        max_duration: Maximum allowed segment duration.
+        max_duration: Maximum allowed segment duration in seconds.
+        sampling_rate: Samples per second (default 1.0 for per-second data).
 
     Returns:
-        List of sub-segments.
+        List of sub-segments in seconds.
     """
     segments: List[Tuple[float, float]] = []
     current = start
     while current < end:
         chunk_end = min(current + max_duration, end)
 
-        search_start = max(int(current + max_duration * 0.6), int(current + 5))
-        search_end = min(int(current + max_duration * 0.95), int(end))
+        # Convert time bounds to array indices
+        start_idx = max(0, int(current * sampling_rate))
+        chunk_end_idx = min(len(active_scores), int(chunk_end * sampling_rate))
+        search_start_idx = max(
+            int((current + max_duration * 0.6) * sampling_rate),
+            int((current + 5.0) * sampling_rate),
+        )
+        search_end_idx = min(
+            int((current + max_duration * 0.95) * sampling_rate),
+            chunk_end_idx,
+        )
 
-        if search_end > search_start:
-            candidate_scores = active_scores[search_start:search_end]
+        if search_end_idx > search_start_idx:
+            candidate_scores = active_scores[search_start_idx:search_end_idx]
             if candidate_scores:
-                min_idx = search_start + candidate_scores.index(min(candidate_scores))
-                chunk_end = min(min_idx, end)
+                min_idx = search_start_idx + candidate_scores.index(min(candidate_scores))
+                # Convert index back to time and clamp to chunk_end
+                min_time = min(float(min_idx) / sampling_rate, chunk_end)
+                chunk_end = min_time
 
         segment = (current, chunk_end)
         if segment[1] - segment[0] >= 3.0:
