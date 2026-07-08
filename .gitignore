@@ -36,7 +36,11 @@ dist/
 *.tiff
 *.wav
 
-# Auto-generated session output directories (root level only)
+# Local sessions: ignore all subdirectories but keep this README
+/sessions/*/
+!/sessions/README.md
+
+# Legacy session patterns (kept for safety)
 /test_session_*/
 /*_session_*/
 /work/
