@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "clipper_dir": "/Users/aohuacheng/Downloads/Clipper",
+  "sessions": [
+    {
+      "session_id": "7125_7126",
+      "original_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7125_raw.MOV",
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+      ],
+      "result_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7125_7126_result.mp4"
+      ],
+      "court_id": "court_C",
+      "court_type": "indoor_hard",
+      "match_type": "doubles",
+      "split": "train",
+      "notes": "two raw merged",
+      "benchmark_path": null,
+      "benchmark_status": "skipped"
+    },
+    {
+      "session_id": "7252",
+      "original_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7252_raw.MOV"
+      ],
+      "result_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7252_result.mp4"
+      ],
+      "court_id": "court_A",
+      "court_type": "indoor_hard",
+      "match_type": "singles",
+      "split": "test",
+      "notes": "",
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7252.json",
+      "benchmark_status": "ready"
+    },
+    {
+      "session_id": "7255",
+      "original_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7255_raw.MOV"
+      ],
+      "result_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7255_result1.mp4",
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7255_result2.mp4"
+      ],
+      "court_id": "court_B",
+      "court_type": "outdoor_clay",
+      "match_type": "doubles",
+      "split": "val",
+      "notes": "",
+      "benchmark_path": null,
+      "benchmark_status": "skipped"
+    },
+    {
+      "session_id": "7515",
+      "original_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7515_raw.MOV"
+      ],
+      "result_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7515_result.mp4"
+      ],
+      "court_id": "court_D",
+      "court_type": "outdoor_hard",
+      "match_type": "singles",
+      "split": "train",
+      "notes": "",
+      "benchmark_path": null,
+      "benchmark_status": "skipped"
+    },
+    {
+      "session_id": "7521",
+      "original_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7521_raw.MOV"
+      ],
+      "result_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7521_result.mp4"
+      ],
+      "court_id": "court_E",
+      "court_type": "outdoor_hard",
+      "match_type": "singles",
+      "split": "train",
+      "notes": "",
+      "benchmark_path": null,
+      "benchmark_status": "skipped"
+    },
+    {
+      "session_id": "7559",
+      "original_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7559_raw.MOV"
+      ],
+      "result_videos": [
+        "/Users/aohuacheng/Downloads/Clipper/IMG_7559_result.mp4"
+      ],
+      "court_id": "court_F",
+      "court_type": "outdoor_hard",
+      "match_type": "singles",
+      "split": "test",
+      "notes": "",
+      "benchmark_path": null,
+      "benchmark_status": "skipped"
+    }
+  ]
+}

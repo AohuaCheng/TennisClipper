@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "player_action.schema.json",
+  "title": "PlayerActionSample",
+  "type": "object",
+  "required": [
+    "sample_id",
+    "session_id",
+    "split",
+    "t",
+    "track_id",
+    "crop_path",
+    "bbox",
+    "label"
+  ],
+  "properties": {
+    "sample_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "split": { "enum": ["train", "val", "test"] },
+    "court_type": {
+      "enum": ["indoor_hard", "outdoor_hard", "outdoor_clay"]
+    },
+    "match_type": { "enum": ["singles", "doubles"] },
+    "t": { "type": "number", "description": "Timestamp in seconds" },
+    "track_id": { "type": "integer" },
+    "crop_path": { "type": "string" },
+    "bbox": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "[x1, y1, x2, y2] normalized 0-1"
+    },
+    "role": { "enum": ["near", "far", "unknown"] },
+    "label": {
+      "enum": [
+        "hit_serve",
+        "hit_rally",
+        "move",
+        "pick_ball",
+        "idle",
+        "uncertain"
+      ]
+    },
+    "prelabel_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "in_rally": { "type": "boolean" },
+    "segment_id": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

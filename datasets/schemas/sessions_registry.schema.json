@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sessions_registry.schema.json",
+  "title": "SessionsRegistry",
+  "type": "object",
+  "required": ["version", "clipper_dir", "sessions"],
+  "properties": {
+    "version": { "type": "integer" },
+    "clipper_dir": { "type": "string" },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "session_id",
+          "original_videos",
+          "result_videos",
+          "court_id",
+          "court_type",
+          "match_type",
+          "split"
+        ],
+        "properties": {
+          "session_id": { "type": "string" },
+          "original_videos": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "result_videos": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "court_id": { "type": "string" },
+          "court_type": {
+            "enum": ["indoor_hard", "outdoor_hard", "outdoor_clay"]
+          },
+          "match_type": { "enum": ["singles", "doubles"] },
+          "split": { "enum": ["train", "val", "test"] },
+          "notes": { "type": "string" },
+          "benchmark_path": { "type": "string" },
+          "benchmark_status": {
+            "enum": ["ready", "pending", "partial", "failed", "skipped"]
+          }
+        }
+      }
+    }
+  }
+}

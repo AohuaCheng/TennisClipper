@@ -1,0 +1,86 @@
+{
+  "benchmark_name": "IMG_7252_result.mp4",
+  "original_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7252_raw.MOV",
+  "result_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7252_result.mp4",
+  "original_duration": 2558.13,
+  "result_duration": 332.1,
+  "segment_count": 6,
+  "segments": [
+    {
+      "result_start": 0.0,
+      "result_end": 51.0,
+      "result_duration": 51.0,
+      "original_start": 303.0,
+      "original_end": 354.0,
+      "original_duration": 51.0,
+      "confidence": 0.967,
+      "probe_count": 8,
+      "segment_id": "benchmark_0000"
+    },
+    {
+      "result_start": 51.0,
+      "result_end": 70.0,
+      "result_duration": 19.0,
+      "original_start": 752.0,
+      "original_end": 771.0,
+      "original_duration": 19.0,
+      "confidence": 0.983,
+      "probe_count": 8,
+      "segment_id": "benchmark_0001"
+    },
+    {
+      "result_start": 70.0,
+      "result_end": 139.0,
+      "result_duration": 69.0,
+      "original_start": 1170.0,
+      "original_end": 1239.0,
+      "original_duration": 69.0,
+      "confidence": 0.977,
+      "probe_count": 8,
+      "segment_id": "benchmark_0002"
+    },
+    {
+      "result_start": 139.0,
+      "result_end": 213.0,
+      "result_duration": 74.0,
+      "original_start": 1502.0,
+      "original_end": 1576.0,
+      "original_duration": 74.0,
+      "confidence": 0.986,
+      "probe_count": 8,
+      "segment_id": "benchmark_0003"
+    },
+    {
+      "result_start": 213.0,
+      "result_end": 267.0,
+      "result_duration": 54.0,
+      "original_start": 2100.0,
+      "original_end": 2154.0,
+      "original_duration": 54.0,
+      "confidence": 0.977,
+      "probe_count": 8,
+      "segment_id": "benchmark_0004"
+    },
+    {
+      "result_start": 267.0,
+      "result_end": 332.1,
+      "result_duration": 65.1,
+      "original_start": 2475.0,
+      "original_end": 2540.1,
+      "original_duration": 65.1,
+      "confidence": 0.973,
+      "probe_count": 8,
+      "segment_id": "benchmark_0005"
+    }
+  ],
+  "method": "visual_dhash_multiframe_manual_cuts",
+  "result_cuts": [
+    51.0,
+    70.0,
+    139.0,
+    213.0,
+    267.0
+  ],
+  "notes": "Each segment maps a contiguous block in the benchmark result clip to its corresponding time range in the original source video. Use original_start/original_end for comparison with tenniscut output.",
+  "session_id": "7252"
+}

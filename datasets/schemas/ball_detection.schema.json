@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ball_detection.schema.json",
+  "title": "BallDetectionSample",
+  "type": "object",
+  "required": [
+    "sample_id",
+    "session_id",
+    "split",
+    "t",
+    "frame_path",
+    "has_ball"
+  ],
+  "properties": {
+    "sample_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "split": { "enum": ["train", "val", "test"] },
+    "court_type": {
+      "enum": ["indoor_hard", "outdoor_hard", "outdoor_clay"]
+    },
+    "match_type": { "enum": ["singles", "doubles"] },
+    "t": { "type": "number" },
+    "frame_path": { "type": "string" },
+    "has_ball": { "type": "boolean" },
+    "bbox": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "[x_center, y_center, w, h] normalized YOLO format"
+    },
+    "visibility": {
+      "enum": ["visible", "occluded", "motion_blur", "unknown"]
+    },
+    "in_rally": { "type": "boolean" },
+    "segment_id": { "type": "string" },
+    "prelabel_source": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

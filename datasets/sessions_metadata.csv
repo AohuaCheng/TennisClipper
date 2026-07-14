@@ -1,0 +1,7 @@
+session_id,court_id,court_type,match_type,notes
+7252,court_A,indoor_hard,singles,
+7255,court_B,outdoor_clay,doubles,
+7125_7126,court_C,indoor_hard,doubles,two raw merged
+7515,court_D,outdoor_hard,singles,
+7521,court_E,outdoor_hard,singles,
+7559,court_F,outdoor_hard,singles,
