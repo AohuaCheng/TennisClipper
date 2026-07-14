@@ -248,16 +248,19 @@ def fuse_rally_events(
 
     all_segs.sort(key=lambda x: x[0])
 
-    # Merge overlapping or nearby segments (take widest bounds)
-    result = [all_segs[0]]
+    def _clamp_end(end: float) -> float:
+        if video_duration is not None:
+            return min(end, video_duration)
+        return end
+
+    first_s, first_e = all_segs[0]
+    result = [(first_s, _clamp_end(first_e))]
     for s, e in all_segs[1:]:
         last_s, last_e = result[-1]
         if s <= last_e + 1.0:
-            result[-1] = (last_s, max(last_e, e))
+            result[-1] = (last_s, _clamp_end(max(last_e, e)))
         else:
-            if video_duration:
-                e = min(e, video_duration)
-            result.append((s, e))
+            result.append((s, _clamp_end(e)))
 
     return result
 
