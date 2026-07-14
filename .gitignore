@@ -10,6 +10,7 @@ __pycache__/
 .venv/
 venv/
 env/
+uv.lock
 
 # Build artifacts
 *.egg-info/
@@ -50,3 +51,14 @@ dist/
 
 # Local session config (root level only)
 /config.yaml
+
+# Downloaded model weights (local only)
+yolov8n.pt
+models/
+
+# ML datasets: keep schemas/README/manifests/benchmarks JSON; ignore media
+/datasets/player_actions/raw_crops/**
+!/datasets/player_actions/raw_crops/.gitkeep
+/datasets/ball_detection/frames/**
+!/datasets/ball_detection/frames/.gitkeep
+/datasets/benchmarks/.cache/

@@ -57,13 +57,43 @@ session_001,210.50,225.30,1,highlight,"amazing point"
 - QuickTime（macOS 精确到 0.01 秒）
 - 任何能显示当前时间的视频播放器
 
-### 方法 2: 轻量 HTML 标注页（后续）
+### 方法 3: 从人工剪辑视频反推 benchmark（推荐有参考集锦时）
 
-见 `scripts/annotate_helper.py`（待实现），将提供：
-- 视频播放器
-- 时间轴可视化
-- 点击标记 start/end
-- 直接导出 CSV
+若你已有「原片 + 人工剪辑集锦」，可用视觉帧对齐自动生成 ground truth，无需逐段标注 original 时间：
+
+```bash
+python scripts/extract_benchmark.py \
+  --original /path/to/raw.MOV \
+  --result   /path/to/result.mp4 \
+  --output   sessions/my_session/benchmark.json \
+  --result-cuts 51 70 139 213 267   # result 内的切分点（秒）
+```
+
+**你需要提供：**
+- 原片路径 + 剪辑集锦路径
+- result 视频的切分点（`--result-cuts`），例如已知 6 段：`0–51, 51–70, 70–139, 139–213, 213–267, 267–332`
+
+**你不需要提供：**
+- 每段在原片的起止时间（由视觉匹配自动计算）
+
+**对齐逻辑简述：**
+1. 按切分点把 result 拆成若干段
+2. 对 original 建帧指纹索引（dHash + HSV，可缓存）
+3. 每段取 8 帧 probe，在原片中滑动匹配最佳起点
+4. 假设 1:1 播放，`original_end = original_start + 段时长`
+
+自动硬切检测（不传 `--result-cuts`）也可运行，但在网球视频中可能把回合内镜头变化误判为切点；硬切算法优化留待后续，**当前建议手动指定切分点**。
+
+生成后用 `scripts/eval_baseline.py` 与 `work/timeline.json` 对比。
+
+---
+
+### 方法 2: 轻量 HTML 标注页（ML 数据集，进行中）
+
+球员动作与球检测标注将使用 `datasets/` 下的 HTML 标注工具（见 [`datasets/README.md`](../datasets/README.md)），支持：
+- 球员 crop 逐条分类（hit_serve / hit_rally / move 等）
+- 球帧 bbox 审核
+- 按 session split 导出 train/val/test
 
 ---
 
@@ -120,6 +150,13 @@ session_001,210.50,225.30,1,highlight,"amazing point"
 #    - 选择标签
 # 4. 保存为 CSV
 # 5. 用 scripts/eval_baseline.py 对比自动结果
+
+# 或者：从人工剪辑集锦反推 benchmark
+python scripts/extract_benchmark.py \
+  --original raw.MOV --result result.mp4 \
+  --output benchmark.json --result-cuts 51 70 139 213 267
+python scripts/eval_baseline.py \
+  --predicted work/timeline.json --ground-truth benchmark.json
 ```
 
 ---

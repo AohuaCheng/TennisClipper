@@ -12,11 +12,11 @@
 ├─────────────────────────────────────────────────────┤
 │  筛选层: 规则引擎 / 启发式标签 / LLM 语义筛选            │
 ├─────────────────────────────────────────────────────┤
-│  切分层: 回合切分 / 开始结束检测 / 后处理               │
+│  切分层: 回合切分 / lifecycle / ball_refine / 后处理   │
 ├─────────────────────────────────────────────────────┤
-│  特征层: 运动 / 球员 / 姿态 / 球 / 音频 特征聚合         │
+│  特征层: 运动 / 视觉击球 / 球轨迹 / 球员姿态             │
 ├─────────────────────────────────────────────────────┤
-│  视觉层: OpenCV / YOLO / MediaPipe / 自定义检测器        │
+│  视觉层: OpenCV / YOLO / MediaPipe / 球检测跟踪        │
 ├─────────────────────────────────────────────────────┤
 │  视频层: FFmpeg / 代理视频 / 元信息 / 裁剪拼接           │
 └─────────────────────────────────────────────────────┘
@@ -28,23 +28,19 @@
 
 ### 1. 分层渐进
 
-每一层都建立在前一层之上，可独立运行：
-
-- **Layer 1 (视频)**: 只要有 FFmpeg 就能工作
-- **Layer 2 (运动 + 音频)**: 纯 CV + 音频信号，不需要 AI 模型
-- **Layer 3 (球员)**: 叠加 YOLO 检测，提升精度
-- **Layer 4 (姿态/球)**: 更精细的特征，需要更多计算
-- **Layer 5 (LLM)**: 可选的高级语义筛选
+- **Layer 1 (视频)**: FFmpeg 导入、代理、裁剪
+- **Layer 2 (运动)**: 5fps 帧差扫描，提供粗粒度活跃信号
+- **Layer 3 (视觉击球)**: YOLO 球员 + MediaPipe 挥拍 + 稀疏球确认（**当前主路径**）
+- **Layer 4 (回合逻辑)**: lifecycle 推断、球轨迹 refine、球场几何
+- **Layer 5 (ML/VLM)**: 专用动作/球检测模型（进行中，见 `datasets/`）
 
 ### 2. 结构化优先
 
-高维视频 → 低维结构化特征 → 轻量模型/规则，而非直接把视频喂给大模型。
+高维视频 → 低维结构化特征（hit 时间戳、轨迹点）→ 规则/轻量模型，而非直接把视频喂给大模型。
 
 ### 3. 本地优先
 
-- 默认所有处理在本地完成
-- 不强制上传原视频
-- 云端 LLM 仅用于可选精筛，且只上传结构化摘要
+默认所有处理在本地完成；云端 VLM 仅用于可选评估基线。
 
 ### 4. 偏召回
 
@@ -52,27 +48,38 @@
 
 ---
 
-## 数据流（MVP 已实现）
+## 数据流（当前主路径）
 
 ```text
 input.mp4
   ├─→ video.ingest (元信息)
-  ├─→ video.proxy (540p, 可选)
   ├─→ vision.motion (5fps 帧差 motion energy)
-  └─→ audio.onset (22.05kHz WAV → 击球 onset)
+  ├─→ calibration.court (手动标定，推荐)
+  └─→ hit_detection_visual.VisualHitDetector
+         ├─ YOLO 球员跟踪
+         ├─ MediaPipe 挥拍峰值
+         └─ 稀疏球轨迹确认
          ↓
-  features.extract (聚合运动 + 音频特征)
+  segmentation.rules.segment_by_hit_events
          ↓
-  features.fuse_hit_events (运动峰值 + 音频 onset 确认)
+  segmentation.rally_lifecycle (回合起止推断)
          ↓
-  segmentation.rules (击球事件聚类)
+  segmentation.ball_refine (轨迹辅助修正，可选)
          ↓
-  segmentation.postprocess (pre-roll / post-roll / 过滤)
+  segmentation.postprocess (过滤、合并)
          ↓
-  export.concat (FFmpeg 裁剪原视频并拼接)
+  export.concat
          ↓
-  timeline.json + timeline.csv + hit_events.json
+  timeline.json + hit_events.json + ball_trajectory.jsonl
 ```
+
+### Legacy 音频路径（`--legacy-audio`，不推荐）
+
+```text
+audio.onset → features.fuse_hit_events(motion_peaks) → segment_by_hit_events
+```
+
+音频击球声在风噪/业余收音条件下误检率高，仅保留作对照实验。
 
 ---
 
@@ -90,59 +97,61 @@ input.mp4
 
 | 模块 | 文件 | 状态 |
 |---|---|---|
-| 运动检测 | `motion.py` | ✅ 已实现 |
-| ROI | `roi.py` | Phase 2 |
-| 球员检测 | `players.py` | Phase 3 |
-| 姿态估计 | `pose.py` | Phase 3 |
-| 球检测 | `ball.py` | Phase 4 |
+| 运动检测 | `motion.py` | 已实现 |
+| ROI | `roi.py` | 已实现 |
+| 球员检测 | `players.py` | 已实现（YOLO） |
+| 姿态估计 | `pose.py` | 已实现（MediaPipe） |
+| 球检测/跟踪 | `ball.py`, `ball_track.py`, `ball_pipeline.py` | 已实现（CV，覆盖率有限） |
+| 球场几何 | `court_lines.py` | 数据模型 + 加载；自动 Hough 已移除 |
+| 标定 | `calibration/` | 手动点击标定（推荐） |
 
 ### 特征层 (`tenniscut/features/`)
 
 | 模块 | 文件 | 职责 |
 |---|---|---|
-| 提取 | `extract.py` | 聚合运动、音频特征，音频-运动融合 |
-| Schema | `schema.py` | 定义特征数据结构 |
+| 视觉击球 | `hit_detection_visual.py` | **主击球检测**（pose + ball） |
+| 提取/融合 | `extract.py` | 每秒特征、回合事件融合 |
+| Schema | `schema.py` | 特征数据结构 |
 
 ### 切分层 (`tenniscut/segmentation/`)
 
 | 模块 | 文件 | 职责 |
 |---|---|---|
-| Active Score | `active_score.py` | 多信号加权活跃分数 |
-| 规则切分 | `rules.py` | 阈值切分 + 击球事件聚类 |
-| 后处理 | `postprocess.py` | 前后余量 + 过滤短片段 |
+| Active Score | `active_score.py` | 多信号加权（阈值 fallback） |
+| 规则切分 | `rules.py` | 击球事件聚类 |
+| 球事件 | `ball_rally.py` | 球轨迹事件分析（出界/触网等） |
+| Lifecycle | `rally_lifecycle.py` | 回合起止推断（核心） |
+| Ball refine | `ball_refine.py` | 轨迹辅助边界修正 |
+| Refine | `refine.py` | 捡球/走动 trim |
+| 后处理 | `postprocess.py` | 过滤短片段、合并 |
 
-**MVP 切分策略**：以确认的击球事件为锚点，相邻击球间隔 > 6s 判定为新的回合。
+### ML 数据层 (`datasets/`, `tenniscut/ml/`)
 
-### 筛选层 (`tenniscut/labeling/`)
+| 模块 | 职责 |
+|---|---|
+| `corpus.py` | Clipper 视频库扫描、session registry |
+| `scan_clipper_corpus.py` | CLI：生成 benchmark + registry |
+| `datasets/schemas/` | 球员动作、球检测标注 schema |
 
-| 模块 | 文件 | 状态 |
+### 评估层 (`tenniscut/benchmark/`)
+
+| 模块 | 文件 | 职责 |
 |---|---|---|
-| 启发式标签 | `heuristics.py` | Phase 4 |
-| LLM 筛选 | `llm_filter.py` | Phase 5 |
-
-### 导出层 (`tenniscut/export/`)
-
-| 模块 | 文件 | 输出 |
-|---|---|---|
-| 片段 | `clips.py` | 单个片段 |
-| 拼接 | `concat.py` | 完整拼接视频 |
-| EDL | `edl.py` | 专业剪辑软件格式（Phase 5） |
-
-### 复核层 (`tenniscut/review/`)
-
-| 模块 | 文件 | 输出 |
-|---|---|---|
-| HTML 报告 | `html_report.py` | `report.html`（Phase 2） |
+| 视觉对齐 | `align.py` | result 切分 + 原片帧指纹匹配 |
+| CLI | `scripts/extract_benchmark.py` | 提取 benchmark |
+| 评估 | `scripts/eval_baseline.py` | IoU / MAE 对比 |
 
 ---
 
-## 扩展新检测信号
+## 已放弃的方案
 
-1. 在 `tenniscut/vision/` 或 `tenniscut/audio/` 创建新模块
-2. 输出标准化 JSON，每行包含 `t` 时间戳
-3. 在 `features.extract` 中注册新的特征列
-4. 在 `segmentation.rules` 或 `active_score` 中使用
+| 方案 | 原因 | 处置 |
+|---|---|---|
+| 音频 onset 主击球检测 | 风噪/收音不稳定 | 保留 `--legacy-audio`，默认关闭 |
+| 纯球轨迹击球检测 | 检测率 ~8%，轨迹断裂 | 删除 `hit_detection.py` |
+| Hough 自动球场线 | 业余视频误检率高 | 删除自动检测，改 `calibrate-court` |
+| 300–360s 一次性调试脚本 | 参数 sweep 已完成 | 已删除，用 `debug-ball` 替代 |
 
 ---
 
-> 更多技术细节见各模块源码文档字符串。
+> 更多技术细节见各模块源码文档字符串及 [`datasets/README.md`](../datasets/README.md)。

@@ -1,7 +1,7 @@
-"""Hit sound onset detection for tennis rally clipping.
+"""Audio utilities for tennis rally clipping.
 
-Detects tennis ball hit sounds from video audio tracks using
-simple energy envelope analysis.
+``detect_hit_onsets`` is legacy (--legacy-audio). ``extract_audio_wav`` is still
+used for benchmark boundary refine and debug export mux.
 """
 import subprocess
 from pathlib import Path
