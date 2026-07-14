@@ -1,4 +1,5 @@
 """Motion energy detection using frame differencing."""
+from typing import Optional
 import numpy as np
 
 
@@ -33,7 +34,6 @@ def compute_motion_energy(frame: np.ndarray, prev_frame: np.ndarray) -> float:
         Motion ratio in [0, 1]: fraction of pixels with diff > 0.02.
     """
     diff = compute_frame_difference(frame, prev_frame)
-    # Fraction of pixels with noticeable change (diff > 2% of range)
     motion_ratio = float(np.mean(diff > 0.02))
     return motion_ratio
 
@@ -48,15 +48,46 @@ def compute_motion_intensity(frame: np.ndarray, prev_frame: np.ndarray) -> float
     return float(np.mean(diff))
 
 
+def compute_motion_energy_with_mask(
+    frame: np.ndarray,
+    prev_frame: np.ndarray,
+    mask: Optional[np.ndarray] = None,
+) -> float:
+    """Compute motion energy restricted to a mask.
+
+    Args:
+        frame: Current frame (H, W, 3).
+        prev_frame: Previous frame (H, W, 3).
+        mask: Optional (H, W) binary mask. If None, uses full frame.
+
+    Returns:
+        Motion ratio in [0, 1] within masked region.
+    """
+    diff = compute_frame_difference(frame, prev_frame)
+    if mask is None or mask.sum() == 0:
+        return float(np.mean(diff > 0.02))
+    masked_diff = diff * mask.astype(np.float32)
+    return float(np.mean(masked_diff[mask > 0] > 0.02))
+
+
+def compute_motion_intensity_with_mask(
+    frame: np.ndarray,
+    prev_frame: np.ndarray,
+    mask: Optional[np.ndarray] = None,
+) -> float:
+    """Compute mean frame difference restricted to a mask."""
+    diff = compute_frame_difference(frame, prev_frame)
+    if mask is None or mask.sum() == 0:
+        return float(np.mean(diff))
+    masked_diff = diff * mask.astype(np.float32)
+    return float(np.mean(masked_diff[mask > 0]))
+
+
 def compute_motion_energy_roi(
     frame: np.ndarray, prev_frame: np.ndarray, roi_mask: np.ndarray
 ) -> float:
     """Compute motion energy within a region of interest."""
-    diff = compute_frame_difference(frame, prev_frame)
-    masked_diff = diff * roi_mask.astype(np.float32)
-    if roi_mask.sum() > 0:
-        return float(np.mean(masked_diff > 0.02))
-    return 0.0
+    return compute_motion_energy_with_mask(frame, prev_frame, roi_mask)
 
 
 _cv2 = None

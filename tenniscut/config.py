@@ -25,6 +25,7 @@ class Config:
             "video": {
                 "proxy_height": 540,
                 "scan_fps": 5,
+                "ball_fps": 15,
                 "export_use_original_quality": True,
             },
             "court": {
@@ -45,7 +46,9 @@ class Config:
                 "use_player_detection": False,
                 "use_pose": False,
                 "use_ball": False,
-                "use_audio": True,
+                "use_ball_tracking": True,
+                "ball_method": "combined",
+                "use_audio": False,
             },
             "export": {
                 "mode": "full",

@@ -39,12 +39,16 @@ def get_video_info(video_path: Path) -> Dict[str, Any]:
 def read_frames(
     video_path: Path,
     fps: Optional[float] = None,
+    duration: Optional[float] = None,
+    start_time: float = 0.0,
 ) -> Generator[np.ndarray, None, None]:
-    """Read video frames using OpenCV with optional target FPS.
+    """Read video frames using OpenCV with optional target FPS and duration.
 
     Args:
         video_path: Path to video file.
         fps: Target fps for reading. If None, use original fps.
+        duration: Maximum duration in seconds to read. If None, read entire video.
+        start_time: Start reading from this time offset in seconds.
 
     Yields:
         numpy arrays representing video frames (H, W, 3 in BGR order).
@@ -55,18 +59,29 @@ def read_frames(
 
     original_fps = cap.get(cv2.CAP_PROP_FPS)
 
+    if start_time > 0 and original_fps > 0:
+        cap.set(cv2.CAP_PROP_POS_MSEC, start_time * 1000.0)
+
     if fps is not None and fps < original_fps:
         frame_interval = max(1, round(original_fps / fps))
     else:
         frame_interval = 1
 
+    max_frames = None
+    if duration is not None and duration > 0 and fps is not None:
+        max_frames = int(duration * fps)
+
     frame_count = 0
+    yielded_count = 0
     while True:
         ret, frame = cap.read()
         if not ret:
             break
         if frame_count % frame_interval == 0:
+            if max_frames is not None and yielded_count >= max_frames:
+                break
             yield frame
+            yielded_count += 1
         frame_count += 1
 
     cap.release()

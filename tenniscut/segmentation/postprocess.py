@@ -57,11 +57,13 @@ def filter_short_segments(
 
 def merge_overlapping_segments(
     segments: List[Dict[str, Any]],
+    gap: float = 0.0,
 ) -> List[Dict[str, Any]]:
-    """Merge segments that overlap after pre-roll/post-roll.
+    """Merge segments that overlap or are separated by a small gap.
 
     Args:
         segments: List of segment dicts with "start" and "end".
+        gap: If non-zero, merge segments separated by at most this many seconds.
 
     Returns:
         Merged segments.
@@ -74,14 +76,16 @@ def merge_overlapping_segments(
 
     for seg in sorted_segs[1:]:
         last = merged[-1]
-        if seg["start"] <= last["end"]:
-            # Overlapping or adjacent: merge
+        if seg["start"] <= last["end"] + gap:
             last["end"] = max(last["end"], seg["end"])
             last["duration"] = round(last["end"] - last["start"], 2)
         else:
             merged.append(dict(seg))
 
     return merged
+
+
+_merge_with_gap = merge_overlapping_segments
 
 
 def to_segment_dicts(

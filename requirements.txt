@@ -16,13 +16,12 @@ pandas>=2.0.0                   # 时间轴 CSV/JSON 处理
 click>=8.1.0                    # 命令行接口
 pyyaml>=6.0                     # YAML 配置文件支持
 
-# ============ Phase 2: 球员检测与姿态 (Phase 3 启用) ============
-# 取消注释以安装。注意：ultralytics 会安装 PyTorch，体积较大（~2GB）
-# ultralytics>=8.0.0             # YOLOv8 人体检测
-# mediapipe>=0.10.0              # 轻量姿态估计（Google MediaPipe）
+# ============ Phase 2: 信号处理 (legacy audio path) ============
+scipy>=1.10.0                   # 信号处理（--legacy-audio 击球声检测）
 
-# ============ Phase 3: 运动分析增强 (Phase 3 启用) ============
-scipy>=1.10.0                   # 信号处理、滤波 (音频击球声检测)
+# ============ Phase 3: 视觉击球检测 (默认路径，需安装) ============
+# ultralytics>=8.0.0             # YOLOv8 人体检测
+# mediapipe>=0.10.0              # MediaPipe 姿态/挥拍检测
 
 # ============ Phase 4: 机器学习分类器 (Phase 4 启用) ============
 # scikit-learn>=1.3.0            # 传统机器学习
