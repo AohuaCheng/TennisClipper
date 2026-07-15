@@ -1,0 +1,69 @@
+{
+  "benchmark_name": "IMG_7521_result.mp4",
+  "original_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7521_raw.MOV",
+  "result_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7521_result.mp4",
+  "original_duration": 2635.06,
+  "result_duration": 663.5,
+  "segment_count": 5,
+  "segments": [
+    {
+      "result_start": 0.0,
+      "result_end": 14.3,
+      "result_duration": 14.3,
+      "original_start": 2379.5,
+      "original_end": 2393.8,
+      "original_duration": 14.3,
+      "confidence": 0.776,
+      "probe_count": 8,
+      "segment_id": "benchmark_0000"
+    },
+    {
+      "result_start": 14.3,
+      "result_end": 65.3,
+      "result_duration": 51.0,
+      "original_start": 2393.0,
+      "original_end": 2444.0,
+      "original_duration": 51.0,
+      "confidence": 0.811,
+      "probe_count": 8,
+      "segment_id": "benchmark_0001"
+    },
+    {
+      "result_start": 65.3,
+      "result_end": 89.3,
+      "result_duration": 24.0,
+      "original_start": 2464.5,
+      "original_end": 2488.5,
+      "original_duration": 24.0,
+      "confidence": 0.881,
+      "probe_count": 8,
+      "segment_id": "benchmark_0002"
+    },
+    {
+      "result_start": 89.3,
+      "result_end": 100.1,
+      "result_duration": 10.8,
+      "original_start": 2572.0,
+      "original_end": 2582.8,
+      "original_duration": 10.8,
+      "confidence": 0.885,
+      "probe_count": 8,
+      "segment_id": "benchmark_0003"
+    },
+    {
+      "result_start": 100.1,
+      "result_end": 156.1,
+      "result_duration": 56.0,
+      "original_start": 2578.0,
+      "original_end": 2634.0,
+      "original_duration": 56.0,
+      "confidence": 0.619,
+      "probe_count": 8,
+      "segment_id": "benchmark_0004"
+    }
+  ],
+  "method": "visual_dhash_multiframe",
+  "result_cuts": null,
+  "notes": "Each segment maps a contiguous block in the benchmark result clip to its corresponding time range in the original source video. Use original_start/original_end for comparison with tenniscut output.",
+  "session_id": "7521"
+}

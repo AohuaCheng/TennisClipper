@@ -1,0 +1,111 @@
+{
+  "benchmark_name": "IMG_7125_7126_result.mp4",
+  "original_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7125_raw.MOV",
+  "result_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7125_7126_result.mp4",
+  "original_duration": 1984.33,
+  "result_duration": 865.0,
+  "segment_count": 8,
+  "segments": [
+    {
+      "result_start": 0.0,
+      "result_end": 193.2,
+      "result_duration": 193.2,
+      "original_start": 1468.5,
+      "original_end": 1661.7,
+      "original_duration": 193.2,
+      "confidence": 0.961,
+      "probe_count": 8,
+      "segment_id": "benchmark_0000",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 193.2,
+      "result_end": 202.0,
+      "result_duration": 8.8,
+      "original_start": 1678.0,
+      "original_end": 1686.8,
+      "original_duration": 8.8,
+      "confidence": 0.887,
+      "probe_count": 8,
+      "segment_id": "benchmark_0001",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 202.0,
+      "result_end": 404.9,
+      "result_duration": 202.9,
+      "original_start": 1752.5,
+      "original_end": 1955.4,
+      "original_duration": 202.9,
+      "confidence": 0.928,
+      "probe_count": 8,
+      "segment_id": "benchmark_0002",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 404.9,
+      "result_end": 616.3,
+      "result_duration": 211.4,
+      "original_start": 2212.5,
+      "original_end": 2213.96,
+      "original_duration": 211.4,
+      "confidence": 0.904,
+      "probe_count": 8,
+      "segment_id": "benchmark_0003",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 616.3,
+      "result_end": 661.8,
+      "result_duration": 45.5,
+      "original_start": 2212.5,
+      "original_end": 2213.96,
+      "original_duration": 45.5,
+      "confidence": 0.965,
+      "probe_count": 8,
+      "segment_id": "benchmark_0004",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 661.8,
+      "result_end": 671.5,
+      "result_duration": 9.7,
+      "original_start": 2211.5,
+      "original_end": 2213.96,
+      "original_duration": 9.7,
+      "confidence": 0.832,
+      "probe_count": 8,
+      "segment_id": "benchmark_0005",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 671.5,
+      "result_end": 702.8,
+      "result_duration": 31.3,
+      "original_start": 2212.5,
+      "original_end": 2213.96,
+      "original_duration": 31.3,
+      "confidence": 0.932,
+      "probe_count": 8,
+      "segment_id": "benchmark_0006",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    },
+    {
+      "result_start": 702.8,
+      "result_end": 865.0,
+      "result_duration": 162.2,
+      "original_start": 2210.5,
+      "original_end": 2213.96,
+      "original_duration": 162.2,
+      "confidence": 0.979,
+      "probe_count": 8,
+      "segment_id": "benchmark_0007",
+      "aligned_original": "/Users/aohuacheng/Downloads/Clipper/IMG_7126_raw.MOV"
+    }
+  ],
+  "method": "visual_dhash_multiframe",
+  "result_cuts": null,
+  "notes": "Each segment maps a contiguous block in the benchmark result clip to its corresponding time range in the original source video. Use original_start/original_end for comparison with tenniscut output.",
+  "session_id": "7125_7126",
+  "align_note": "Merged result aligned per-segment against IMG_7125_raw and IMG_7126_raw; each segment stores aligned_original."
+}

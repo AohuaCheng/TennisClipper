@@ -10,8 +10,7 @@
     "t",
     "track_id",
     "crop_path",
-    "bbox",
-    "label"
+    "bbox"
   ],
   "properties": {
     "sample_id": { "type": "string" },
@@ -22,8 +21,21 @@
     },
     "match_type": { "enum": ["singles", "doubles"] },
     "t": { "type": "number", "description": "Timestamp in seconds" },
+    "frame_index": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Zero-based video frame index matching the exported crop"
+    },
     "track_id": { "type": "integer" },
     "crop_path": { "type": "string" },
+    "full_frame_path": {
+      "type": "string",
+      "description": "Pre-exported full-frame JPG with bbox overlay (same frame as crop)"
+    },
+    "full_frame_plain_path": {
+      "type": "string",
+      "description": "Pre-exported full-frame JPG without bbox (same frame as crop)"
+    },
     "bbox": {
       "type": "array",
       "items": { "type": "number" },
@@ -32,6 +44,24 @@
       "description": "[x1, y1, x2, y2] normalized 0-1"
     },
     "role": { "enum": ["near", "far", "unknown"] },
+    "action_state": {
+      "enum": ["serving", "hitting", "moving", "pick_ball", "rest", "unsure"],
+      "description": "Layer-1 player action state snapshot"
+    },
+    "pose": {
+      "enum": ["serving", "hitting", "moving", "pick_ball", "rest", "unsure"],
+      "description": "Deprecated alias of action_state"
+    },
+    "rally_phase": {
+      "enum": ["in_play", "dead_time", "unsure"],
+      "description": "Layer-2 whether the player is in an active rally/point"
+    },
+    "label_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Annotator confidence for pose+rally_phase"
+    },
     "label": {
       "enum": [
         "hit_serve",
@@ -40,12 +70,18 @@
         "pick_ball",
         "idle",
         "uncertain"
-      ]
+      ],
+      "description": "Deprecated v1 single label; use pose + rally_phase"
     },
     "prelabel_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
-    "in_rally": { "type": "boolean" },
+    "in_rally": {
+      "type": "boolean",
+      "description": "Benchmark segment hint (not a human label)"
+    },
     "segment_id": { "type": "string" },
-    "notes": { "type": "string" }
+    "notes": { "type": "string" },
+    "frame_align": { "enum": ["same", "different", "unsure"] },
+    "is_target_player": { "enum": ["yes", "no", "unsure"] }
   },
   "additionalProperties": false
 }

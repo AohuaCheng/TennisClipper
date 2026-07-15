@@ -1,0 +1,47 @@
+{
+  "benchmark_name": "IMG_7515_result.mp4",
+  "original_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7515_raw.MOV",
+  "result_video": "/Users/aohuacheng/Downloads/Clipper/IMG_7515_result.mp4",
+  "original_duration": 2526.63,
+  "result_duration": 518.15,
+  "segment_count": 3,
+  "segments": [
+    {
+      "result_start": 0.0,
+      "result_end": 51.5,
+      "result_duration": 51.5,
+      "original_start": 2159.5,
+      "original_end": 2211.0,
+      "original_duration": 51.5,
+      "confidence": 0.977,
+      "probe_count": 8,
+      "segment_id": "benchmark_0000"
+    },
+    {
+      "result_start": 51.5,
+      "result_end": 82.1,
+      "result_duration": 30.6,
+      "original_start": 2385.0,
+      "original_end": 2415.6,
+      "original_duration": 30.6,
+      "confidence": 0.811,
+      "probe_count": 8,
+      "segment_id": "benchmark_0001"
+    },
+    {
+      "result_start": 82.1,
+      "result_end": 237.1,
+      "result_duration": 155.0,
+      "original_start": 2413.0,
+      "original_end": 2526.63,
+      "original_duration": 155.0,
+      "confidence": 0.716,
+      "probe_count": 8,
+      "segment_id": "benchmark_0002"
+    }
+  ],
+  "method": "visual_dhash_multiframe",
+  "result_cuts": null,
+  "notes": "Each segment maps a contiguous block in the benchmark result clip to its corresponding time range in the original source video. Use original_start/original_end for comparison with tenniscut output.",
+  "session_id": "7515"
+}

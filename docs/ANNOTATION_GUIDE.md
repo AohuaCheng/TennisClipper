@@ -91,7 +91,8 @@ python scripts/extract_benchmark.py \
 ### 方法 2: 轻量 HTML 标注页（ML 数据集，进行中）
 
 球员动作与球检测标注将使用 `datasets/` 下的 HTML 标注工具（见 [`datasets/README.md`](../datasets/README.md)），支持：
-- 球员 crop 逐条分类（hit_serve / hit_rally / move 等）
+- 球员 crop **双层标注**：`pose`（serving / hitting / moving / pick_ball / rest）+ `rally_phase`（in_play / dead_time）+ 置信度
+- QA 字段：`frame_align`（crop 与全画面是否同一时刻）、`is_target_player`
 - 球帧 bbox 审核
 - 按 session split 导出 train/val/test
 
@@ -107,11 +108,11 @@ python scripts/extract_benchmark.py \
 - 标注 5–10 个完整 session（每个 30–60 分钟）
 - 覆盖不同场景：白天/夜间、不同场地、不同对手
 
-### 2. 保留 `uncertain` 标签
+### 2. 保留 `unsure` 标签
 
-如果无法确定是回合还是捡球，不要强行判断：
-- 标记为 `uncertain`
-- 让模型学习"模糊样本"
+如果无法确定姿态或回合状态，不要强行判断：
+- 姿态或回合标为 `unsure`
+- 降低 `label_confidence`（如 40% / 20%）
 - 避免把错误信号灌给模型
 
 ### 3. 按 session 切分数据集

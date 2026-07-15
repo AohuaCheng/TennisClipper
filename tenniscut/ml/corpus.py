@@ -411,6 +411,18 @@ def build_registry(
     }
 
 
+def load_registry(registry_path: Path) -> Dict[str, Any]:
+    with open(registry_path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def get_session(registry: Dict[str, Any], session_id: str) -> Dict[str, Any]:
+    for session in registry.get("sessions", []):
+        if session["session_id"] == session_id:
+            return session
+    raise KeyError(f"Session not found in registry: {session_id}")
+
+
 def write_registry(registry: Dict[str, Any], output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:

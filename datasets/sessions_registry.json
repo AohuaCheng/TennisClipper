@@ -16,8 +16,8 @@
       "match_type": "doubles",
       "split": "train",
       "notes": "two raw merged",
-      "benchmark_path": null,
-      "benchmark_status": "skipped"
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7125_7126.json",
+      "benchmark_status": "ready"
     },
     {
       "session_id": "7252",
@@ -32,8 +32,8 @@
       "match_type": "singles",
       "split": "test",
       "notes": "",
-      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7252.json",
-      "benchmark_status": "ready"
+      "benchmark_path": null,
+      "benchmark_status": "skipped"
     },
     {
       "session_id": "7255",
@@ -49,8 +49,8 @@
       "match_type": "doubles",
       "split": "val",
       "notes": "",
-      "benchmark_path": null,
-      "benchmark_status": "skipped"
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7255.json",
+      "benchmark_status": "ready"
     },
     {
       "session_id": "7515",
@@ -65,8 +65,8 @@
       "match_type": "singles",
       "split": "train",
       "notes": "",
-      "benchmark_path": null,
-      "benchmark_status": "skipped"
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7515.json",
+      "benchmark_status": "ready"
     },
     {
       "session_id": "7521",
@@ -81,8 +81,8 @@
       "match_type": "singles",
       "split": "train",
       "notes": "",
-      "benchmark_path": null,
-      "benchmark_status": "skipped"
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7521.json",
+      "benchmark_status": "ready"
     },
     {
       "session_id": "7559",
@@ -97,8 +97,8 @@
       "match_type": "singles",
       "split": "test",
       "notes": "",
-      "benchmark_path": null,
-      "benchmark_status": "skipped"
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7559.json",
+      "benchmark_status": "ready"
     }
   ]
 }

@@ -56,9 +56,16 @@ dist/
 yolov8n.pt
 models/
 
-# ML datasets: keep schemas/README/manifests/benchmarks JSON; ignore media
+# ML datasets: keep schemas/README/unlabeled manifests/benchmarks JSON; ignore media + local labels
 /datasets/player_actions/raw_crops/**
 !/datasets/player_actions/raw_crops/.gitkeep
+/datasets/player_actions/full_frame/**
+!/datasets/player_actions/full_frame/.gitkeep
+/datasets/player_actions/manifests/*_labeled.jsonl
+!/datasets/player_actions/manifests/7252_labeled.jsonl
+/datasets/player_actions/manifests/vlm_eval*.jsonl
 /datasets/ball_detection/frames/**
 !/datasets/ball_detection/frames/.gitkeep
 /datasets/benchmarks/.cache/
+/datasets/eval/**
+!/datasets/eval/.gitkeep
