@@ -140,18 +140,16 @@ python scripts/ml/import_labels.py \
 # 1) 构建分层 VLM 测试集（50% dead_time，50% in_play；按 pose 子类分层）
 python scripts/ml/build_vlm_eval_manifest.py --size 200
 
-# 2) Qwen3-VL 零样本基线（crop vs full_frame，主指标 pose+rally 双层一致）
+# 2) Qwen3-VL 零样本基线（player crop，主指标 pose+rally 双层一致）
 python scripts/ml/eval_qwen_vl.py \
   --manifest datasets/player_actions/manifests/vlm_eval_stratified.jsonl \
   --model Qwen/Qwen3-VL-2B-Instruct \
   --task dual \
-  --compare-all \
   --output-dir datasets/eval/qwen3_vl_2b
 
-# 错判样本 HTML 图库
+# 错判样本 HTML 图库（manifest 中的 full_frame 仅作 QA 对照）
 python scripts/ml/build_vlm_error_gallery.py \
-  --report-crop datasets/eval/qwen3_vl_2b/qwen3_vl_crop.json \
-  --report-full datasets/eval/qwen3_vl_2b/qwen3_vl_full_frame.json \
+  --report datasets/eval/qwen3_vl_2b/qwen3_vl.json \
   --output-dir datasets/eval/qwen3_vl_2b
 
 # 3) ResNet18 小模型
@@ -160,9 +158,9 @@ python scripts/ml/train_action_classifier.py \
   --output datasets/eval/resnet18_action_classifier.pt
 ```
 
-VLM 输入模式：
-- `crop`：球员裁切图（效率最高）
-- `full_frame`：原视频全画面，prompt 指定 near/far 球员（无红框）
+VLM 输入：**player crop**（`crop_path`），每条样本对应一个 `track_id` 的球员裁切图。同一视频帧可有多条样本（不同球员各一条）；评估时必须按 `sample_id` / `track_id` 匹配，不要用 full_frame 里其他球员的动作推断当前 crop。
+
+标注 UI 中的 `full_frame_path`（红框全场图）仅用于人工 QA，不参与 VLM 推理。
 
 评估任务（`--task`）：
 - `dual`（默认）：pose 与 rally_phase 同时正确

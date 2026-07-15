@@ -11,7 +11,6 @@ Usage:
         --manifest datasets/player_actions/manifests/vlm_eval_stratified.jsonl \\
         --model Qwen/Qwen3-VL-2B-Instruct \\
         --task dual \\
-        --compare-all \\
         --output-dir datasets/eval/qwen3_vl_2b
 """
 from __future__ import annotations
@@ -29,8 +28,6 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from tenniscut.ml.frame_io import render_full_frame_jpg
-
 from tenniscut.ml.labels import (
     POSE_LABELS,
     RALLY_PHASE_LABELS,
@@ -39,6 +36,13 @@ from tenniscut.ml.labels import (
     is_annotation_complete,
     normalize_pose,
     normalize_rally_phase,
+)
+
+PROMPT_INTRO = (
+    "You are a tennis player action classifier. The input is a cropped image of ONE "
+    "specific player from a fixed-camera match video. Classify ONLY that player's "
+    "action at this exact moment — ignore any other players who may exist elsewhere "
+    "on court at the same time.\n"
 )
 
 PROMPT_LABEL_DEFINITIONS = (
@@ -51,12 +55,16 @@ PROMPT_LABEL_DEFINITIONS = (
     "- serving: The player is executing a SERVE — any phase of the serve motion: pre-toss stance, "
     "ball toss, trophy/backswing, upward swing, contact, follow-through, or landing right after "
     "serving. Use only when the serve stroke is happening, not ordinary rally movement.\n"
-    "- hitting: The player is executing a RALLY STROKE (groundstroke, volley, or overhead smash) — "
-    "the short window around one shot: late backswing immediately before contact, contact, or "
-    "follow-through right after contact. This is about the shot itself, NOT general \"getting ready\" "
-    "between shots. Ready position, split-step, shuffling, or running to the ball without swinging "
-    "→ use moving, not hitting.\n"
-    "- moving: On-court movement when NOT in the middle of a serve or rally stroke: running, "
+    "- hitting: Use ONLY when this player is in one of the three stroke phases of a rally shot "
+    "(forehand, backhand, slice, volley, or overhead):\n"
+    "  (1) backswing — racket moving back or upward into the last part of the swing before contact; "
+    "(2) contact — racket meeting or just at the ball; "
+    "(3) follow-through — racket continuing forward/up immediately after contact. "
+    "Some shots have a shorter backswing or follow-through, but the racket must be actively in "
+    "this stroke arc. "
+    "NOT hitting: split-step, shuffling, running, recovery, waiting in ready position, holding the "
+    "racket still, or moving toward the ball without an active swing.\n"
+    "- moving: On-court movement when NOT in serve or one of the three hitting phases above: running, "
     "side shuffles, split-steps, recovery footwork, approaching the ball without swinging yet, "
     "or holding a neutral ready stance between shots.\n"
     "- pick_ball: Bending, squatting, or reaching down to pick up a tennis ball.\n"
@@ -65,10 +73,9 @@ PROMPT_LABEL_DEFINITIONS = (
     "- unsure: Image too blurry, occluded, or ambiguous to decide.\n"
     "\n"
     "Important disambiguation:\n"
-    "- Between moving and hitting, prefer moving unless you clearly see a swing toward contact "
-    "or follow-through from a just-completed stroke.\n"
-    "- \"Preparation\" for hitting means the last moment before contact on THAT stroke, not "
-    "generic rally ready position.\n"
+    "- Default to moving when unsure between moving and hitting.\n"
+    "- hitting requires visible stroke motion (backswing, contact, or follow-through) by THIS "
+    "player in the crop — not merely holding a racket or athletic posture.\n"
     "\n"
     "rally_phase (Layer 2 — point/rally activity):\n"
     "- in_play: A live point is underway or about to start: serve about to happen, rally in "
@@ -80,16 +87,7 @@ PROMPT_LABEL_DEFINITIONS = (
     "confidence: Your confidence in both action_state and rally_phase (0.0–1.0).\n"
 )
 
-ROLE_LABELS = {
-    "near": "near-court player",
-    "far": "far-court player",
-}
-
-VALID_POSE_LABELS = set(POSE_LABELS)
-VALID_RALLY_LABELS = set(RALLY_PHASE_LABELS)
-
 TASKS = ("dual", "in_play_vs_dead", "all_poses")
-INPUT_MODES = ("crop", "full_frame")
 
 
 @dataclass
@@ -130,84 +128,13 @@ def _resolve_crop_path(datasets_root: Path, crop_path: str) -> Path:
     return datasets_root / path
 
 
-def load_session_videos(registry_path: Path) -> Dict[str, Path]:
-    data = json.loads(registry_path.read_text(encoding="utf-8"))
-    out: Dict[str, Path] = {}
-    for session in data.get("sessions", []):
-        videos = session.get("original_videos") or []
-        if videos:
-            out[session["session_id"]] = Path(videos[0])
-    return out
+def _prompt_for_row(row: Dict[str, Any]) -> str:
+    return PROMPT_INTRO + PROMPT_LABEL_DEFINITIONS
 
 
-def _prompt_for_row(row: Dict[str, Any], input_mode: str) -> str:
-    role = ROLE_LABELS.get(row.get("role", ""), "target player")
-    if input_mode == "crop":
-        intro = (
-            "You are a tennis player action classifier. The input is a cropped image of one "
-            "player from a fixed-camera match video. Classify that player's action at this "
-            "exact moment.\n"
-        )
-    elif input_mode == "full_frame":
-        intro = (
-            "You are a tennis player action classifier. The input is one full frame from a "
-            "fixed-camera tennis match. Classify the action of the "
-            f"{role} at this exact moment. Ignore all other players.\n"
-        )
-    else:
-        intro = "You are a tennis player action classifier.\n"
-    return intro + PROMPT_LABEL_DEFINITIONS
-
-
-def _render_full_frame(
-    video_path: Path,
-    t: float,
-    cache_path: Path,
-    *,
-    frame_index: Optional[int] = None,
-) -> Path:
-    return render_full_frame_jpg(
-        video_path,
-        t,
-        cache_path,
-        frame_index=frame_index,
-    )
-
-
-def prepare_eval_media(
-    row: Dict[str, Any],
-    *,
-    input_mode: str,
-    datasets_root: Path,
-    session_videos: Dict[str, Path],
-    frame_cache_dir: Path,
-) -> Optional[EvalMedia]:
-    if input_mode == "crop":
-        crop = _resolve_crop_path(datasets_root, row["crop_path"])
-        return EvalMedia(path=crop) if crop.exists() else None
-
-    plain = row.get("full_frame_plain_path")
-    if plain:
-        path = datasets_root / plain
-        if path.exists():
-            return EvalMedia(path=path)
-
-    session_id = row["session_id"]
-    video_path = session_videos.get(session_id)
-    if video_path is None or not video_path.exists():
-        return None
-
-    cache_path = frame_cache_dir / session_id / f"{row['sample_id']}.jpg"
-    try:
-        path = _render_full_frame(
-            video_path,
-            float(row["t"]),
-            cache_path,
-            frame_index=row.get("frame_index"),
-        )
-    except (ValueError, OSError):
-        return None
-    return EvalMedia(path=path)
+def prepare_eval_media(row: Dict[str, Any], *, datasets_root: Path) -> Optional[EvalMedia]:
+    crop = _resolve_crop_path(datasets_root, row["crop_path"])
+    return EvalMedia(path=crop) if crop.exists() else None
 
 
 def _parse_vlm_response(text: str) -> Dict[str, Any]:
@@ -397,12 +324,6 @@ def compute_per_class_recall(
     return out
 
 
-def _cache_dir_for_mode(datasets_root: Path, input_mode: str) -> Path:
-    if input_mode == "full_frame":
-        return datasets_root / "player_actions" / "full_frame"
-    return datasets_root / "player_actions" / "raw_crops"
-
-
 def _primary_metric_key(task: str) -> str:
     if task == "in_play_vs_dead":
         return "metrics_rally_phase"
@@ -416,10 +337,7 @@ def run_eval(
     datasets_root: Path,
     *,
     model_id: str = "Qwen/Qwen3-VL-2B-Instruct",
-    input_mode: str = "crop",
     task: str = "dual",
-    sessions_registry: Optional[Path] = None,
-    frame_cache_dir: Optional[Path] = None,
     limit: Optional[int] = None,
     predict_all: bool = False,
     dry_run: bool = False,
@@ -433,13 +351,10 @@ def run_eval(
     complete_rows = [r for r in labeled if is_annotation_complete(r)]
     pose_counts = Counter(get_pose(r) for r in complete_rows)
     rally_counts = Counter(get_rally_phase(r) for r in complete_rows)
-    if frame_cache_dir is None:
-        frame_cache_dir = _cache_dir_for_mode(datasets_root, input_mode)
 
     report: Dict[str, Any] = {
         "manifest": str(manifest_path.resolve()),
         "model_id": model_id,
-        "input_mode": input_mode,
         "task": task,
         "predict_all": predict_all,
         "total_rows": len(rows),
@@ -453,16 +368,9 @@ def run_eval(
     if dry_run or not labeled:
         return report
 
-    session_videos: Dict[str, Path] = {}
-    if input_mode == "full_frame":
-        registry_path = sessions_registry or (datasets_root / "sessions_registry.json")
-        if not registry_path.exists():
-            raise FileNotFoundError(f"Sessions registry not found: {registry_path}")
-        session_videos = load_session_videos(registry_path)
-
     if progress:
         print(
-            f"\nEvaluating task={task} input_mode={input_mode} "
+            f"\nEvaluating task={task} (player crop) "
             f"on {len(labeled)} samples (pose: {dict(pose_counts)})",
             flush=True,
         )
@@ -478,23 +386,17 @@ def run_eval(
     t0 = time.time()
 
     for idx, row in enumerate(labeled, start=1):
-        media = prepare_eval_media(
-            row,
-            input_mode=input_mode,
-            datasets_root=datasets_root,
-            session_videos=session_videos,
-            frame_cache_dir=frame_cache_dir,
-        )
+        media = prepare_eval_media(row, datasets_root=datasets_root)
         if media is None:
             skipped += 1
             if progress:
                 print(
-                    f"  [{idx}/{total}] SKIP {row['sample_id']} (missing media)",
+                    f"  [{idx}/{total}] SKIP {row['sample_id']} (missing crop)",
                     flush=True,
                 )
             continue
 
-        prompt = _prompt_for_row(row, input_mode)
+        prompt = _prompt_for_row(row)
         pred = predict_qwen_vl(
             model,
             processor,
@@ -579,7 +481,7 @@ def run_eval(
         key = _primary_metric_key(task)
         m = report.get(key, {})
         print(
-            f"Done {input_mode}: metric={key} "
+            f"Done: metric={key} "
             f"value={m.get('f1', m.get('accuracy'))} "
             f"evaluated={len(y_pose_true)} skipped={skipped}",
             flush=True,
@@ -587,89 +489,8 @@ def run_eval(
     return report
 
 
-def _prediction_agreement(reports: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
-    if len(reports) < 2:
-        return {}
-    modes = list(reports.keys())
-    base = modes[0]
-    pred_maps = {
-        mode: {
-            p["sample_id"]: (p.get("pred_pose"), p.get("pred_rally_phase"))
-            for p in rep.get("predictions", [])
-        }
-        for mode, rep in reports.items()
-    }
-    ids = sorted(pred_maps[base].keys())
-    all_same = sum(
-        1
-        for sid in ids
-        if all(pred_maps[m].get(sid) == pred_maps[base].get(sid) for m in modes)
-    )
-    pairwise: Dict[str, Any] = {}
-    for i, a in enumerate(modes):
-        for b in modes[i + 1 :]:
-            same = sum(1 for sid in ids if pred_maps[a].get(sid) == pred_maps[b].get(sid))
-            pairwise[f"{a}_vs_{b}"] = {
-                "same_predictions": same,
-                "total": len(ids),
-                "rate": round(same / len(ids), 4) if ids else 0.0,
-            }
-    return {
-        "all_modes_same": all_same,
-        "total_samples": len(ids),
-        "all_modes_same_rate": round(all_same / len(ids), 4) if ids else 0.0,
-        "pairwise": pairwise,
-    }
-
-
-def _print_compare_summary(
-    reports: Dict[str, Dict[str, Any]], task: str
-) -> None:
-    metric_key = _primary_metric_key(task)
-    title = {
-        "dual": "pose + rally_phase",
-        "in_play_vs_dead": "rally_phase (in_play vs dead_time)",
-        "all_poses": "pose exact match",
-    }.get(task, task)
-
-    print("\n" + "=" * 78, flush=True)
-    print(f"VLM input-mode comparison ({title})", flush=True)
-    print("=" * 78, flush=True)
-    print(
-        f"{'mode':<14} {'metric':>8} {'acc':>6} {'prec':>6} {'rec':>6} "
-        f"{'unc':>4} {'n':>4}",
-        flush=True,
-    )
-    print("-" * 78, flush=True)
-    for mode in INPUT_MODES:
-        report = reports.get(mode)
-        if not report:
-            continue
-        m = report.get(metric_key, report.get("metrics_dual", {}))
-        print(
-            f"{mode:<14} {m.get('f1', m.get('accuracy', 0)):>8} "
-            f"{m.get('accuracy', 0):>6} {m.get('precision', 0):>6} "
-            f"{m.get('recall', 0):>6} "
-            f"{m.get('uncertain_predictions', 0):>4} "
-            f"{m.get('support', 0):>4}",
-            flush=True,
-        )
-    agreement = _prediction_agreement(reports)
-    if agreement:
-        print("-" * 78, flush=True)
-        print(
-            f"prediction agreement: all_same={agreement['all_modes_same']}/"
-            f"{agreement['total_samples']} "
-            f"({agreement['all_modes_same_rate']})",
-            flush=True,
-        )
-        for key, val in agreement.get("pairwise", {}).items():
-            print(f"  {key}: {val['same_predictions']}/{val['total']} ({val['rate']})")
-    print("=" * 78 + "\n", flush=True)
-
-
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Qwen3-VL player action baseline eval")
+    parser = argparse.ArgumentParser(description="Qwen3-VL player action baseline eval (crop)")
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--datasets-root", type=Path, default=ROOT / "datasets")
     parser.add_argument(
@@ -690,23 +511,6 @@ def main() -> None:
         help="dual (default) | in_play_vs_dead | all_poses",
     )
     parser.add_argument(
-        "--input-mode",
-        choices=INPUT_MODES,
-        default="crop",
-        help="crop | full_frame",
-    )
-    parser.add_argument(
-        "--compare-all",
-        action="store_true",
-        help="Run crop and full_frame sequentially and write summary",
-    )
-    parser.add_argument(
-        "--sessions-registry",
-        type=Path,
-        default=ROOT / "datasets" / "sessions_registry.json",
-    )
-    parser.add_argument("--frame-cache-dir", type=Path, default=None)
-    parser.add_argument(
         "--output-dir",
         type=Path,
         default=ROOT / "datasets" / "eval",
@@ -720,77 +524,11 @@ def main() -> None:
         print(f"Manifest not found: {args.manifest}", file=sys.stderr)
         sys.exit(1)
 
-    if args.compare_all:
-        args.output_dir.mkdir(parents=True, exist_ok=True)
-        all_reports: Dict[str, Dict[str, Any]] = {}
-        suffix = f"_{args.limit}" if args.limit else ""
-        for mode in INPUT_MODES:
-            cache_dir = args.frame_cache_dir or _cache_dir_for_mode(
-                args.datasets_root, mode
-            )
-            report = run_eval(
-                args.manifest,
-                args.datasets_root,
-                model_id=args.model,
-                input_mode=mode,
-                task=args.task,
-                sessions_registry=args.sessions_registry,
-                frame_cache_dir=cache_dir,
-                limit=args.limit,
-                predict_all=args.predict_all,
-                dry_run=args.dry_run,
-                progress=not args.quiet,
-            )
-            out_path = args.output_dir / f"qwen3_vl_{mode}{suffix}.json"
-            out_path.write_text(
-                json.dumps(report, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
-            print(f"Wrote {out_path}", flush=True)
-            all_reports[mode] = report
-
-        metric_key = _primary_metric_key(args.task)
-        summary = {
-            "manifest": str(args.manifest.resolve()),
-            "model_id": args.model,
-            "task": args.task,
-            "limit": args.limit,
-            "modes": {
-                mode: {
-                    "report_path": str(
-                        (args.output_dir / f"qwen3_vl_{mode}{suffix}.json").resolve()
-                    ),
-                    metric_key: rep.get(metric_key),
-                    "metrics_pose": rep.get("metrics_pose"),
-                    "metrics_rally_phase": rep.get("metrics_rally_phase"),
-                    "metrics_dual": rep.get("metrics_dual"),
-                    "pose_distribution": rep.get("pose_distribution"),
-                    "rally_phase_distribution": rep.get("rally_phase_distribution"),
-                }
-                for mode, rep in all_reports.items()
-            },
-            "prediction_agreement": _prediction_agreement(all_reports),
-        }
-        summary_path = args.output_dir / "qwen3_vl_compare_summary.json"
-        summary_path.write_text(
-            json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
-        print(f"Wrote {summary_path}", flush=True)
-        _print_compare_summary(all_reports, args.task)
-        return
-
-    cache_dir = args.frame_cache_dir or _cache_dir_for_mode(
-        args.datasets_root, args.input_mode
-    )
     report = run_eval(
         args.manifest,
         args.datasets_root,
         model_id=args.model,
-        input_mode=args.input_mode,
         task=args.task,
-        sessions_registry=args.sessions_registry,
-        frame_cache_dir=cache_dir,
         limit=args.limit,
         predict_all=args.predict_all,
         dry_run=args.dry_run,
@@ -799,9 +537,18 @@ def main() -> None:
 
     text = json.dumps(report, ensure_ascii=False, indent=2)
     if args.output:
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(text + "\n", encoding="utf-8")
-        print(f"Wrote {args.output}")
+        out_path = args.output
+    elif args.output_dir:
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+        suffix = f"_{args.limit}" if args.limit else ""
+        out_path = args.output_dir / f"qwen3_vl{suffix}.json"
+    else:
+        out_path = None
+
+    if out_path:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(text + "\n", encoding="utf-8")
+        print(f"Wrote {out_path}")
     else:
         print(text)
 

@@ -9,7 +9,7 @@
 | 标签 | 含义 |
 |------|------|
 | `serving` | 发球相关（含准备、抛球、击球、随挥、落地） |
-| `hitting` | 对拉击球相关（含准备、挥拍、随挥） |
+| `hitting` | 对拉击球三阶段之一：**引拍**、**击球**、**随挥**（正反手/切削/截击/高压均适用；引拍或随挥可较短）。不含碎步、跑动、分腿垫步、等球准备位 |
 | `moving` | 移动/走位/碎步（本时刻未在发球或击球） |
 | `pick_ball` | 弯腰/蹲下捡球 |
 | `rest` | 休息、等待、缓慢走动 |
@@ -72,7 +72,11 @@ python scripts/ml/annotate_player_actions.py \
 
 浏览器打开 http://127.0.0.1:8765
 
-界面为双栏：**YOLO crop** + **full_frame（红框）**。预填后主要选 **Layer 1 action_state**（`1`–`6`）；Layer 2 / 置信度 / QA 已默认填好，可按需改。
+界面为双栏：**YOLO crop**（标 Layer 1 的依据）+ **full_frame（红框，QA 对照）**。预填后主要选 **Layer 1 action_state**（`1`–`6`）；Layer 2 / 置信度 / QA 已默认填好，可按需改。
+
+### 同一帧多名球员
+
+导出时 YOLO 会对**同一帧中每个被跟踪的球员**各生成一条样本（`sample_id` 含 `track_id`，如 `7252_000_...` 与 `7252_001_...` 可同帧并存）。每条 crop 只描述**该 track 对应球员**在本帧的动作；标注与 VLM 评估均按 `track_id` / `crop_path` 一一对应，不要用 full_frame 里其他球员的动作来标当前 crop。
 
 ## 2. 推荐顺序
 
@@ -113,18 +117,16 @@ python scripts/ml/import_labels.py \
 # 构建 50/50 分层 VLM 测试集（dead_time vs in_play，200 条）
 python scripts/ml/build_vlm_eval_manifest.py --size 200
 
-# Qwen3-VL 零样本基线：crop vs full_frame，主指标 pose+rally 双层一致
+# Qwen3-VL 零样本基线（player crop，主指标 pose+rally 双层一致）
 python scripts/ml/eval_qwen_vl.py \
   --manifest datasets/player_actions/manifests/vlm_eval_stratified.jsonl \
   --model Qwen/Qwen3-VL-2B-Instruct \
   --task dual \
-  --compare-all \
   --output-dir datasets/eval/qwen3_vl_2b
 
-# 错判图库
+# 错判图库（full_frame 仅作 QA 对照图，非 VLM 输入）
 python scripts/ml/build_vlm_error_gallery.py \
-  --report-crop datasets/eval/qwen3_vl_2b/qwen3_vl_crop.json \
-  --report-full datasets/eval/qwen3_vl_2b/qwen3_vl_full_frame.json \
+  --report datasets/eval/qwen3_vl_2b/qwen3_vl.json \
   --output-dir datasets/eval/qwen3_vl_2b
 
 python scripts/ml/train_action_classifier.py \

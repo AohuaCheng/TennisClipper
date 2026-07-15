@@ -16,7 +16,7 @@ VALID_TARGET_PLAYER = ("yes", "no", "unsure")
 
 ACTION_STATE_DISPLAY = {
     "serving": "发球（含准备/击球/随挥）",
-    "hitting": "击球（含准备/击球/随挥）",
+    "hitting": "击球（引拍/击球/随挥三阶段之一）",
     "moving": "移动/走位",
     "pick_ball": "捡球",
     "rest": "休息/等待",

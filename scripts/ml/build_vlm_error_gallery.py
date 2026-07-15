@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build VLM error analysis JSON + HTML galleries from eval reports."""
+"""Build VLM error analysis JSON + HTML galleries from crop eval reports."""
 from __future__ import annotations
 
 import argparse
 import json
 import sys
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -14,6 +14,26 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from tenniscut.ml.labels import get_pose, get_rally_phase
+
+
+def _resolve_context_frame_path(
+    row: Dict[str, Any],
+    datasets_root: Path,
+    sample_id: str,
+) -> str | None:
+    """Full-court frame with bbox overlay — for human QA only, not VLM input."""
+    for key in ("full_frame_path", "full_frame_plain_path"):
+        rel = row.get(key)
+        if rel:
+            path = datasets_root / rel
+            if path.exists():
+                return str(path.resolve())
+    session_id = row["session_id"]
+    for name in (f"{sample_id}_bbox.jpg", f"{sample_id}.jpg"):
+        path = datasets_root / "player_actions" / "full_frame" / session_id / name
+        if path.exists():
+            return str(path.resolve())
+    return None
 
 
 def load_manifest(path: Path) -> Dict[str, Dict[str, Any]]:
@@ -45,30 +65,25 @@ def collect_group_errors(
             continue
         p = preds[sid]
         if layer == "pose":
-            true_v = get_pose(row) if "true_pose" not in p else p["true_pose"]
+            true_v = get_pose(row) if p.get("true_pose") is None else p["true_pose"]
             pred_v = p.get("pred_pose", p.get("pred", "unsure"))
-            true_g = true_v
-            pred_g = pred_v
         else:
-            true_v = get_rally_phase(row) if "true_rally_phase" not in p else p["true_rally_phase"]
+            true_v = (
+                get_rally_phase(row)
+                if p.get("true_rally_phase") is None
+                else p["true_rally_phase"]
+            )
             pred_v = p.get("pred_rally_phase", p.get("pred_group", p.get("pred", "unsure")))
-            true_g = true_v
-            pred_g = pred_v
+        true_g = true_v
+        pred_g = pred_v
         if true_g == pred_g:
             continue
         crop_path = datasets_root / row["crop_path"]
-        full_path = (
-            datasets_root
-            / "player_actions"
-            / "full_frame"
-            / row["session_id"]
-            / f"{sid}.jpg"
-        )
-        bbox_path = full_path.parent / f"{sid}_bbox.jpg"
-        ff = bbox_path if bbox_path.exists() else full_path
+        context = _resolve_context_frame_path(row, datasets_root, sid)
         errors.append(
             {
                 "sample_id": sid,
+                "track_id": row.get("track_id"),
                 "true_label": true_v,
                 "pred_label": pred_v,
                 "true_group": true_g,
@@ -77,19 +92,50 @@ def collect_group_errors(
                 "role": row.get("role"),
                 "session_id": row["session_id"],
                 "crop_path": str(crop_path.resolve()),
-                "full_frame_path": str(ff.resolve()) if ff.exists() else None,
+                "context_frame_path": context,
             }
         )
     errors.sort(key=lambda e: (e["error_type"], e["true_label"], e["pred_label"], e["sample_id"]))
     return errors
 
 
-def _html_gallery(
-    title: str,
-    errors: List[Dict[str, Any]],
+def write_summary_html(
+    output_dir: Path,
     *,
-    primary_mode: str,
-) -> str:
+    report: Dict[str, Any],
+    manifest_count: int,
+) -> Path:
+    dual = report.get("metrics_dual", {})
+    pose = report.get("metrics_pose", {})
+    rally = report.get("metrics_rally_phase", {})
+
+    html = f"""<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>Qwen3-VL-2B eval summary</title>
+<style>body{{font-family:-apple-system,sans-serif;margin:24px;background:#111;color:#eee}}
+table{{border-collapse:collapse}} td,th{{border:1px solid #444;padding:8px 12px}}
+a{{color:#8cf}}</style></head><body>
+<h1>Qwen3-VL-2B-Instruct vs 人工标注（player crop）</h1>
+<p>样本数：{manifest_count} · 模型：{report.get('model_id','')}</p>
+<table>
+<tr><th>输入</th><th>dual acc</th><th>action acc</th><th>phase acc</th><th>n</th></tr>
+<tr><td>crop</td>
+<td>{dual.get('accuracy', 0):.1%}</td>
+<td>{pose.get('accuracy', 0):.1%}</td>
+<td>{rally.get('accuracy', 0):.1%}</td>
+<td>{dual.get('support', 0)}</td></tr>
+</table>
+<h2>图库</h2>
+<ul>
+<li><a href="error_gallery.html">action 错判 · crop</a></li>
+<li><a href="error_gallery_rally_phase.html">rally_phase 错判 · crop</a></li>
+</ul>
+</body></html>"""
+    path = output_dir / "index.html"
+    path.write_text(html, encoding="utf-8")
+    return path
+
+
+def _html_gallery(title: str, errors: List[Dict[str, Any]]) -> str:
     lines = [
         "<!DOCTYPE html><html><head><meta charset='utf-8'>",
         f"<title>{title}</title>",
@@ -101,7 +147,7 @@ def _html_gallery(
         ".tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;background:#333;margin-top:6px}",
         "</style></head><body>",
         f"<h1>{title}</h1>",
-        f"<p>错判 {len(errors)} 条；primary={primary_mode}</p>",
+        f"<p>错判 {len(errors)} 条（VLM 输入 = player crop）</p>",
     ]
     for e in errors:
         cls = "dead" if e["true_group"] == "dead_time" else "inplay"
@@ -111,76 +157,74 @@ def _html_gallery(
         lines.append(f"<div>预测: <b>{e['pred_label']}</b></div>")
         lines.append(f"<div class='tag'>{e['error_type']}</div>")
         lines.append(
-            f"<div>role={e['role']} session={e['session_id']}</div></div>"
+            f"<div>track_id={e.get('track_id')} role={e['role']} session={e['session_id']}</div></div>"
         )
         lines.append(
-            f"<div><div>crop</div><img src='file://{e['crop_path']}'></div>"
+            f"<div><div>crop (VLM input)</div><img src='file://{e['crop_path']}'></div>"
         )
-        if e["full_frame_path"]:
-            label = "full_frame" if primary_mode == "full_frame" else "full_frame (ref)"
+        if e.get("context_frame_path"):
             lines.append(
-                f"<div><div>{label}</div>"
-                f"<img src='file://{e['full_frame_path']}'></div>"
+                f"<div><div>context (full court, QA only)</div>"
+                f"<img src='file://{e['context_frame_path']}'></div>"
             )
         lines.append("</div>")
     lines.append("</body></html>")
     return "\n".join(lines)
 
 
-def _print_error_stats(mode: str, errors: List[Dict[str, Any]]) -> None:
-    print(f"\n=== {mode}: {len(errors)} errors ===")
+def _print_error_stats(errors: List[Dict[str, Any]]) -> None:
+    print(f"\n=== {len(errors)} errors ===")
     c = Counter(e["error_type"] for e in errors)
     for k, v in c.most_common():
         print(f"  {k}: {v}")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build VLM error galleries")
+    parser = argparse.ArgumentParser(description="Build VLM error galleries (crop)")
     parser.add_argument(
         "--manifest",
         type=Path,
         default=ROOT / "datasets/player_actions/manifests/vlm_eval_stratified.jsonl",
     )
     parser.add_argument("--datasets-root", type=Path, default=ROOT / "datasets")
-    parser.add_argument("--report-crop", type=Path, required=True)
-    parser.add_argument("--report-full", type=Path, default=None)
+    parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument(
         "--layer",
         choices=("rally_phase", "pose"),
-        default="rally_phase",
+        default="pose",
     )
-    parser.add_argument("--compare-with", type=Path, default=None)
     args = parser.parse_args()
 
     manifest = load_manifest(args.manifest)
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    report_data = json.loads(args.report.read_text(encoding="utf-8"))
+    preds = load_preds(args.report)
+    errors = collect_group_errors(
+        preds, manifest, args.datasets_root, layer=args.layer
+    )
+    _print_error_stats(errors)
 
-    for mode, report_path in [
-        ("crop", args.report_crop),
-        ("full_frame", args.report_full),
-    ]:
-        if report_path is None or not report_path.exists():
-            continue
-        preds = load_preds(report_path)
-        errors = collect_group_errors(
-            preds, manifest, args.datasets_root, layer=args.layer
-        )
-        _print_error_stats(mode, errors)
+    suffix = "" if args.layer == "pose" else f"_{args.layer}"
+    json_path = args.output_dir / f"group_errors{suffix}.json"
+    json_path.write_text(
+        json.dumps(errors, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    html_path = args.output_dir / f"error_gallery{suffix}.html"
+    layer_label = "action" if args.layer == "pose" else args.layer
+    title = f"VLM errors (crop, {layer_label}) — {args.report.parent.name}"
+    html_path.write_text(_html_gallery(title, errors), encoding="utf-8")
+    print(f"Wrote {json_path}")
+    print(f"Wrote {html_path}")
 
-        json_path = args.output_dir / f"group_errors_{mode}.json"
-        json_path.write_text(
-            json.dumps(errors, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
+    if args.layer == "pose":
+        summary_path = write_summary_html(
+            args.output_dir,
+            report=report_data,
+            manifest_count=len(manifest),
         )
-        html_path = args.output_dir / f"error_gallery_{mode}.html"
-        title = f"VLM errors ({mode}, {args.layer}) — {report_path.parent.name}"
-        html_path.write_text(
-            _html_gallery(title, errors, primary_mode=mode),
-            encoding="utf-8",
-        )
-        print(f"Wrote {json_path}")
-        print(f"Wrote {html_path}")
+        print(f"Wrote {summary_path}")
 
 
 if __name__ == "__main__":

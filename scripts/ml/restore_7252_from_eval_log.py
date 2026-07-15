@@ -16,7 +16,7 @@ from tenniscut.ml.labels import apply_annotation_prefill, get_action_state, is_a
 from tenniscut.ml.manifest_io import LabelStore, load_jsonl, write_jsonl
 
 LOG_PATH = Path("/tmp/qwen3_7252_eval.log")
-EVAL_JSON = ROOT / "datasets/eval/qwen3_vl_2b_7252/qwen3_vl_crop.json"
+EVAL_JSON = ROOT / "datasets/eval/qwen3_vl_2b_7252_v2/qwen3_vl.json"
 MANIFEST = ROOT / "datasets/player_actions/manifests/7252_unlabeled.jsonl"
 
 
@@ -35,7 +35,15 @@ def recover_from_log(path: Path) -> dict[str, str]:
 
 def recover_from_eval(path: Path) -> dict[str, str]:
     if not path.exists():
-        return {}
+        for legacy in (
+            ROOT / "datasets/eval/qwen3_vl_2b_7252/qwen3_vl_crop.json",
+            ROOT / "datasets/eval/qwen3_vl_2b_7252/qwen3_vl.json",
+        ):
+            if legacy.exists():
+                path = legacy
+                break
+        else:
+            return {}
     data = json.loads(path.read_text(encoding="utf-8"))
     out: dict[str, str] = {}
     for row in data.get("predictions", []):
