@@ -7,14 +7,14 @@ from scripts.ml.build_vlm_eval_manifest import build_stratified_manifest
 def _complete_row(
     sample_id: str,
     *,
-    pose: str,
+    action_state: str,
     rally_phase: str,
     session_id: str = "s1",
 ) -> dict:
     return {
         "sample_id": sample_id,
         "session_id": session_id,
-        "pose": pose,
+        "action_state": action_state,
         "rally_phase": rally_phase,
         "label_confidence": 0.8,
         "frame_align": "same",
@@ -25,17 +25,17 @@ def _complete_row(
 def test_build_stratified_manifest_balanced() -> None:
     rows = []
     for i in range(120):
-        rows.append(_complete_row(f"rest_{i}", pose="rest", rally_phase="dead_time"))
+        rows.append(_complete_row(f"rest_{i}", action_state="rest", rally_phase="dead_time"))
     for i in range(20):
-        rows.append(_complete_row(f"pick_{i}", pose="pick_ball", rally_phase="dead_time"))
+        rows.append(_complete_row(f"pick_{i}", action_state="pick_ball", rally_phase="dead_time"))
     for i in range(80):
-        rows.append(_complete_row(f"move_dead_{i}", pose="moving", rally_phase="dead_time"))
+        rows.append(_complete_row(f"move_dead_{i}", action_state="moving", rally_phase="dead_time"))
     for i in range(25):
-        rows.append(_complete_row(f"hit_{i}", pose="hitting", rally_phase="in_play"))
+        rows.append(_complete_row(f"hit_{i}", action_state="hitting", rally_phase="in_play"))
     for i in range(15):
-        rows.append(_complete_row(f"serve_{i}", pose="serving", rally_phase="in_play"))
+        rows.append(_complete_row(f"serve_{i}", action_state="serving", rally_phase="in_play"))
     for i in range(65):
-        rows.append(_complete_row(f"move_play_{i}", pose="moving", rally_phase="in_play"))
+        rows.append(_complete_row(f"move_play_{i}", action_state="moving", rally_phase="in_play"))
 
     selected, meta = build_stratified_manifest(rows, size=200, seed=1)
     assert len(selected) == 200

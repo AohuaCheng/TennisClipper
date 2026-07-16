@@ -29,7 +29,6 @@ def test_annotate_server_api(tmp_path: Path):
                 "crop_path": "player_actions/raw_crops/7252/sample.jpg",
                 "bbox": [0.1, 0.2, 0.3, 0.4],
                 "role": "near",
-                "label": "uncertain",
                 "in_rally": True,
             },
             ensure_ascii=False,

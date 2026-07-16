@@ -159,7 +159,7 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
 
     function getAnn(s) {
       return ann[s.sample_id] || {
-        action_state: s.action_state || s.pose || "unsure",
+        action_state: s.action_state || "unsure",
         rally_phase: s.rally_phase || "unsure",
         label_confidence: s.label_confidence ?? null,
         frame_align: s.frame_align || null,
@@ -527,7 +527,6 @@ class AnnotateServer:
                 if path in ("/", "/index.html"):
                     ui_config = {
                         "action_state": ACTION_STATE_UI,
-                        "pose": ACTION_STATE_UI,
                         "rally": RALLY_UI,
                         "confidence": CONFIDENCE_UI,
                     }
@@ -619,7 +618,7 @@ class AnnotateServer:
                     if path == "/api/label":
                         row = server.store.set_annotation(
                             data["sample_id"],
-                            action_state=data.get("action_state") or data.get("pose"),
+                            action_state=data.get("action_state"),
                             rally_phase=data.get("rally_phase"),
                             label_confidence=data.get("label_confidence"),
                             frame_align=data.get("frame_align"),

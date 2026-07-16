@@ -87,10 +87,8 @@ class LabelStore:
             target = self._by_id.get(sid, dict(row))
             for key in (
                 "action_state",
-                "pose",
                 "rally_phase",
                 "label_confidence",
-                "label",
                 "frame_align",
                 "is_target_player",
                 "notes",
@@ -107,7 +105,6 @@ class LabelStore:
         sample_id: str,
         *,
         action_state: Optional[str] = None,
-        pose: Optional[str] = None,
         rally_phase: Optional[str] = None,
         label_confidence: Optional[float] = None,
         frame_align: Optional[str] = None,
@@ -118,11 +115,10 @@ class LabelStore:
         if sample_id not in self._by_id:
             raise KeyError(f"Unknown sample_id: {sample_id}")
         row = self._by_id[sample_id]
-        state = action_state if action_state is not None else pose
-        if state is not None:
-            norm = normalize_action_state(state)
-            if norm != state and state not in ACTION_STATE_LABELS:
-                raise ValueError(f"Invalid action_state: {state}")
+        if action_state is not None:
+            norm = normalize_action_state(action_state)
+            if norm != action_state and action_state not in ACTION_STATE_LABELS:
+                raise ValueError(f"Invalid action_state: {action_state}")
             row["action_state"] = norm
         if rally_phase is not None:
             if rally_phase not in RALLY_PHASE_LABELS:
@@ -187,7 +183,7 @@ class LabelStore:
         for sample in self.samples:
             row = dict(self._by_id[sample["sample_id"]])
             has_qa = row.get("frame_align") or row.get("is_target_player")
-            has_partial = row.get("action_state") or row.get("pose") or row.get("rally_phase")
+            has_partial = row.get("action_state") or row.get("rally_phase")
             if is_annotation_complete(row) or has_qa or has_partial:
                 labeled_rows.append(row)
         write_jsonl(self.labeled_path, labeled_rows)

@@ -48,10 +48,6 @@
       "enum": ["serving", "hitting", "moving", "pick_ball", "rest", "unsure"],
       "description": "Layer-1 player action state snapshot"
     },
-    "pose": {
-      "enum": ["serving", "hitting", "moving", "pick_ball", "rest", "unsure"],
-      "description": "Deprecated alias of action_state"
-    },
     "rally_phase": {
       "enum": ["in_play", "dead_time", "unsure"],
       "description": "Layer-2 whether the player is in an active rally/point"
@@ -60,18 +56,7 @@
       "type": "number",
       "minimum": 0,
       "maximum": 1,
-      "description": "Annotator confidence for pose+rally_phase"
-    },
-    "label": {
-      "enum": [
-        "hit_serve",
-        "hit_rally",
-        "move",
-        "pick_ball",
-        "idle",
-        "uncertain"
-      ],
-      "description": "Deprecated v1 single label; use pose + rally_phase"
+      "description": "Annotator confidence for action_state+rally_phase"
     },
     "prelabel_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
     "in_rally": {

@@ -8,9 +8,9 @@ def test_label_store_persistence(tmp_path: Path):
     manifest = tmp_path / "train_unlabeled.jsonl"
     manifest.write_text(
         '{"sample_id":"a1","session_id":"7252","split":"test","t":1.0,'
-        '"track_id":0,"crop_path":"c/a.jpg","bbox":[0,0,1,1],"label":"uncertain"}\n'
+        '"track_id":0,"crop_path":"c/a.jpg","bbox":[0,0,1,1]}\n'
         '{"sample_id":"a2","session_id":"7252","split":"test","t":2.0,'
-        '"track_id":0,"crop_path":"c/b.jpg","bbox":[0,0,1,1],"label":"uncertain"}\n',
+        '"track_id":0,"crop_path":"c/b.jpg","bbox":[0,0,1,1]}\n',
         encoding="utf-8",
     )
     store = LabelStore(manifest)

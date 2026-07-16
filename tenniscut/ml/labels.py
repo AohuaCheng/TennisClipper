@@ -38,22 +38,12 @@ POSE_DISPLAY = ACTION_STATE_DISPLAY
 IN_PLAY_POSES = IN_PLAY_ACTION_STATES
 DEAD_TIME_POSES = DEAD_TIME_ACTION_STATES
 
-LEGACY_TO_ACTION = {
+LEGACY_ACTION_ALIASES = {
     "hit_serve": "serving",
     "hit_rally": "hitting",
     "move": "moving",
     "pick_ball": "pick_ball",
     "idle": "rest",
-    "uncertain": "unsure",
-}
-LEGACY_TO_POSE = LEGACY_TO_ACTION
-
-LEGACY_TO_RALLY = {
-    "hit_serve": "in_play",
-    "hit_rally": "in_play",
-    "move": "unsure",
-    "pick_ball": "dead_time",
-    "idle": "dead_time",
     "uncertain": "unsure",
 }
 
@@ -64,8 +54,8 @@ def normalize_action_state(value: Optional[str]) -> str:
     v = value.strip().lower()
     if v in ACTION_STATE_LABELS:
         return v
-    if v in LEGACY_TO_ACTION:
-        return LEGACY_TO_ACTION[v]
+    if v in LEGACY_ACTION_ALIASES:
+        return LEGACY_ACTION_ALIASES[v]
     return "unsure"
 
 
@@ -78,8 +68,6 @@ def normalize_rally_phase(value: Optional[str]) -> str:
     v = value.strip().lower()
     if v in RALLY_PHASE_LABELS:
         return v
-    if v in LEGACY_TO_RALLY:
-        return LEGACY_TO_RALLY[v]
     return "unsure"
 
 
@@ -108,10 +96,6 @@ def infer_rally_phase_from_action(action_state: str) -> str:
 def get_action_state(row: Dict[str, Any]) -> str:
     if row.get("action_state"):
         return normalize_action_state(row["action_state"])
-    if row.get("pose"):
-        return normalize_action_state(row["pose"])
-    if row.get("label") in LEGACY_TO_ACTION:
-        return LEGACY_TO_ACTION[row["label"]]
     return "unsure"
 
 
@@ -121,8 +105,6 @@ get_pose = get_action_state
 def get_rally_phase(row: Dict[str, Any]) -> str:
     if row.get("rally_phase"):
         return normalize_rally_phase(row["rally_phase"])
-    if row.get("label") in LEGACY_TO_RALLY:
-        return LEGACY_TO_RALLY[row["label"]]
     return infer_rally_phase_from_action(get_action_state(row))
 
 
@@ -159,7 +141,6 @@ def default_export_fields() -> Dict[str, Any]:
         "label_confidence": None,
         "frame_align": "unsure",
         "is_target_player": "unsure",
-        "label": "uncertain",
     }
 
 
@@ -185,7 +166,8 @@ def apply_annotation_prefill(row: Dict[str, Any], *, relabel: bool = False) -> D
         if preserved_action != "unsure":
             out["action_state"] = preserved_action
         out.pop("notes", None)
-        out.pop("pose", None)
+        for legacy_key in ("pose", "label"):
+            out.pop(legacy_key, None)
         return out
 
     for key, value in defaults.items():
@@ -208,4 +190,6 @@ def apply_annotation_prefill(row: Dict[str, Any], *, relabel: bool = False) -> D
         out[key] = value
     if out.get("notes", "").startswith("vlm_prelabel:"):
         out.pop("notes", None)
+    for legacy_key in ("pose", "label"):
+        out.pop(legacy_key, None)
     return out

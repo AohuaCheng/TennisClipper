@@ -7,12 +7,6 @@ from tenniscut.ml.labels import (
 )
 
 
-def test_legacy_label_maps_to_v2():
-    row = {"label": "hit_rally"}
-    assert get_action_state(row) == "hitting"
-    assert get_rally_phase(row) == "in_play"
-
-
 def test_v2_annotation_complete():
     complete = {
         "action_state": "serving",
@@ -54,4 +48,5 @@ def test_annotation_prefill_defaults():
     assert out["rally_phase"] == "in_play"
     assert "notes" not in out
     assert "pose" not in out
+    assert "label" not in out
     assert not is_annotation_complete(out)

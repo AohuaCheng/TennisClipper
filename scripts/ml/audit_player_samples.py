@@ -69,7 +69,7 @@ def audit_rows(
         entry = {
             "sample_id": sid,
             "session_id": row["session_id"],
-            "label": row.get("label", "uncertain"),
+            "action_state": row.get("action_state", "unsure"),
             "frame_align": row.get("frame_align"),
             "is_target_player": row.get("is_target_player"),
             "crop_exists": crop_path.exists(),
@@ -119,7 +119,7 @@ def main() -> None:
     gallery_entries = [
         {
             "sample_id": e["sample_id"],
-            "true_label": e.get("label", "?"),
+            "true_label": e.get("action_state", "?"),
             "pred_label": "-",
             "true_group": "audit",
             "pred_group": "flagged" if e["qa_flagged_bad"] else "qa_unset",
