@@ -63,6 +63,10 @@ models/
 !/datasets/player_actions/full_frame/.gitkeep
 /datasets/player_actions/manifests/*_labeled.jsonl
 !/datasets/player_actions/manifests/7252_labeled.jsonl
+!/datasets/player_actions/manifests/train_labeled.jsonl
+!/datasets/player_actions/manifests/7125_7126_labeled.jsonl
+!/datasets/player_actions/manifests/7515_labeled.jsonl
+!/datasets/player_actions/manifests/7521_labeled.jsonl
 /datasets/player_actions/manifests/vlm_eval*.jsonl
 /datasets/ball_detection/frames/**
 !/datasets/ball_detection/frames/.gitkeep
