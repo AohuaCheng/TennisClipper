@@ -68,6 +68,7 @@ models/
 !/datasets/player_actions/manifests/test_labeled.jsonl
 !/datasets/player_actions/manifests/7125_7126_labeled.jsonl
 !/datasets/player_actions/manifests/7255_labeled.jsonl
+!/datasets/player_actions/manifests/7559_labeled.jsonl
 !/datasets/player_actions/manifests/7515_labeled.jsonl
 !/datasets/player_actions/manifests/7521_labeled.jsonl
 /datasets/player_actions/manifests/vlm_eval*.jsonl
