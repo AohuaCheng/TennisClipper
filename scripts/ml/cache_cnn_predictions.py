@@ -134,7 +134,7 @@ def main() -> None:
     parser.add_argument(
         "--checkpoint",
         type=Path,
-        default=ROOT / "datasets/eval/resnet50_expanded_action_classifier.pt",
+        default=ROOT / "datasets/eval/efficientnet_b2_expanded_action_classifier.pt",
     )
     parser.add_argument(
         "--manifests",
@@ -193,7 +193,7 @@ def main() -> None:
         sys.exit(1)
 
     ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
-    backbone = ckpt.get("backbone", "resnet50")
+    backbone = ckpt.get("backbone", "efficientnet_b2")
     crop_mode = ckpt.get("crop_mode", "expanded_crop")
     expand = float(ckpt.get("expand", 1.4))
     image_size = int(ckpt.get("image_size", 256))

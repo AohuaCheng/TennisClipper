@@ -98,7 +98,7 @@ def main() -> None:
         else ("mps" if torch.backends.mps.is_available() else "cpu")
     )
     ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
-    backbone = ckpt.get("backbone", "resnet18")
+    backbone = ckpt.get("backbone", "efficientnet_b2")
     labels = ckpt.get("labels", LABELS)
     crop_mode = ckpt.get("crop_mode", "crop")
     expand = float(ckpt.get("expand", 1.4))

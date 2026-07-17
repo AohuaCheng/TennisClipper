@@ -62,7 +62,7 @@
 |---|---|---|---|
 | 4.1 | `datasets/` 脚手架 + Clipper 扫描 | #P0 | ✅ |
 | 4.2 | 球员动作标注 + 导出 crop | #P0 | ⏳ |
-| 4.3 | ResNet50 动作分类器训练与评估 | #P0 | ✅ |
+| 4.3 | EfficientNet-B2 动作分类器训练与评估 | #P0 | ✅ |
 | 4.4 | 球检测标注 + YOLO 微调 | #P1 | ⏳ |
 | 4.5 | 接入 pipeline 下游 IoU 验证 | #P0 | ⏳ |
 | 4.6 | 回合标签: long_rally / highlight | #P1 | ⏳ |

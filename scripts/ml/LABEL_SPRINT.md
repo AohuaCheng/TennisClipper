@@ -117,22 +117,21 @@ python scripts/ml/import_labels.py \
 # 构建 50/50 分层测试集（dead_time vs in_play，200 条）
 python scripts/ml/build_action_eval_manifest.py --size 200
 
-# 训练 ResNet50 动作分类器
+# 训练 EfficientNet-B2 动作分类器（默认 backbone）
 python scripts/ml/train_action_classifier.py \
   --train-manifest datasets/player_actions/manifests/train_labeled.jsonl \
   --val-manifest datasets/player_actions/manifests/val_labeled.jsonl \
   --test-manifest datasets/player_actions/manifests/action_eval_stratified.jsonl \
-  --backbone resnet50 \
   --crop-mode expanded_crop \
-  --output datasets/eval/resnet50_expanded_action_classifier.pt
+  --output datasets/eval/efficientnet_b2_expanded_action_classifier.pt
 
 # 真实 test 评估 + 错判图库
 python scripts/ml/eval_action_classifier.py \
-  --checkpoint datasets/eval/resnet50_expanded_action_classifier.pt \
+  --checkpoint datasets/eval/efficientnet_b2_expanded_action_classifier.pt \
   --manifest datasets/player_actions/manifests/test_labeled.jsonl \
-  --report datasets/eval/resnet50_test_report.json
+  --report datasets/eval/efficientnet_b2_test_report.json
 
 python scripts/ml/build_action_error_gallery.py \
-  --report datasets/eval/resnet50_test_report.json \
-  --output-dir datasets/eval/resnet50_gallery
+  --report datasets/eval/efficientnet_b2_test_report.json \
+  --output-dir datasets/eval/efficientnet_b2_gallery
 ```

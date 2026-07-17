@@ -23,13 +23,12 @@ from tenniscut.ml.labels import POSE_LABELS, get_pose, is_annotation_complete
 LABELS = [p for p in POSE_LABELS if p != "unsure"]
 LABEL_TO_IDX = {name: i for i, name in enumerate(LABELS)}
 
+DEFAULT_CHECKPOINT = ROOT / "datasets/eval/efficientnet_b2_expanded_action_classifier.pt"
+
 BACKBONES = (
-    "resnet18",
-    "resnet34",
-    "resnet50",
-    "mobilenet_v3_small",
-    "mobilenet_v3_large",
     "efficientnet_b0",
+    "efficientnet_b2",
+    "efficientnet_b3",
 )
 CROP_MODES = ("crop", "expanded_crop")
 
@@ -100,43 +99,34 @@ def build_model(
             nn.Linear(in_features, num_classes),
         )
 
-    if backbone == "resnet50":
-        try:
-            model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
-        except Exception:
-            model = models.resnet50(weights=None)
-        model.fc = _head(model.fc.in_features)
-    elif backbone == "resnet34":
-        try:
-            model = models.resnet34(weights=models.ResNet34_Weights.DEFAULT)
-        except Exception:
-            model = models.resnet34(weights=None)
-        model.fc = _head(model.fc.in_features)
-    elif backbone == "mobilenet_v3_large":
-        try:
-            model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.DEFAULT)
-        except Exception:
-            model = models.mobilenet_v3_large(weights=None)
-        model.classifier[-1] = _head(model.classifier[-1].in_features)
-    elif backbone == "mobilenet_v3_small":
-        try:
-            model = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.DEFAULT)
-        except Exception:
-            model = models.mobilenet_v3_small(weights=None)
-        model.classifier[-1] = _head(model.classifier[-1].in_features)
-    elif backbone == "efficientnet_b0":
+    if backbone == "efficientnet_b0":
         try:
             model = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.DEFAULT)
         except Exception:
             model = models.efficientnet_b0(weights=None)
         in_features = model.classifier[-1].in_features
         model.classifier = _head(in_features)
+    elif backbone == "efficientnet_b2":
+        try:
+            model = models.efficientnet_b2(weights=models.EfficientNet_B2_Weights.DEFAULT)
+        except Exception:
+            model = models.efficientnet_b2(weights=None)
+        in_features = model.classifier[-1].in_features
+        model.classifier = _head(in_features)
+    elif backbone == "efficientnet_b3":
+        try:
+            model = models.efficientnet_b3(weights=models.EfficientNet_B3_Weights.DEFAULT)
+        except Exception:
+            model = models.efficientnet_b3(weights=None)
+        in_features = model.classifier[-1].in_features
+        model.classifier = _head(in_features)
     else:
         try:
-            model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+            model = models.efficientnet_b2(weights=models.EfficientNet_B2_Weights.DEFAULT)
         except Exception:
-            model = models.resnet18(weights=None)
-        model.fc = _head(model.fc.in_features)
+            model = models.efficientnet_b2(weights=None)
+        in_features = model.classifier[-1].in_features
+        model.classifier = _head(in_features)
     return model
 
 
@@ -217,7 +207,7 @@ def main() -> None:
     parser.add_argument("--val-manifest", type=Path, default=None)
     parser.add_argument("--test-manifest", type=Path, default=None)
     parser.add_argument("--datasets-root", type=Path, default=ROOT / "datasets")
-    parser.add_argument("--backbone", choices=BACKBONES, default="resnet50")
+    parser.add_argument("--backbone", choices=BACKBONES, default="efficientnet_b2")
     parser.add_argument(
         "--crop-mode",
         choices=CROP_MODES,

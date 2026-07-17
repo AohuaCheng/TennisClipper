@@ -140,30 +140,29 @@ python scripts/ml/import_labels.py \
 # 1) 构建分层测试集（50% dead_time，50% in_play；按 pose 子类分层）
 python scripts/ml/build_action_eval_manifest.py --size 200
 
-# 2) 训练 ResNet50 动作分类器（expanded crop，256×256）
+# 2) 训练 EfficientNet-B2 动作分类器（expanded crop，256×256；默认 backbone）
 python scripts/ml/train_action_classifier.py \
   --train-manifest datasets/player_actions/manifests/train_labeled.jsonl \
   --val-manifest datasets/player_actions/manifests/val_labeled.jsonl \
   --test-manifest datasets/player_actions/manifests/action_eval_stratified.jsonl \
-  --backbone resnet50 \
   --crop-mode expanded_crop \
-  --output datasets/eval/resnet50_expanded_action_classifier.pt
+  --output datasets/eval/efficientnet_b2_expanded_action_classifier.pt
 
 # 3) 评估（stratified + 真实 test）
 python scripts/ml/eval_action_classifier.py \
-  --checkpoint datasets/eval/resnet50_expanded_action_classifier.pt \
+  --checkpoint datasets/eval/efficientnet_b2_expanded_action_classifier.pt \
   --manifest datasets/player_actions/manifests/test_labeled.jsonl \
-  --output datasets/eval/resnet50_test_eval.json \
-  --report datasets/eval/resnet50_test_report.json
+  --output datasets/eval/efficientnet_b2_test_eval.json \
+  --report datasets/eval/efficientnet_b2_test_report.json
 
 # 错判样本 HTML 图库
 python scripts/ml/build_action_error_gallery.py \
-  --report datasets/eval/resnet50_test_report.json \
-  --output-dir datasets/eval/resnet50_gallery
+  --report datasets/eval/efficientnet_b2_test_report.json \
+  --output-dir datasets/eval/efficientnet_b2_gallery
 
 # 4) 缓存 CNN 预测供 Layer2 训练
 python scripts/ml/cache_cnn_predictions.py \
-  --checkpoint datasets/eval/resnet50_expanded_action_classifier.pt \
+  --checkpoint datasets/eval/efficientnet_b2_expanded_action_classifier.pt \
   --output-dir datasets/player_actions/cnn_predictions
 ```
 
@@ -175,7 +174,7 @@ python scripts/ml/cache_cnn_predictions.py \
 
 | 任务 | 目标 |
 |------|------|
-| 球员 **pose macro-F1**（真实 test） | ≥ 0.35（当前 ResNet50 ≈ 0.35） |
+| 球员 **pose macro-F1**（真实 test） | ≥ 0.40（当前 EfficientNet-B2 ≈ 0.40） |
 | 球员 **in_play vs dead_time** F1 | ≥ 0.80（Layer2 Set-TCN oracle 上限参考） |
 | 球 IoU@0.5 | ≥ 0.50 |
 | 303–354s 轨迹帧覆盖率 | ≥ 40% |
