@@ -53,14 +53,12 @@ dist/
 /config.yaml
 
 # Downloaded model weights (local only)
-yolov8n.pt
+*.pt
 models/
 
 # ML datasets: keep schemas/README/unlabeled manifests/benchmarks JSON; ignore media + local labels
 /datasets/player_actions/raw_crops/**
-!/datasets/player_actions/raw_crops/.gitkeep
 /datasets/player_actions/full_frame/**
-!/datasets/player_actions/full_frame/.gitkeep
 /datasets/player_actions/manifests/*_labeled.jsonl
 !/datasets/player_actions/manifests/7252_labeled.jsonl
 !/datasets/player_actions/manifests/train_labeled.jsonl
@@ -72,8 +70,10 @@ models/
 !/datasets/player_actions/manifests/7515_labeled.jsonl
 !/datasets/player_actions/manifests/7521_labeled.jsonl
 /datasets/player_actions/manifests/action_eval*.jsonl
+/datasets/player_actions/cnn_predictions/**
 /datasets/ball_detection/frames/**
-!/datasets/ball_detection/frames/.gitkeep
 /datasets/benchmarks/.cache/
 /datasets/eval/**
-!/datasets/eval/.gitkeep
+*.gitkeep
+*.pth
+*.pdf

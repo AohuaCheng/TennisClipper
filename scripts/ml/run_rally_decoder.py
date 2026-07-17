@@ -46,7 +46,7 @@ def main() -> None:
     parser.add_argument(
         "--model",
         type=Path,
-        default=ROOT / "datasets/eval/rally_set_tcn.pt",
+        default=ROOT / "datasets/eval/rally_set_tcn_cnn.pt",
     )
     parser.add_argument(
         "--action-probs-dir",

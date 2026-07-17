@@ -112,6 +112,158 @@ def _drop_short_fragments(
 
 from tenniscut.export.concat import export_concatenated
 from tenniscut.audio.onset import extract_audio_wav, detect_hit_onsets
+from tenniscut.ml.runtime_rally import (
+    DEFAULT_ACTION_CHECKPOINT,
+    DEFAULT_GATE_CHECKPOINT,
+    DEFAULT_SET_TCN_CHECKPOINT,
+    MLRallyConfig,
+    run_ml_rally_pipeline,
+)
+
+
+def _session_id_from_path(session_path: Path, cfg: dict) -> str:
+    name = cfg.get("project", {}).get("name") or session_path.name
+    return str(name).replace("test_session_", "")
+
+
+def _run_ml_rally_export(
+    *,
+    session_path: Path,
+    cfg: dict,
+    video_path: Path,
+    info: dict,
+    min_rally: float,
+    output: Optional[str],
+    duration: Optional[float],
+    debug_clips: bool,
+    roi_cfg: CourtROI,
+    court_geom,
+    ball_fps: int,
+    action_model: Path,
+    set_tcn_model: Path,
+    gate_model: Optional[Path],
+    ml_threshold: Optional[float],
+    export_video: bool = True,
+) -> None:
+    """ML pipeline: YOLO → gate → CNN → Set-TCN → export."""
+    session_id = _session_id_from_path(session_path, cfg)
+    work_dir = session_path / "work"
+    work_dir.mkdir(parents=True, exist_ok=True)
+
+    ml_cfg = MLRallyConfig(
+        action_checkpoint=action_model,
+        set_tcn_checkpoint=set_tcn_model,
+        gate_checkpoint=gate_model,
+        threshold=ml_threshold,
+        min_duration=min_rally,
+    )
+    sessions_root = session_path.parent if session_path.parent.name == "sessions" else REPO_ROOT / "sessions"
+    if not sessions_root.exists():
+        sessions_root = session_path.parent
+
+    def _progress(msg: str) -> None:
+        click.echo(f"  {msg}", err=True)
+
+    click.echo(
+        f"\n[ML] Running EfficientNet-B2 + Set-TCN on {session_id} "
+        f"({info['duration']:.1f}s)..."
+    )
+    try:
+        result = run_ml_rally_pipeline(
+            video_path=video_path,
+            session_id=session_id,
+            roi=roi_cfg,
+            sessions_root=sessions_root,
+            config=ml_cfg,
+            duration=duration,
+            progress_callback=_progress,
+        )
+    except ImportError as exc:
+        click.echo(f"ML pipeline requires torch: {exc}", err=True)
+        sys.exit(1)
+    except FileNotFoundError as exc:
+        click.echo(str(exc), err=True)
+        sys.exit(1)
+
+    seg_dicts = result["timeline"]
+    seg_dicts = filter_short_segments(seg_dicts, min_duration=min_rally)
+    for sd in seg_dicts:
+        sd["duration"] = round(sd["end"] - sd["start"], 2)
+
+    meta_path = work_dir / "ml_rally_meta.json"
+    meta_path.write_text(
+        json.dumps(
+            {
+                "session_id": session_id,
+                "row_count": result["row_count"],
+                "scene_count": result["scene_count"],
+                "action_checkpoint": result["action_checkpoint"],
+                "set_tcn_checkpoint": result["set_tcn_checkpoint"],
+                "gate_checkpoint": result.get("gate_checkpoint"),
+                "decode_threshold": result.get("decode_threshold"),
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    timeline_path = work_dir / "timeline.json"
+    timeline_path.write_text(json.dumps(seg_dicts, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    csv_path = work_dir / "timeline.csv"
+    with open(csv_path, "w", encoding="utf-8") as f:
+        f.write("segment_id,start,end,duration,segment_type\n")
+        for seg in seg_dicts:
+            f.write(
+                f"{seg['segment_id']},{seg['start']},{seg['end']},"
+                f"{seg['duration']},{seg.get('segment_type', 'rally')}\n"
+            )
+
+    total_trimmed = sum(s["duration"] for s in seg_dicts)
+    click.echo(
+        f"  Scenes: {result['scene_count']} · rows: {result['row_count']} · "
+        f"segments: {len(seg_dicts)} · trimmed: {total_trimmed:.1f}s"
+    )
+
+    if not seg_dicts:
+        click.echo("  No segments found. Try lowering --min-rally.")
+        click.echo("\n=== Done (no output) ===")
+        return
+
+    if not export_video:
+        click.echo(f"\n=== Done (ML segment) ===")
+        click.echo(f"  Timeline:  {timeline_path}")
+        click.echo(f"  Segments:  {len(seg_dicts)} rallies (>{min_rally}s)")
+        return
+
+    click.echo("\n[ML] Exporting...")
+    export_dir = session_path / "export"
+    output_path = Path(output) if output else export_dir / "trimmed_full_video.mp4"
+    color_profile = load_profile_from_session(session_path)
+    overlay_ctx = {
+        "roi_cfg": roi_cfg,
+        "color_profile": color_profile,
+        "work_dir": work_dir,
+        "overlay_fps": float(ball_fps),
+        "court_geometry": court_geom,
+    }
+    export_concatenated(
+        video_path,
+        seg_dicts,
+        output_path,
+        debug_clips=debug_clips,
+        debug_clip_dir=export_dir / ".clips",
+        overlay_context=overlay_ctx if debug_clips else None,
+    )
+    click.echo(f"\n=== Done (ML decoder) ===")
+    click.echo(f"  Segments:  {len(seg_dicts)} rallies (>{min_rally}s)")
+    click.echo(f"  Trimmed:   {total_trimmed:.1f}s")
+    click.echo(f"  Output:    {output_path}")
+
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 @click.group()
@@ -712,17 +864,33 @@ def export(session_name: str, mode: str, output: str, debug_clips: bool):
               help="Ball detection method")
 @click.option("--debug-clips/--no-debug-clips", default=True,
               help="Generate annotated debug clips in export/.clips/ (default: on)")
+@click.option("--use-ml-decoder", is_flag=True, default=False,
+              help="Use ML pipeline (YOLO → CNN → Set-TCN) instead of hit/lifecycle segmentation")
+@click.option("--ml-action-model", type=click.Path(path_type=Path),
+              default=DEFAULT_ACTION_CHECKPOINT,
+              help="EfficientNet-B2 action classifier checkpoint")
+@click.option("--ml-set-tcn-model", type=click.Path(path_type=Path),
+              default=DEFAULT_SET_TCN_CHECKPOINT,
+              help="Set-TCN rally decoder checkpoint")
+@click.option("--ml-gate-model", type=click.Path(path_type=Path),
+              default=DEFAULT_GATE_CHECKPOINT,
+              help="Court player gate model (.pkl); omit path to disable")
+@click.option("--ml-threshold", default=None, type=float,
+              help="Set-TCN in_play probability threshold (default: from model .json)")
 def process(session_name: str, min_rally: float, max_gap: float,
             output: str, keep_threshold: bool, use_vision: bool,
             vision_interval: float, duration: Optional[float],
             use_ball_tracking: Optional[bool], legacy_audio: bool,
-            ball_fps: int, ball_method: str, debug_clips: bool):
+            ball_fps: int, ball_method: str, debug_clips: bool,
+            use_ml_decoder: bool, ml_action_model: Path, ml_set_tcn_model: Path,
+            ml_gate_model: Path, ml_threshold: Optional[float]):
     """One-command pipeline: scan -> visual hits -> segment -> export.
 
     Default path uses pose-based swing detection with sparse ball confirmation.
     Rally boundaries are refined with lifecycle inference and optional ball trajectory.
 
     Use --legacy-audio for the older audio+motion fusion path (not recommended).
+    Use --use-ml-decoder for EfficientNet-B2 + Set-TCN ML segmentation.
     Use --min-rally 30 to only see long rallies for verification.
     """
     click.echo(f"=== Tennis Rally Clipper - Processing session: {session_name} ===")
@@ -734,6 +902,37 @@ def process(session_name: str, min_rally: float, max_gap: float,
     if not videos:
         click.echo("No videos found. Run 'tenniscut add' first.")
         sys.exit(1)
+
+    video_path = Path(videos[0])
+    info = get_video_info(video_path)
+
+    roi_cfg = load_roi_from_session(session_path)
+    roi_cfg.set_frame_size(info["width"], info["height"])
+    court_geom = load_or_detect_court_geometry(
+        session_path, video_path,
+        net_line_y_hint=roi_cfg.net_line_y or 0.5,
+    )
+
+    if use_ml_decoder:
+        gate_path = ml_gate_model if ml_gate_model.exists() else None
+        _run_ml_rally_export(
+            session_path=session_path,
+            cfg=cfg,
+            video_path=video_path,
+            info=info,
+            min_rally=min_rally,
+            output=output,
+            duration=duration,
+            debug_clips=debug_clips,
+            roi_cfg=roi_cfg,
+            court_geom=court_geom,
+            ball_fps=ball_fps,
+            action_model=ml_action_model,
+            set_tcn_model=ml_set_tcn_model,
+            gate_model=gate_path,
+            ml_threshold=ml_threshold,
+        )
+        return
 
     if use_ball_tracking is None:
         use_ball_tracking = cfg.get("features", {}).get("use_ball_tracking", True)
@@ -1184,6 +1383,59 @@ def process(session_name: str, min_rally: float, max_gap: float,
     click.echo(f"  Original:  {info['duration']:.1f}s")
     click.echo(f"  Trimmed:   {total_trimmed:.1f}s")
     click.echo(f"  Output:    {output_path}")
+
+
+@main.command("segment-ml")
+@click.argument("session_name")
+@click.option("--min-rally", default=8.0, type=float, help="Minimum segment duration (s)")
+@click.option("--output", default=None, help="Output video path (segment only; use export separately)")
+@click.option("--duration", default=None, type=float, help="Limit scan duration (s)")
+@click.option("--ml-action-model", type=click.Path(path_type=Path),
+              default=DEFAULT_ACTION_CHECKPOINT)
+@click.option("--ml-set-tcn-model", type=click.Path(path_type=Path),
+              default=DEFAULT_SET_TCN_CHECKPOINT)
+@click.option("--ml-gate-model", type=click.Path(path_type=Path),
+              default=DEFAULT_GATE_CHECKPOINT)
+@click.option("--ml-threshold", default=None, type=float)
+def segment_ml(session_name: str, min_rally: float, output: Optional[str],
+               duration: Optional[float], ml_action_model: Path,
+               ml_set_tcn_model: Path, ml_gate_model: Path,
+               ml_threshold: Optional[float]):
+    """Segment a session with ML decoder (YOLO → CNN → Set-TCN); writes work/timeline.json."""
+    session_path = Path(session_name)
+    config = Config(session_path)
+    cfg = config.load()
+    videos = cfg.get("videos", [])
+    if not videos:
+        click.echo("No videos found. Run 'tenniscut add' first.")
+        sys.exit(1)
+    video_path = Path(videos[0])
+    info = get_video_info(video_path)
+    roi_cfg = load_roi_from_session(session_path)
+    roi_cfg.set_frame_size(info["width"], info["height"])
+    court_geom = load_or_detect_court_geometry(
+        session_path, video_path,
+        net_line_y_hint=roi_cfg.net_line_y or 0.5,
+    )
+    gate_path = ml_gate_model if ml_gate_model.exists() else None
+    _run_ml_rally_export(
+        session_path=session_path,
+        cfg=cfg,
+        video_path=video_path,
+        info=info,
+        min_rally=min_rally,
+        output=output,
+        duration=duration,
+        debug_clips=False,
+        roi_cfg=roi_cfg,
+        court_geom=court_geom,
+        ball_fps=15,
+        action_model=ml_action_model,
+        set_tcn_model=ml_set_tcn_model,
+        gate_model=gate_path,
+        ml_threshold=ml_threshold,
+        export_video=False,
+    )
 
 
 @main.command()

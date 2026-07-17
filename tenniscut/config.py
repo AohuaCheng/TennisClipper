@@ -54,6 +54,12 @@ class Config:
                 "mode": "full",
                 "output_format": "mp4",
             },
+            "ml": {
+                "action_checkpoint": "datasets/eval/efficientnet_b2_expanded_action_classifier.pt",
+                "set_tcn_checkpoint": "datasets/eval/rally_set_tcn_cnn.pt",
+                "gate_checkpoint": "datasets/eval/court_player_gate.pkl",
+                "scan_fps": 4.0,
+            },
         }
 
     def save(self, config: Dict[str, Any]) -> None:

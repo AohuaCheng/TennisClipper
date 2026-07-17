@@ -162,8 +162,12 @@ python scripts/ml/build_action_error_gallery.py \
 
 # 4) 缓存 CNN 预测供 Layer2 训练
 python scripts/ml/cache_cnn_predictions.py \
-  --checkpoint datasets/eval/efficientnet_b2_expanded_action_classifier.pt \
   --output-dir datasets/player_actions/cnn_predictions
+
+# 5) 在线 CLI（一键 ML 分段 + 导出）
+tenniscut process SESSION --use-ml-decoder
+# 或仅写 timeline：
+tenniscut segment-ml SESSION
 ```
 
 模型输入：**expanded player crop**（默认 1.4× padding），每条样本对应一个 `track_id` 的球员裁切图。同一视频帧可有多条样本（不同球员各一条）；评估时必须按 `sample_id` / `track_id` 匹配，不要用 full_frame 里其他球员的动作推断当前 crop。

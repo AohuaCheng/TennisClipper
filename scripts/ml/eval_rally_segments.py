@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from tenniscut.ml.manifest_io import load_jsonl  # noqa: E402
 from tenniscut.ml.export import load_benchmark_segments  # noqa: E402
 from tenniscut.ml.rally_decoder import (  # noqa: E402
     RallyDecoder,
@@ -27,6 +28,24 @@ from tenniscut.ml.segment_eval import evaluate_segments  # noqa: E402
 def _load_registry(path: Path) -> List[Dict[str, Any]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     return data.get("sessions", [])
+
+
+def _load_action_probs_dir(action_probs_dir: Path) -> Dict[str, Any]:
+    from tenniscut.ml.labels import POSE_LABELS
+
+    out: Dict[str, Any] = {}
+    for path in action_probs_dir.glob("*.jsonl"):
+        for row in load_jsonl(path):
+            probs = row.get("action_probs")
+            if not probs:
+                continue
+            if isinstance(probs, dict):
+                out[row["sample_id"]] = [
+                    float(probs.get(lab, 0.0)) for lab in POSE_LABELS if lab != "unsure"
+                ]
+            else:
+                out[row["sample_id"]] = probs
+    return out
 
 
 def _benchmark_path(session: Dict[str, Any], benchmarks_dir: Path) -> Path | None:
@@ -94,7 +113,7 @@ def main() -> None:
     parser.add_argument(
         "--model",
         type=Path,
-        default=ROOT / "datasets/eval/rally_set_tcn.pt",
+        default=ROOT / "datasets/eval/rally_set_tcn_cnn.pt",
         help="Set-TCN checkpoint for set_tcn method",
     )
     parser.add_argument(
@@ -118,6 +137,12 @@ def main() -> None:
     parser.add_argument("--pre-buffer", type=float, default=2.0)
     parser.add_argument("--post-buffer", type=float, default=2.0)
     parser.add_argument(
+        "--action-probs-dir",
+        type=Path,
+        default=None,
+        help="CNN prediction cache for Set-TCN Layer1 features (required for CNN-OOF model on test)",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=ROOT / "datasets/eval/rally_segment_eval.json",
@@ -128,6 +153,11 @@ def main() -> None:
     scenes = load_scene_frames(scene_path)
     grouped = group_scenes_by_session(scenes)
     registry = {s["session_id"]: s for s in _load_registry(args.registry)}
+
+    action_probs_map = None
+    if args.action_probs_dir and args.action_probs_dir.exists():
+        action_probs_map = _load_action_probs_dir(args.action_probs_dir)
+        print(f"Loaded {len(action_probs_map)} CNN action prob rows from {args.action_probs_dir}", flush=True)
 
     decode_config = RallyDecoderConfig(
         threshold=args.threshold if args.threshold is not None else 0.5,
@@ -140,7 +170,11 @@ def main() -> None:
         if "threshold" in meta:
             decode_config.threshold = float(meta["threshold"])
             print(f"Using threshold={decode_config.threshold} from {args.model.with_suffix('.json')}", flush=True)
-    decoder = RallyDecoder(args.model, config=decode_config) if args.model.exists() else None
+    decoder = RallyDecoder(
+        args.model,
+        config=decode_config,
+        action_probs_map=action_probs_map,
+    ) if args.model.exists() else None
     if "set_tcn" in args.methods and decoder is None:
         print(f"Model not found: {args.model}", file=sys.stderr)
         sys.exit(1)
@@ -148,6 +182,7 @@ def main() -> None:
     report: Dict[str, Any] = {
         "split": args.split,
         "model": str(args.model.resolve()) if decoder else None,
+        "action_probs_dir": str(args.action_probs_dir.resolve()) if action_probs_map else None,
         "decode_config": decode_config.__dict__,
         "sessions": {},
     }
