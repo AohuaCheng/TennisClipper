@@ -70,6 +70,8 @@ models/
 !/datasets/player_actions/manifests/7515_labeled.jsonl
 !/datasets/player_actions/manifests/7521_labeled.jsonl
 /datasets/player_actions/manifests/action_eval*.jsonl
+/datasets/player_actions/manifests/action_eval*.meta.json
+/datasets/player_actions/review/
 /datasets/player_actions/cnn_predictions/**
 /datasets/ball_detection/frames/**
 /datasets/benchmarks/.cache/
