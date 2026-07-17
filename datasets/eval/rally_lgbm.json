@@ -1,0 +1,8 @@
+{
+  "model": "lightgbm",
+  "accuracy": 0.9418,
+  "precision": 0.9262,
+  "recall": 0.9882,
+  "f1": 0.9562,
+  "support": 790
+}

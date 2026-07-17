@@ -1,0 +1,5 @@
+{
+  "model": "bigru",
+  "accuracy": 0.357,
+  "support": 790
+}

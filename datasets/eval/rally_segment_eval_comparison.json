@@ -1,0 +1,53 @@
+{
+  "comparison": "oracle Set-TCN vs CNN-OOF Set-TCN on test scene_frames",
+  "oracle_model": "datasets/eval/rally_set_tcn.pt",
+  "cnn_model": "datasets/eval/rally_set_tcn_cnn.pt",
+  "oracle_labels_upper_bound": {
+    "7252": {
+      "recall": 0.5,
+      "mean_iou": 0.9103
+    },
+    "7559": {
+      "recall": 0.0612,
+      "mean_iou": 0.5477
+    }
+  },
+  "per_session": {
+    "7252": {
+      "oracle_set_tcn": {
+        "recall": 0.5,
+        "mean_iou": 0.6082,
+        "dead_time_in_clips": 0.0576,
+        "segments": 5,
+        "start_mae_s": 10.33,
+        "end_mae_s": 11.31
+      },
+      "cnn_set_tcn": {
+        "recall": 0.5,
+        "mean_iou": 0.7822,
+        "dead_time_in_clips": 0.0606,
+        "segments": 4,
+        "start_mae_s": 10.69,
+        "end_mae_s": 1.56
+      }
+    },
+    "7559": {
+      "oracle_set_tcn": {
+        "recall": 0.0408,
+        "mean_iou": 0.3585,
+        "dead_time_in_clips": 0.5186,
+        "segments": 2,
+        "start_mae_s": 0.83,
+        "end_mae_s": 11.75
+      },
+      "cnn_set_tcn": {
+        "recall": 0.0816,
+        "mean_iou": 0.5396,
+        "dead_time_in_clips": 0.2417,
+        "segments": 4,
+        "start_mae_s": 3.32,
+        "end_mae_s": 5.38
+      }
+    }
+  }
+}

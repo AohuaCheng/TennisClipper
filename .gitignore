@@ -52,9 +52,11 @@ dist/
 # Local session config (root level only)
 /config.yaml
 
-# Downloaded model weights (local only)
+# Local model weights outside repo eval bundle
+/models/
 *.pt
-models/
+!datasets/eval/*.pt
+*.pth
 
 # ML datasets: keep schemas/README/unlabeled manifests/benchmarks JSON; ignore media + local labels
 /datasets/player_actions/raw_crops/**
@@ -76,6 +78,12 @@ models/
 /datasets/ball_detection/frames/**
 /datasets/benchmarks/.cache/
 /datasets/eval/**
+!/datasets/eval/*.pt
+!/datasets/eval/*.pkl
+!/datasets/eval/*.json
+!/datasets/eval/*.txt
+/datasets/eval/cnn_input_cache/
+/datasets/eval/efficientnet_b2_gallery/
 *.gitkeep
 *.pth
 *.pdf

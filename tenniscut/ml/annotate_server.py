@@ -111,6 +111,8 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
         <span class="chip" data-filter="qa_unset">QA未填</span>
         <span class="chip" data-filter="invalid_player">非球员</span>
         <span class="chip" data-filter="frame_mismatch">帧不一致</span>
+        <span class="chip relabel-only" data-filter="pending" style="display:none">待复核</span>
+        <span class="chip relabel-only" data-filter="rest_moving" style="display:none">rest↔moving</span>
       </div>
       <label class="hint"><input type="checkbox" id="autoAdvance" class="toggle" checked /> 标注完成后自动跳下一条</label>
       <div class="hint" style="margin-top:8px"><b>Layer 1 · action_state</b>（动作状态）</div>
@@ -139,6 +141,7 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
     <button id="prevBtn">← 上一条</button>
     <button id="nextBtn">下一条 →</button>
     <button id="unlabeledBtn">未标注 (U)</button>
+    <button id="confirmRelabelBtn" style="display:none">确认本标签 (R)</button>
     <button id="undoBtn">撤销 (Z)</button>
   </footer>
   <script>
@@ -150,6 +153,15 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
     let history = [];
     let filterMode = "all";
     let videoMap = {};
+    let relabelMode = false;
+
+    function isRelabelSample(s) {
+      return Boolean(s && s.cnn_error_type);
+    }
+
+    function isPendingReview(s) {
+      return isRelabelSample(s) && !getAnn(s).relabel_reviewed;
+    }
 
     async function api(path, opts) {
       const r = await fetch(path, opts);
@@ -164,6 +176,7 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
         label_confidence: s.label_confidence ?? null,
         frame_align: s.frame_align || null,
         is_target_player: s.is_target_player || null,
+        relabel_reviewed: s.relabel_reviewed || false,
       };
     }
 
@@ -185,6 +198,9 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
         if (filterMode === "qa_unset") return !a.frame_align || !a.is_target_player;
         if (filterMode === "invalid_player") return a.is_target_player === "no";
         if (filterMode === "frame_mismatch") return a.frame_align === "different";
+        if (filterMode === "pending") return isPendingReview(s);
+        if (filterMode === "rest_moving") return s.is_rest_moving === true;
+        if (filterMode.startsWith("err:")) return s.cnn_error_type === filterMode.slice(4);
         return true;
       });
       if (!queue.length) queue = allSamples.slice();
@@ -269,7 +285,14 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
         `track: <b>${s.track_id}</b> · role: ${s.role} · benchmark in_rally: ${s.in_rally}<br>` +
         `segment: ${s.segment_id || "-"}<br>` +
         `action_state: <b>${a.action_state}</b> · rally_phase: <b>${a.rally_phase}</b> · 置信: <b>${a.label_confidence ?? "-"}</b><br>` +
-        `QA: frame=${a.frame_align || "-"} player=${a.is_target_player || "-"}`;
+        `QA: frame=${a.frame_align || "-"} player=${a.is_target_player || "-"}<br>` +
+        (s.cnn_error_type
+          ? `<div style="margin-top:8px;padding:8px;background:#221;border-radius:6px">` +
+            `<div>CNN 错判: <b style="color:#f96">${s.cnn_error_type}</b></div>` +
+            `人工: <b>${s.cnn_true_pose || a.action_state}</b> · CNN: <b>${s.cnn_pred_pose || "-"}</b>` +
+            (s.cnn_confidence != null ? ` · conf ${(s.cnn_confidence * 100).toFixed(0)}%` : "") +
+            `<br>复核: <b>${a.relabel_reviewed ? "已完成" : "待处理"}</b></div>`
+          : "");
       renderSelectionButtons();
       syncVideo(s);
       renderTrackStrip(s);
@@ -283,12 +306,14 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
 
     async function persistAnnotation(sampleId, payload, { advance = false, bulkTrack = false } = {}) {
       history.push({ sample_id: sampleId, prev: { ...getAnn({ sample_id: sampleId }) } });
+      const s = allSamples.find(x => x.sample_id === sampleId);
+      if (isRelabelSample(s)) payload.relabel_reviewed = true;
       await api("/api/label", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sample_id: sampleId, ...payload }),
       });
-      ann[sampleId] = { ...getAnn({ sample_id: sampleId }), ...payload };
+      ann[sampleId] = { ...getAnn({ sample_id: sampleId }), ...payload, relabel_reviewed: payload.relabel_reviewed ?? getAnn({ sample_id: sampleId }).relabel_reviewed };
       if (bulkTrack) {
         const s = current();
         const same = allSamples.filter(x =>
@@ -328,7 +353,58 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
       render();
     }
 
+    async function confirmRelabel() {
+      const s = current();
+      if (!isRelabelSample(s)) return;
+      const cur = getAnn(s);
+      if (!isComplete(s)) {
+        alert("请先补全 action_state / rally_phase / 置信度 / QA 字段，再确认。");
+        return;
+      }
+      await persistAnnotation(s.sample_id, { ...cur }, { advance: true });
+    }
+
+    function setupRelabelFilters() {
+      relabelMode = allSamples.some(isRelabelSample);
+      if (!relabelMode) return;
+      document.querySelectorAll(".relabel-only").forEach(el => { el.style.display = ""; });
+      document.getElementById("confirmRelabelBtn").style.display = "";
+      document.title = "CNN 错判复核标注";
+      const counts = {};
+      allSamples.forEach(s => {
+        if (s.cnn_error_type) counts[s.cnn_error_type] = (counts[s.cnn_error_type] || 0) + 1;
+      });
+      const chipRow = document.querySelector('.chip[data-filter="all"]').parentElement;
+      Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 8).forEach(([errType, count]) => {
+        const chip = document.createElement("span");
+        chip.className = "chip relabel-only";
+        chip.dataset.filter = "err:" + errType;
+        chip.textContent = `${errType} (${count})`;
+        chip.onclick = () => {
+          document.querySelectorAll(".chip[data-filter]").forEach(c => c.classList.remove("on"));
+          chip.classList.add("on");
+          filterMode = chip.dataset.filter;
+          applyFilter();
+          render();
+        };
+        chipRow.appendChild(chip);
+      });
+      filterMode = "pending";
+      document.querySelectorAll(".chip[data-filter]").forEach(c => c.classList.remove("on"));
+      const pendingChip = document.querySelector('.chip[data-filter="pending"]');
+      if (pendingChip) pendingChip.classList.add("on");
+    }
+
+    function goPending() {
+      for (let i = 1; i <= queue.length; i++) {
+        const j = (idx + i) % queue.length;
+        if (isPendingReview(queue[j])) { idx = j; render(); return; }
+      }
+      go(1);
+    }
+
     function goUnlabeled() {
+      if (relabelMode) { goPending(); return; }
       for (let i = 1; i <= queue.length; i++) {
         const j = (idx + i) % queue.length;
         if (!isComplete(queue[j])) { idx = j; render(); return; }
@@ -402,6 +478,7 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
       document.getElementById("prevBtn").onclick = () => go(-1);
       document.getElementById("nextBtn").onclick = () => go(1);
       document.getElementById("unlabeledBtn").onclick = goUnlabeled;
+      document.getElementById("confirmRelabelBtn").onclick = confirmRelabel;
       document.getElementById("undoBtn").onclick = undo;
       document.getElementById("bulkTrackBtn").onclick = () => {
         const s = current();
@@ -416,6 +493,7 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
         if (e.key === "ArrowRight") go(1);
         if (e.key === "u" || e.key === "U") goUnlabeled();
         if (e.key === "z" || e.key === "Z") undo();
+        if (e.key === "r" || e.key === "R") confirmRelabel();
         if (e.key === " ") { e.preventDefault(); goUnlabeled(); }
         const n = parseInt(e.key, 10);
         if (n >= 1 && n <= 6) setField("action_state", UI.action_state[n - 1][0], { advance: false });
@@ -435,6 +513,7 @@ INTERACTIVE_HTML = """<!DOCTYPE html>
       allSamples.forEach(s => {
         ann[s.sample_id] = getAnn(s);
       });
+      setupRelabelFilters();
       applyFilter();
       buildUI();
       render();

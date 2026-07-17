@@ -1,0 +1,10 @@
+{
+  "session_id": "7252",
+  "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7252.json",
+  "rows_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/sessions/test_session_7252/work/ml/player_rows_with_actions.jsonl",
+  "scene_frames": 7567,
+  "trainable_frames": 7567,
+  "in_play_frames": 1188,
+  "dead_time_frames": 6379,
+  "benchmark_segments": 6
+}

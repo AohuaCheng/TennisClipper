@@ -1,0 +1,5235 @@
+{
+  "checkpoint": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/eval/efficientnet_b2_expanded_action_classifier.pt",
+  "manifest": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/player_actions/manifests/val_labeled.jsonl",
+  "backbone": "efficientnet_b2",
+  "crop_mode": "expanded_crop",
+  "image_size": 256,
+  "layer1_only": true,
+  "min_confidence": 0.8,
+  "metrics_pose": {
+    "accuracy": 0.6963,
+    "macro_f1": 0.56,
+    "support": 326
+  },
+  "accuracy": 0.6963,
+  "macro_f1": 0.56,
+  "support": 326,
+  "predictions": [
+    {
+      "sample_id": "7255_000_00873000",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.8478655815124512,
+      "action_probs": {
+        "serving": 0.8478655815124512,
+        "hitting": 0.023168429732322693,
+        "moving": 0.041146617382764816,
+        "pick_ball": 0.07322638481855392,
+        "rest": 0.014593002386391163
+      }
+    },
+    {
+      "sample_id": "7255_001_00873000",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5618283748626709,
+      "action_probs": {
+        "serving": 0.1462792605161667,
+        "hitting": 0.06873769313097,
+        "moving": 0.031161945313215256,
+        "pick_ball": 0.19199280440807343,
+        "rest": 0.5618283748626709
+      }
+    },
+    {
+      "sample_id": "7255_002_00873000",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5140603184700012,
+      "action_probs": {
+        "serving": 0.1515837460756302,
+        "hitting": 0.05277269706130028,
+        "moving": 0.07099275290966034,
+        "pick_ball": 0.21059049665927887,
+        "rest": 0.5140603184700012
+      }
+    },
+    {
+      "sample_id": "7255_003_00873000",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6062003374099731,
+      "action_probs": {
+        "serving": 0.13481852412223816,
+        "hitting": 0.04399523138999939,
+        "moving": 0.04497242346405983,
+        "pick_ball": 0.17001350224018097,
+        "rest": 0.6062003374099731
+      }
+    },
+    {
+      "sample_id": "7255_000_00873534",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9777426719665527,
+      "action_probs": {
+        "serving": 0.9777426719665527,
+        "hitting": 0.005995846353471279,
+        "moving": 0.0007340832962654531,
+        "pick_ball": 0.01486466359347105,
+        "rest": 0.0006627793191000819
+      }
+    },
+    {
+      "sample_id": "7255_001_00873534",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4607127904891968,
+      "action_probs": {
+        "serving": 0.17333175241947174,
+        "hitting": 0.0717192068696022,
+        "moving": 0.09789296239614487,
+        "pick_ball": 0.19634324312210083,
+        "rest": 0.4607127904891968
+      }
+    },
+    {
+      "sample_id": "7255_002_00873534",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5528303384780884,
+      "action_probs": {
+        "serving": 0.1513647586107254,
+        "hitting": 0.04991734400391579,
+        "moving": 0.0399855338037014,
+        "pick_ball": 0.20590193569660187,
+        "rest": 0.5528303384780884
+      }
+    },
+    {
+      "sample_id": "7255_004_00873800",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.40952712297439575,
+      "action_probs": {
+        "serving": 0.13135169446468353,
+        "hitting": 0.05766206607222557,
+        "moving": 0.18201063573360443,
+        "pick_ball": 0.21944843232631683,
+        "rest": 0.40952712297439575
+      }
+    },
+    {
+      "sample_id": "7255_000_00874067",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.8169036507606506,
+      "action_probs": {
+        "serving": 0.8169036507606506,
+        "hitting": 0.1036745235323906,
+        "moving": 0.026516946032643318,
+        "pick_ball": 0.051950853317976,
+        "rest": 0.0009539552265778184
+      }
+    },
+    {
+      "sample_id": "7255_001_00874067",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5707123279571533,
+      "action_probs": {
+        "serving": 0.14349496364593506,
+        "hitting": 0.0649011880159378,
+        "moving": 0.034661293029785156,
+        "pick_ball": 0.18623022735118866,
+        "rest": 0.5707123279571533
+      }
+    },
+    {
+      "sample_id": "7255_000_00874601",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.346049427986145,
+      "action_probs": {
+        "serving": 0.30841904878616333,
+        "hitting": 0.03178686648607254,
+        "moving": 0.2704934775829315,
+        "pick_ball": 0.346049427986145,
+        "rest": 0.043251167982816696
+      }
+    },
+    {
+      "sample_id": "7255_001_00874601",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.45280566811561584,
+      "action_probs": {
+        "serving": 0.15056797862052917,
+        "hitting": 0.07891548424959183,
+        "moving": 0.10126803070306778,
+        "pick_ball": 0.21644282341003418,
+        "rest": 0.45280566811561584
+      }
+    },
+    {
+      "sample_id": "7255_005_00874734",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.49854132533073425,
+      "action_probs": {
+        "serving": 0.1305658519268036,
+        "hitting": 0.0767626017332077,
+        "moving": 0.1444328874349594,
+        "pick_ball": 0.14969733357429504,
+        "rest": 0.49854132533073425
+      }
+    },
+    {
+      "sample_id": "7255_002_00874801",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5154532194137573,
+      "action_probs": {
+        "serving": 0.16140452027320862,
+        "hitting": 0.06327573210000992,
+        "moving": 0.5154532194137573,
+        "pick_ball": 0.18604999780654907,
+        "rest": 0.07381654530763626
+      }
+    },
+    {
+      "sample_id": "7255_000_00875134",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3046950697898865,
+      "action_probs": {
+        "serving": 0.19427186250686646,
+        "hitting": 0.0923992469906807,
+        "moving": 0.1949629783630371,
+        "pick_ball": 0.21367084980010986,
+        "rest": 0.3046950697898865
+      }
+    },
+    {
+      "sample_id": "7255_001_00875134",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.37527093291282654,
+      "action_probs": {
+        "serving": 0.17524708807468414,
+        "hitting": 0.07873831689357758,
+        "moving": 0.15252180397510529,
+        "pick_ball": 0.21822187304496765,
+        "rest": 0.37527093291282654
+      }
+    },
+    {
+      "sample_id": "7255_000_00875668",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3253140151500702,
+      "action_probs": {
+        "serving": 0.1990354061126709,
+        "hitting": 0.08093440532684326,
+        "moving": 0.16133564710617065,
+        "pick_ball": 0.233380526304245,
+        "rest": 0.3253140151500702
+      }
+    },
+    {
+      "sample_id": "7255_001_00875668",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.575238823890686,
+      "action_probs": {
+        "serving": 0.1402217000722885,
+        "hitting": 0.06373515725135803,
+        "moving": 0.032517749816179276,
+        "pick_ball": 0.18828651309013367,
+        "rest": 0.575238823890686
+      }
+    },
+    {
+      "sample_id": "7255_002_00875668",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5551742315292358,
+      "action_probs": {
+        "serving": 0.1445942521095276,
+        "hitting": 0.06937750428915024,
+        "moving": 0.5551742315292358,
+        "pick_ball": 0.18784421682357788,
+        "rest": 0.043009813874959946
+      }
+    },
+    {
+      "sample_id": "7255_000_00876201",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.46308597922325134,
+      "action_probs": {
+        "serving": 0.19315187633037567,
+        "hitting": 0.06678394973278046,
+        "moving": 0.060341544449329376,
+        "pick_ball": 0.21663664281368256,
+        "rest": 0.46308597922325134
+      }
+    },
+    {
+      "sample_id": "7255_001_00876201",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5481869578361511,
+      "action_probs": {
+        "serving": 0.14634574949741364,
+        "hitting": 0.07089930027723312,
+        "moving": 0.06160459294915199,
+        "pick_ball": 0.17296339571475983,
+        "rest": 0.5481869578361511
+      }
+    },
+    {
+      "sample_id": "7255_002_00876201",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.7697769999504089,
+      "action_probs": {
+        "serving": 0.07738892734050751,
+        "hitting": 0.022543756291270256,
+        "moving": 0.0917569100856781,
+        "pick_ball": 0.7697769999504089,
+        "rest": 0.038533419370651245
+      }
+    },
+    {
+      "sample_id": "7255_000_00876735",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5109692215919495,
+      "action_probs": {
+        "serving": 0.1651928424835205,
+        "hitting": 0.06849000602960587,
+        "moving": 0.5109692215919495,
+        "pick_ball": 0.23000513017177582,
+        "rest": 0.02534278854727745
+      }
+    },
+    {
+      "sample_id": "7255_001_00876735",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3558969497680664,
+      "action_probs": {
+        "serving": 0.1565285325050354,
+        "hitting": 0.06647428125143051,
+        "moving": 0.3558969497680664,
+        "pick_ball": 0.2024593949317932,
+        "rest": 0.21864086389541626
+      }
+    },
+    {
+      "sample_id": "7255_002_00876735",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5322198867797852,
+      "action_probs": {
+        "serving": 0.1589241772890091,
+        "hitting": 0.06606487184762955,
+        "moving": 0.5322198867797852,
+        "pick_ball": 0.1634233295917511,
+        "rest": 0.07936768233776093
+      }
+    },
+    {
+      "sample_id": "7255_006_00876735",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.47791483998298645,
+      "action_probs": {
+        "serving": 0.1887751668691635,
+        "hitting": 0.04496435075998306,
+        "moving": 0.47791483998298645,
+        "pick_ball": 0.18128518760204315,
+        "rest": 0.10706047713756561
+      }
+    },
+    {
+      "sample_id": "7255_007_00877202",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.48271307349205017,
+      "action_probs": {
+        "serving": 0.16042138636112213,
+        "hitting": 0.049410101026296616,
+        "moving": 0.48271307349205017,
+        "pick_ball": 0.21073855459690094,
+        "rest": 0.09671687334775925
+      }
+    },
+    {
+      "sample_id": "7255_000_00877268",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4700235426425934,
+      "action_probs": {
+        "serving": 0.17083318531513214,
+        "hitting": 0.08353409916162491,
+        "moving": 0.4700235426425934,
+        "pick_ball": 0.26195117831230164,
+        "rest": 0.0136579480022192
+      }
+    },
+    {
+      "sample_id": "7255_001_00877268",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.2572840750217438,
+      "action_probs": {
+        "serving": 0.15297852456569672,
+        "hitting": 0.23820367455482483,
+        "moving": 0.2572840750217438,
+        "pick_ball": 0.2032736837863922,
+        "rest": 0.1482599675655365
+      }
+    },
+    {
+      "sample_id": "7255_002_00877268",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.43259763717651367,
+      "action_probs": {
+        "serving": 0.14296746253967285,
+        "hitting": 0.040186479687690735,
+        "moving": 0.43259763717651367,
+        "pick_ball": 0.2113538533449173,
+        "rest": 0.17289452254772186
+      }
+    },
+    {
+      "sample_id": "7255_000_00877802",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.40679019689559937,
+      "action_probs": {
+        "serving": 0.15848977863788605,
+        "hitting": 0.10376235842704773,
+        "moving": 0.40679019689559937,
+        "pick_ball": 0.21614930033683777,
+        "rest": 0.11480831354856491
+      }
+    },
+    {
+      "sample_id": "7255_001_00877802",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4548625946044922,
+      "action_probs": {
+        "serving": 0.16424931585788727,
+        "hitting": 0.07153529673814774,
+        "moving": 0.4548625946044922,
+        "pick_ball": 0.24291838705539703,
+        "rest": 0.06643439829349518
+      }
+    },
+    {
+      "sample_id": "7255_000_00878336",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.513018786907196,
+      "action_probs": {
+        "serving": 0.193790003657341,
+        "hitting": 0.07416004687547684,
+        "moving": 0.513018786907196,
+        "pick_ball": 0.18463045358657837,
+        "rest": 0.034400712698698044
+      }
+    },
+    {
+      "sample_id": "7255_001_00878336",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4131103456020355,
+      "action_probs": {
+        "serving": 0.15799173712730408,
+        "hitting": 0.04741474241018295,
+        "moving": 0.1801355928182602,
+        "pick_ball": 0.20134758949279785,
+        "rest": 0.4131103456020355
+      }
+    },
+    {
+      "sample_id": "7255_008_00878469",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5616312623023987,
+      "action_probs": {
+        "serving": 0.09990031272172928,
+        "hitting": 0.04445166140794754,
+        "moving": 0.010032259859144688,
+        "pick_ball": 0.28398454189300537,
+        "rest": 0.5616312623023987
+      }
+    },
+    {
+      "sample_id": "7255_002_00878736",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5564209222793579,
+      "action_probs": {
+        "serving": 0.13127508759498596,
+        "hitting": 0.029779288917779922,
+        "moving": 0.027736034244298935,
+        "pick_ball": 0.2547886073589325,
+        "rest": 0.5564209222793579
+      }
+    },
+    {
+      "sample_id": "7255_000_00878869",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5633323788642883,
+      "action_probs": {
+        "serving": 0.13543394207954407,
+        "hitting": 0.07204852253198624,
+        "moving": 0.5633323788642883,
+        "pick_ball": 0.2099120169878006,
+        "rest": 0.01927308924496174
+      }
+    },
+    {
+      "sample_id": "7255_009_00878936",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3094444274902344,
+      "action_probs": {
+        "serving": 0.16034294664859772,
+        "hitting": 0.07840052247047424,
+        "moving": 0.234532430768013,
+        "pick_ball": 0.21727968752384186,
+        "rest": 0.3094444274902344
+      }
+    },
+    {
+      "sample_id": "7255_002_00879269",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.41115623712539673,
+      "action_probs": {
+        "serving": 0.1621013581752777,
+        "hitting": 0.1023084819316864,
+        "moving": 0.41115623712539673,
+        "pick_ball": 0.28580135107040405,
+        "rest": 0.03863257169723511
+      }
+    },
+    {
+      "sample_id": "7255_000_00879403",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5256081819534302,
+      "action_probs": {
+        "serving": 0.1899523288011551,
+        "hitting": 0.07923868298530579,
+        "moving": 0.5256081819534302,
+        "pick_ball": 0.18701286613941193,
+        "rest": 0.01818801276385784
+      }
+    },
+    {
+      "sample_id": "7255_009_00879469",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4694923758506775,
+      "action_probs": {
+        "serving": 0.14550955593585968,
+        "hitting": 0.06323135644197464,
+        "moving": 0.4694923758506775,
+        "pick_ball": 0.23859889805316925,
+        "rest": 0.08316786587238312
+      }
+    },
+    {
+      "sample_id": "7255_002_00879803",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.46426159143447876,
+      "action_probs": {
+        "serving": 0.1331557333469391,
+        "hitting": 0.040174450725317,
+        "moving": 0.46426159143447876,
+        "pick_ball": 0.2808496654033661,
+        "rest": 0.08155857026576996
+      }
+    },
+    {
+      "sample_id": "7255_000_00879936",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49290210008621216,
+      "action_probs": {
+        "serving": 0.1692430078983307,
+        "hitting": 0.07513261586427689,
+        "moving": 0.49290210008621216,
+        "pick_ball": 0.2007133960723877,
+        "rest": 0.06200890243053436
+      }
+    },
+    {
+      "sample_id": "7255_010_00879936",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5903542041778564,
+      "action_probs": {
+        "serving": 0.11636973172426224,
+        "hitting": 0.07561495155096054,
+        "moving": 0.5903542041778564,
+        "pick_ball": 0.17535468935966492,
+        "rest": 0.04230642691254616
+      }
+    },
+    {
+      "sample_id": "7255_009_00880003",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5526589751243591,
+      "action_probs": {
+        "serving": 0.13557617366313934,
+        "hitting": 0.0479750819504261,
+        "moving": 0.5526589751243591,
+        "pick_ball": 0.1990382820367813,
+        "rest": 0.06475148350000381
+      }
+    },
+    {
+      "sample_id": "7255_002_00880336",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4828689992427826,
+      "action_probs": {
+        "serving": 0.18222634494304657,
+        "hitting": 0.08682547509670258,
+        "moving": 0.4828689992427826,
+        "pick_ball": 0.20371751487255096,
+        "rest": 0.044361669570207596
+      }
+    },
+    {
+      "sample_id": "7255_009_00880536",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.2891606390476227,
+      "action_probs": {
+        "serving": 0.17589858174324036,
+        "hitting": 0.055331602692604065,
+        "moving": 0.24840401113033295,
+        "pick_ball": 0.23120516538619995,
+        "rest": 0.2891606390476227
+      }
+    },
+    {
+      "sample_id": "7255_011_00880737",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.47898051142692566,
+      "action_probs": {
+        "serving": 0.13692255318164825,
+        "hitting": 0.05660729110240936,
+        "moving": 0.47898051142692566,
+        "pick_ball": 0.26609110832214355,
+        "rest": 0.06139853969216347
+      }
+    },
+    {
+      "sample_id": "7255_012_00880803",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5090261697769165,
+      "action_probs": {
+        "serving": 0.1510346382856369,
+        "hitting": 0.07855299115180969,
+        "moving": 0.5090261697769165,
+        "pick_ball": 0.1629275232553482,
+        "rest": 0.09845863282680511
+      }
+    },
+    {
+      "sample_id": "7255_002_00880870",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5092610716819763,
+      "action_probs": {
+        "serving": 0.15473289787769318,
+        "hitting": 0.06683500856161118,
+        "moving": 0.5092610716819763,
+        "pick_ball": 0.23998956382274628,
+        "rest": 0.029181500896811485
+      }
+    },
+    {
+      "sample_id": "7255_009_00881070",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5558717846870422,
+      "action_probs": {
+        "serving": 0.13165539503097534,
+        "hitting": 0.06356921792030334,
+        "moving": 0.5558717846870422,
+        "pick_ball": 0.20480433106422424,
+        "rest": 0.04409921541810036
+      }
+    },
+    {
+      "sample_id": "7255_002_00881404",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5082850456237793,
+      "action_probs": {
+        "serving": 0.15033486485481262,
+        "hitting": 0.08070287853479385,
+        "moving": 0.5082850456237793,
+        "pick_ball": 0.24191920459270477,
+        "rest": 0.018758082762360573
+      }
+    },
+    {
+      "sample_id": "7255_013_00881404",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5741785168647766,
+      "action_probs": {
+        "serving": 0.14368601143360138,
+        "hitting": 0.06000508368015289,
+        "moving": 0.03555082157254219,
+        "pick_ball": 0.18657957017421722,
+        "rest": 0.5741785168647766
+      }
+    },
+    {
+      "sample_id": "7255_009_00881604",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.51468825340271,
+      "action_probs": {
+        "serving": 0.1442919671535492,
+        "hitting": 0.04537869989871979,
+        "moving": 0.09954928606748581,
+        "pick_ball": 0.19609180092811584,
+        "rest": 0.51468825340271
+      }
+    },
+    {
+      "sample_id": "7255_014_00881804",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6312348246574402,
+      "action_probs": {
+        "serving": 0.11662718653678894,
+        "hitting": 0.051024697721004486,
+        "moving": 0.0692158043384552,
+        "pick_ball": 0.13189750909805298,
+        "rest": 0.6312348246574402
+      }
+    },
+    {
+      "sample_id": "7255_013_00881937",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4180602431297302,
+      "action_probs": {
+        "serving": 0.14148256182670593,
+        "hitting": 0.07833219319581985,
+        "moving": 0.4180602431297302,
+        "pick_ball": 0.1724613457918167,
+        "rest": 0.18966366350650787
+      }
+    },
+    {
+      "sample_id": "7255_009_00882137",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5250647664070129,
+      "action_probs": {
+        "serving": 0.14594753086566925,
+        "hitting": 0.07198450714349747,
+        "moving": 0.5250647664070129,
+        "pick_ball": 0.22767561674118042,
+        "rest": 0.02932756580412388
+      }
+    },
+    {
+      "sample_id": "7255_013_00882471",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49955040216445923,
+      "action_probs": {
+        "serving": 0.12813778221607208,
+        "hitting": 0.060778334736824036,
+        "moving": 0.49955040216445923,
+        "pick_ball": 0.1783895641565323,
+        "rest": 0.13314393162727356
+      }
+    },
+    {
+      "sample_id": "7255_009_00882671",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5103797316551208,
+      "action_probs": {
+        "serving": 0.15923438966274261,
+        "hitting": 0.06837494671344757,
+        "moving": 0.5103797316551208,
+        "pick_ball": 0.22714141011238098,
+        "rest": 0.03486953303217888
+      }
+    },
+    {
+      "sample_id": "7255_009_00883204",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.46828585863113403,
+      "action_probs": {
+        "serving": 0.1743386834859848,
+        "hitting": 0.11222987622022629,
+        "moving": 0.46828585863113403,
+        "pick_ball": 0.20397917926311493,
+        "rest": 0.04116642847657204
+      }
+    },
+    {
+      "sample_id": "7255_015_00883471",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4598211348056793,
+      "action_probs": {
+        "serving": 0.10754674673080444,
+        "hitting": 0.030460264533758163,
+        "moving": 0.014311455190181732,
+        "pick_ball": 0.4598211348056793,
+        "rest": 0.38786041736602783
+      }
+    },
+    {
+      "sample_id": "7255_016_00883671",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5954809188842773,
+      "action_probs": {
+        "serving": 0.11127305030822754,
+        "hitting": 0.04276289790868759,
+        "moving": 0.014568254351615906,
+        "pick_ball": 0.23591485619544983,
+        "rest": 0.5954809188842773
+      }
+    },
+    {
+      "sample_id": "7255_009_00883738",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.9193192720413208,
+      "action_probs": {
+        "serving": 0.048654310405254364,
+        "hitting": 0.018124785274267197,
+        "moving": 0.00282044755294919,
+        "pick_ball": 0.9193192720413208,
+        "rest": 0.01108124665915966
+      }
+    },
+    {
+      "sample_id": "7255_017_00883938",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5688863396644592,
+      "action_probs": {
+        "serving": 0.13782373070716858,
+        "hitting": 0.051417026668787,
+        "moving": 0.0492197722196579,
+        "pick_ball": 0.1926531046628952,
+        "rest": 0.5688863396644592
+      }
+    },
+    {
+      "sample_id": "7255_009_00884271",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3665114939212799,
+      "action_probs": {
+        "serving": 0.1688060164451599,
+        "hitting": 0.06494009494781494,
+        "moving": 0.3665114939212799,
+        "pick_ball": 0.16368667781352997,
+        "rest": 0.23605574667453766
+      }
+    },
+    {
+      "sample_id": "7255_016_00884338",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5072954297065735,
+      "action_probs": {
+        "serving": 0.11245846748352051,
+        "hitting": 0.04725639149546623,
+        "moving": 0.09247933328151703,
+        "pick_ball": 0.24051038920879364,
+        "rest": 0.5072954297065735
+      }
+    },
+    {
+      "sample_id": "7255_009_00884805",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5298485159873962,
+      "action_probs": {
+        "serving": 0.16594651341438293,
+        "hitting": 0.07907535135746002,
+        "moving": 0.5298485159873962,
+        "pick_ball": 0.20477908849716187,
+        "rest": 0.02035062573850155
+      }
+    },
+    {
+      "sample_id": "7255_016_00884872",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5594959855079651,
+      "action_probs": {
+        "serving": 0.11673670262098312,
+        "hitting": 0.038015708327293396,
+        "moving": 0.02422209084033966,
+        "pick_ball": 0.2615295946598053,
+        "rest": 0.5594959855079651
+      }
+    },
+    {
+      "sample_id": "7255_018_00884938",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5674453973770142,
+      "action_probs": {
+        "serving": 0.12837913632392883,
+        "hitting": 0.038057975471019745,
+        "moving": 0.054081279784440994,
+        "pick_ball": 0.21203623712062836,
+        "rest": 0.5674453973770142
+      }
+    },
+    {
+      "sample_id": "7255_009_00885338",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4778312146663666,
+      "action_probs": {
+        "serving": 0.176070898771286,
+        "hitting": 0.07068987190723419,
+        "moving": 0.4778312146663666,
+        "pick_ball": 0.22686180472373962,
+        "rest": 0.04854615032672882
+      }
+    },
+    {
+      "sample_id": "7255_016_00885405",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5307461023330688,
+      "action_probs": {
+        "serving": 0.13959920406341553,
+        "hitting": 0.046885281801223755,
+        "moving": 0.03457142785191536,
+        "pick_ball": 0.24819797277450562,
+        "rest": 0.5307461023330688
+      }
+    },
+    {
+      "sample_id": "7255_018_00885539",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5178778171539307,
+      "action_probs": {
+        "serving": 0.1344548612833023,
+        "hitting": 0.046268876641988754,
+        "moving": 0.03002765029668808,
+        "pick_ball": 0.2713707983493805,
+        "rest": 0.5178778171539307
+      }
+    },
+    {
+      "sample_id": "7255_009_00885872",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5255825519561768,
+      "action_probs": {
+        "serving": 0.14996829628944397,
+        "hitting": 0.061235129833221436,
+        "moving": 0.5255825519561768,
+        "pick_ball": 0.2231028527021408,
+        "rest": 0.04011111333966255
+      }
+    },
+    {
+      "sample_id": "7255_016_00886005",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5141065120697021,
+      "action_probs": {
+        "serving": 0.12653717398643494,
+        "hitting": 0.04515364021062851,
+        "moving": 0.05026639625430107,
+        "pick_ball": 0.263936311006546,
+        "rest": 0.5141065120697021
+      }
+    },
+    {
+      "sample_id": "7255_019_00886072",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4909312427043915,
+      "action_probs": {
+        "serving": 0.14664380252361298,
+        "hitting": 0.12139646708965302,
+        "moving": 0.4909312427043915,
+        "pick_ball": 0.18775390088558197,
+        "rest": 0.05327458679676056
+      }
+    },
+    {
+      "sample_id": "7255_020_00886072",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5867117643356323,
+      "action_probs": {
+        "serving": 0.10811477899551392,
+        "hitting": 0.09166194498538971,
+        "moving": 0.5867117643356323,
+        "pick_ball": 0.1877029538154602,
+        "rest": 0.025808583945035934
+      }
+    },
+    {
+      "sample_id": "7255_021_00886139",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4607577323913574,
+      "action_probs": {
+        "serving": 0.14663273096084595,
+        "hitting": 0.06369008868932724,
+        "moving": 0.4607577323913574,
+        "pick_ball": 0.17427314817905426,
+        "rest": 0.15464627742767334
+      }
+    },
+    {
+      "sample_id": "7255_009_00886406",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3844839334487915,
+      "action_probs": {
+        "serving": 0.18235664069652557,
+        "hitting": 0.05886230617761612,
+        "moving": 0.3844839334487915,
+        "pick_ball": 0.23249970376491547,
+        "rest": 0.14179740846157074
+      }
+    },
+    {
+      "sample_id": "7255_022_00886472",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.407033771276474,
+      "action_probs": {
+        "serving": 0.163890540599823,
+        "hitting": 0.07262834906578064,
+        "moving": 0.407033771276474,
+        "pick_ball": 0.24233070015907288,
+        "rest": 0.11411658674478531
+      }
+    },
+    {
+      "sample_id": "7255_016_00886539",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.528698205947876,
+      "action_probs": {
+        "serving": 0.11919018626213074,
+        "hitting": 0.047484029084444046,
+        "moving": 0.07475137710571289,
+        "pick_ball": 0.22987617552280426,
+        "rest": 0.528698205947876
+      }
+    },
+    {
+      "sample_id": "7255_019_00886606",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4726543128490448,
+      "action_probs": {
+        "serving": 0.14042764902114868,
+        "hitting": 0.09469874948263168,
+        "moving": 0.4726543128490448,
+        "pick_ball": 0.2629082202911377,
+        "rest": 0.02931108884513378
+      }
+    },
+    {
+      "sample_id": "7255_021_00886672",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5617729425430298,
+      "action_probs": {
+        "serving": 0.1331232190132141,
+        "hitting": 0.06097740679979324,
+        "moving": 0.5617729425430298,
+        "pick_ball": 0.17604726552963257,
+        "rest": 0.06807907670736313
+      }
+    },
+    {
+      "sample_id": "7255_009_00886939",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5059071183204651,
+      "action_probs": {
+        "serving": 0.14225183427333832,
+        "hitting": 0.07525922358036041,
+        "moving": 0.5059071183204651,
+        "pick_ball": 0.2457873523235321,
+        "rest": 0.030794478952884674
+      }
+    },
+    {
+      "sample_id": "7255_016_00887073",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5623545050621033,
+      "action_probs": {
+        "serving": 0.1156967431306839,
+        "hitting": 0.04683168977499008,
+        "moving": 0.04324939846992493,
+        "pick_ball": 0.2318677455186844,
+        "rest": 0.5623545050621033
+      }
+    },
+    {
+      "sample_id": "7255_019_00887139",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4995972216129303,
+      "action_probs": {
+        "serving": 0.20384754240512848,
+        "hitting": 0.09251397103071213,
+        "moving": 0.4995972216129303,
+        "pick_ball": 0.19460895657539368,
+        "rest": 0.009432319551706314
+      }
+    },
+    {
+      "sample_id": "7255_024_00887339",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5747396349906921,
+      "action_probs": {
+        "serving": 0.1332581788301468,
+        "hitting": 0.053385939449071884,
+        "moving": 0.03742438554763794,
+        "pick_ball": 0.20119191706180573,
+        "rest": 0.5747396349906921
+      }
+    },
+    {
+      "sample_id": "7255_009_00887473",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4818175733089447,
+      "action_probs": {
+        "serving": 0.15261821448802948,
+        "hitting": 0.07213327288627625,
+        "moving": 0.4818175733089447,
+        "pick_ball": 0.22716088593006134,
+        "rest": 0.06627003103494644
+      }
+    },
+    {
+      "sample_id": "7255_016_00887606",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5608083605766296,
+      "action_probs": {
+        "serving": 0.10293947905302048,
+        "hitting": 0.05314267426729202,
+        "moving": 0.04300461336970329,
+        "pick_ball": 0.24010488390922546,
+        "rest": 0.5608083605766296
+      }
+    },
+    {
+      "sample_id": "7255_019_00887673",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5008611679077148,
+      "action_probs": {
+        "serving": 0.11571852117776871,
+        "hitting": 0.06459202617406845,
+        "moving": 0.5008611679077148,
+        "pick_ball": 0.3125324249267578,
+        "rest": 0.006295877508819103
+      }
+    },
+    {
+      "sample_id": "7255_018_00887806",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.63836669921875,
+      "action_probs": {
+        "serving": 0.09711060672998428,
+        "hitting": 0.06191978603601456,
+        "moving": 0.030445296317338943,
+        "pick_ball": 0.17215755581855774,
+        "rest": 0.63836669921875
+      }
+    },
+    {
+      "sample_id": "7255_024_00887873",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5306718945503235,
+      "action_probs": {
+        "serving": 0.13311852514743805,
+        "hitting": 0.059382323175668716,
+        "moving": 0.0727967619895935,
+        "pick_ball": 0.20403045415878296,
+        "rest": 0.5306718945503235
+      }
+    },
+    {
+      "sample_id": "7255_009_00888006",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5242063999176025,
+      "action_probs": {
+        "serving": 0.14920879900455475,
+        "hitting": 0.060849178582429886,
+        "moving": 0.5242063999176025,
+        "pick_ball": 0.22866816818714142,
+        "rest": 0.037067387253046036
+      }
+    },
+    {
+      "sample_id": "7255_016_00888140",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5818086862564087,
+      "action_probs": {
+        "serving": 0.0987982451915741,
+        "hitting": 0.06931465864181519,
+        "moving": 0.040017612278461456,
+        "pick_ball": 0.21006092429161072,
+        "rest": 0.5818086862564087
+      }
+    },
+    {
+      "sample_id": "7255_019_00888206",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.46025875210762024,
+      "action_probs": {
+        "serving": 0.16208606958389282,
+        "hitting": 0.07423410564661026,
+        "moving": 0.05722546949982643,
+        "pick_ball": 0.24619559943675995,
+        "rest": 0.46025875210762024
+      }
+    },
+    {
+      "sample_id": "7255_009_00888540",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5167560577392578,
+      "action_probs": {
+        "serving": 0.15033315122127533,
+        "hitting": 0.07681344449520111,
+        "moving": 0.5167560577392578,
+        "pick_ball": 0.21848580241203308,
+        "rest": 0.03761151432991028
+      }
+    },
+    {
+      "sample_id": "7255_016_00888673",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6089535355567932,
+      "action_probs": {
+        "serving": 0.07719148695468903,
+        "hitting": 0.05486210808157921,
+        "moving": 0.02994811162352562,
+        "pick_ball": 0.2290448099374771,
+        "rest": 0.6089535355567932
+      }
+    },
+    {
+      "sample_id": "7255_019_00888740",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.418932169675827,
+      "action_probs": {
+        "serving": 0.1374048888683319,
+        "hitting": 0.06509795039892197,
+        "moving": 0.418932169675827,
+        "pick_ball": 0.3412714898586273,
+        "rest": 0.03729354217648506
+      }
+    },
+    {
+      "sample_id": "7255_009_00889073",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.28866612911224365,
+      "action_probs": {
+        "serving": 0.17093247175216675,
+        "hitting": 0.06749968230724335,
+        "moving": 0.2527588903903961,
+        "pick_ball": 0.22014281153678894,
+        "rest": 0.28866612911224365
+      }
+    },
+    {
+      "sample_id": "7255_016_00889207",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6321272253990173,
+      "action_probs": {
+        "serving": 0.10543924570083618,
+        "hitting": 0.055003877729177475,
+        "moving": 0.03545919060707092,
+        "pick_ball": 0.17197050154209137,
+        "rest": 0.6321272253990173
+      }
+    },
+    {
+      "sample_id": "7255_019_00889273",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.48501938581466675,
+      "action_probs": {
+        "serving": 0.15066276490688324,
+        "hitting": 0.05524437129497528,
+        "moving": 0.05545397847890854,
+        "pick_ball": 0.25361958146095276,
+        "rest": 0.48501938581466675
+      }
+    },
+    {
+      "sample_id": "7255_018_00889474",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6135470271110535,
+      "action_probs": {
+        "serving": 0.11147201806306839,
+        "hitting": 0.06074211373925209,
+        "moving": 0.02748267911374569,
+        "pick_ball": 0.1867562234401703,
+        "rest": 0.6135470271110535
+      }
+    },
+    {
+      "sample_id": "7255_009_00889607",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3748486340045929,
+      "action_probs": {
+        "serving": 0.16441600024700165,
+        "hitting": 0.06704024970531464,
+        "moving": 0.17485155165195465,
+        "pick_ball": 0.2188435196876526,
+        "rest": 0.3748486340045929
+      }
+    },
+    {
+      "sample_id": "7255_016_00889740",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5614718198776245,
+      "action_probs": {
+        "serving": 0.11120938509702682,
+        "hitting": 0.05298479646444321,
+        "moving": 0.10400638729333878,
+        "pick_ball": 0.1703275442123413,
+        "rest": 0.5614718198776245
+      }
+    },
+    {
+      "sample_id": "7255_019_00889807",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.48673442006111145,
+      "action_probs": {
+        "serving": 0.35979050397872925,
+        "hitting": 0.03377712890505791,
+        "moving": 0.07649262249469757,
+        "pick_ball": 0.48673442006111145,
+        "rest": 0.04320535063743591
+      }
+    },
+    {
+      "sample_id": "7255_009_00890140",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.46307218074798584,
+      "action_probs": {
+        "serving": 0.17736347019672394,
+        "hitting": 0.06738623231649399,
+        "moving": 0.0685236006975174,
+        "pick_ball": 0.22365456819534302,
+        "rest": 0.46307218074798584
+      }
+    },
+    {
+      "sample_id": "7255_016_00890274",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5510604381561279,
+      "action_probs": {
+        "serving": 0.113224558532238,
+        "hitting": 0.048320867121219635,
+        "moving": 0.08098600059747696,
+        "pick_ball": 0.20640812814235687,
+        "rest": 0.5510604381561279
+      }
+    },
+    {
+      "sample_id": "7255_019_00890341",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.3737681806087494,
+      "action_probs": {
+        "serving": 0.3737681806087494,
+        "hitting": 0.040313880890607834,
+        "moving": 0.23787622153759003,
+        "pick_ball": 0.30873098969459534,
+        "rest": 0.03931072726845741
+      }
+    },
+    {
+      "sample_id": "7255_009_00890674",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.545425295829773,
+      "action_probs": {
+        "serving": 0.158207505941391,
+        "hitting": 0.06249942258000374,
+        "moving": 0.03456880897283554,
+        "pick_ball": 0.19929899275302887,
+        "rest": 0.545425295829773
+      }
+    },
+    {
+      "sample_id": "7255_016_00890807",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5810282230377197,
+      "action_probs": {
+        "serving": 0.10050857067108154,
+        "hitting": 0.04899473115801811,
+        "moving": 0.08275049179792404,
+        "pick_ball": 0.18671801686286926,
+        "rest": 0.5810282230377197
+      }
+    },
+    {
+      "sample_id": "7255_019_00890874",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9028618931770325,
+      "action_probs": {
+        "serving": 0.9028618931770325,
+        "hitting": 0.016646908596158028,
+        "moving": 0.0049593704752624035,
+        "pick_ball": 0.06963461637496948,
+        "rest": 0.005897246301174164
+      }
+    },
+    {
+      "sample_id": "7255_009_00891208",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.44575920701026917,
+      "action_probs": {
+        "serving": 0.15667566657066345,
+        "hitting": 0.06887578219175339,
+        "moving": 0.10410729795694351,
+        "pick_ball": 0.22458206117153168,
+        "rest": 0.44575920701026917
+      }
+    },
+    {
+      "sample_id": "7255_016_00891341",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5583362579345703,
+      "action_probs": {
+        "serving": 0.11220849305391312,
+        "hitting": 0.05119844898581505,
+        "moving": 0.06536328792572021,
+        "pick_ball": 0.21289357542991638,
+        "rest": 0.5583362579345703
+      }
+    },
+    {
+      "sample_id": "7255_019_00891408",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.35532018542289734,
+      "action_probs": {
+        "serving": 0.35532018542289734,
+        "hitting": 0.12207133322954178,
+        "moving": 0.13293993473052979,
+        "pick_ball": 0.19212184846401215,
+        "rest": 0.19754667580127716
+      }
+    },
+    {
+      "sample_id": "7255_025_00891608",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3267756402492523,
+      "action_probs": {
+        "serving": 0.12496989965438843,
+        "hitting": 0.05254990980029106,
+        "moving": 0.18576039373874664,
+        "pick_ball": 0.309944212436676,
+        "rest": 0.3267756402492523
+      }
+    },
+    {
+      "sample_id": "7255_009_00891741",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4777804911136627,
+      "action_probs": {
+        "serving": 0.15855959057807922,
+        "hitting": 0.06851644814014435,
+        "moving": 0.08102439343929291,
+        "pick_ball": 0.21411916613578796,
+        "rest": 0.4777804911136627
+      }
+    },
+    {
+      "sample_id": "7255_016_00891941",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.48288992047309875,
+      "action_probs": {
+        "serving": 0.1299491971731186,
+        "hitting": 0.04274844378232956,
+        "moving": 0.07469934970140457,
+        "pick_ball": 0.26971307396888733,
+        "rest": 0.48288992047309875
+      }
+    },
+    {
+      "sample_id": "7255_019_00891941",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.7581340670585632,
+      "action_probs": {
+        "serving": 0.7581340670585632,
+        "hitting": 0.030484778806567192,
+        "moving": 0.08269340544939041,
+        "pick_ball": 0.12439525872468948,
+        "rest": 0.004292439669370651
+      }
+    },
+    {
+      "sample_id": "7255_026_00892141",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9071072936058044,
+      "action_probs": {
+        "serving": 0.9071072936058044,
+        "hitting": 0.026650389656424522,
+        "moving": 0.004588555544614792,
+        "pick_ball": 0.06094767153263092,
+        "rest": 0.0007061496726237237
+      }
+    },
+    {
+      "sample_id": "7255_025_00892208",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4149225950241089,
+      "action_probs": {
+        "serving": 0.1012173444032669,
+        "hitting": 0.04611601307988167,
+        "moving": 0.10143642872571945,
+        "pick_ball": 0.3363076448440552,
+        "rest": 0.4149225950241089
+      }
+    },
+    {
+      "sample_id": "7255_009_00892275",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5209318995475769,
+      "action_probs": {
+        "serving": 0.15935347974300385,
+        "hitting": 0.06353573501110077,
+        "moving": 0.04061403498053551,
+        "pick_ball": 0.21556486189365387,
+        "rest": 0.5209318995475769
+      }
+    },
+    {
+      "sample_id": "7255_016_00892475",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5568109750747681,
+      "action_probs": {
+        "serving": 0.11689610779285431,
+        "hitting": 0.05425461009144783,
+        "moving": 0.04240347445011139,
+        "pick_ball": 0.2296348363161087,
+        "rest": 0.5568109750747681
+      }
+    },
+    {
+      "sample_id": "7255_019_00892475",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4523160457611084,
+      "action_probs": {
+        "serving": 0.28781402111053467,
+        "hitting": 0.10200883448123932,
+        "moving": 0.4523160457611084,
+        "pick_ball": 0.1527397781610489,
+        "rest": 0.005121378693729639
+      }
+    },
+    {
+      "sample_id": "7255_009_00892808",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4603149890899658,
+      "action_probs": {
+        "serving": 0.16943223774433136,
+        "hitting": 0.06664673238992691,
+        "moving": 0.07079511880874634,
+        "pick_ball": 0.2328108549118042,
+        "rest": 0.4603149890899658
+      }
+    },
+    {
+      "sample_id": "7255_025_00892808",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.37899914383888245,
+      "action_probs": {
+        "serving": 0.1273053139448166,
+        "hitting": 0.03913281485438347,
+        "moving": 0.08518364280462265,
+        "pick_ball": 0.3693791627883911,
+        "rest": 0.37899914383888245
+      }
+    },
+    {
+      "sample_id": "7255_027_00892942",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.3039843440055847,
+      "action_probs": {
+        "serving": 0.3039843440055847,
+        "hitting": 0.2499326765537262,
+        "moving": 0.19732052087783813,
+        "pick_ball": 0.23749001324176788,
+        "rest": 0.011272418312728405
+      }
+    },
+    {
+      "sample_id": "7255_016_00893008",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5602266192436218,
+      "action_probs": {
+        "serving": 0.11412407457828522,
+        "hitting": 0.04649917408823967,
+        "moving": 0.05402953922748566,
+        "pick_ball": 0.22512057423591614,
+        "rest": 0.5602266192436218
+      }
+    },
+    {
+      "sample_id": "7255_019_00893008",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3362385332584381,
+      "action_probs": {
+        "serving": 0.24016420543193817,
+        "hitting": 0.2408381700515747,
+        "moving": 0.18102695047855377,
+        "pick_ball": 0.3362385332584381,
+        "rest": 0.0017321789637207985
+      }
+    },
+    {
+      "sample_id": "7255_009_00893342",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.325096994638443,
+      "action_probs": {
+        "serving": 0.1855032742023468,
+        "hitting": 0.07831251621246338,
+        "moving": 0.14833888411521912,
+        "pick_ball": 0.2627483904361725,
+        "rest": 0.325096994638443
+      }
+    },
+    {
+      "sample_id": "7255_028_00893342",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5802834630012512,
+      "action_probs": {
+        "serving": 0.12345388531684875,
+        "hitting": 0.047119494527578354,
+        "moving": 0.0706922858953476,
+        "pick_ball": 0.17845086753368378,
+        "rest": 0.5802834630012512
+      }
+    },
+    {
+      "sample_id": "7255_025_00893475",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5623345971107483,
+      "action_probs": {
+        "serving": 0.11622010171413422,
+        "hitting": 0.0420258566737175,
+        "moving": 0.06755094230175018,
+        "pick_ball": 0.21186842024326324,
+        "rest": 0.5623345971107483
+      }
+    },
+    {
+      "sample_id": "7255_016_00893542",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5575399398803711,
+      "action_probs": {
+        "serving": 0.1208508163690567,
+        "hitting": 0.041951846331357956,
+        "moving": 0.06393823027610779,
+        "pick_ball": 0.21571917831897736,
+        "rest": 0.5575399398803711
+      }
+    },
+    {
+      "sample_id": "7255_019_00893542",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.949943482875824,
+      "action_probs": {
+        "serving": 0.949943482875824,
+        "hitting": 0.010121448896825314,
+        "moving": 0.0043749562464654446,
+        "pick_ball": 0.034788455814123154,
+        "rest": 0.0007716260734014213
+      }
+    },
+    {
+      "sample_id": "7255_009_00893875",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.31301867961883545,
+      "action_probs": {
+        "serving": 0.17163372039794922,
+        "hitting": 0.06983856856822968,
+        "moving": 0.2462872713804245,
+        "pick_ball": 0.19922173023223877,
+        "rest": 0.31301867961883545
+      }
+    },
+    {
+      "sample_id": "7255_016_00894075",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6029448509216309,
+      "action_probs": {
+        "serving": 0.11870237439870834,
+        "hitting": 0.05010410398244858,
+        "moving": 0.03419434279203415,
+        "pick_ball": 0.1940542310476303,
+        "rest": 0.6029448509216309
+      }
+    },
+    {
+      "sample_id": "7255_019_00894075",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9152297973632812,
+      "action_probs": {
+        "serving": 0.9152297973632812,
+        "hitting": 0.009125013835728168,
+        "moving": 0.016141075640916824,
+        "pick_ball": 0.057797595858573914,
+        "rest": 0.001706642797216773
+      }
+    },
+    {
+      "sample_id": "7255_025_00894142",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6222825050354004,
+      "action_probs": {
+        "serving": 0.1118081733584404,
+        "hitting": 0.04977310448884964,
+        "moving": 0.045885901898145676,
+        "pick_ball": 0.17025025188922882,
+        "rest": 0.6222825050354004
+      }
+    },
+    {
+      "sample_id": "7255_009_00894409",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5872727632522583,
+      "action_probs": {
+        "serving": 0.1505439579486847,
+        "hitting": 0.060845814645290375,
+        "moving": 0.5872727632522583,
+        "pick_ball": 0.18347182869911194,
+        "rest": 0.01786557026207447
+      }
+    },
+    {
+      "sample_id": "7255_016_00894609",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5610422492027283,
+      "action_probs": {
+        "serving": 0.10946130752563477,
+        "hitting": 0.0427531898021698,
+        "moving": 0.03869929164648056,
+        "pick_ball": 0.2480439394712448,
+        "rest": 0.5610422492027283
+      }
+    },
+    {
+      "sample_id": "7255_019_00894609",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4235992431640625,
+      "action_probs": {
+        "serving": 0.21299757063388824,
+        "hitting": 0.05673438310623169,
+        "moving": 0.23639096319675446,
+        "pick_ball": 0.4235992431640625,
+        "rest": 0.07027783244848251
+      }
+    },
+    {
+      "sample_id": "7255_009_00894942",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.7558273673057556,
+      "action_probs": {
+        "serving": 0.07116150856018066,
+        "hitting": 0.01970372535288334,
+        "moving": 0.11733336746692657,
+        "pick_ball": 0.7558273673057556,
+        "rest": 0.03597409278154373
+      }
+    },
+    {
+      "sample_id": "7255_025_00895076",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5511875748634338,
+      "action_probs": {
+        "serving": 0.1358780413866043,
+        "hitting": 0.058495260775089264,
+        "moving": 0.06279425323009491,
+        "pick_ball": 0.19164486229419708,
+        "rest": 0.5511875748634338
+      }
+    },
+    {
+      "sample_id": "7255_016_00895143",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5832914113998413,
+      "action_probs": {
+        "serving": 0.11493086814880371,
+        "hitting": 0.04995936155319214,
+        "moving": 0.021544909104704857,
+        "pick_ball": 0.23027344048023224,
+        "rest": 0.5832914113998413
+      }
+    },
+    {
+      "sample_id": "7255_019_00895143",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3795952796936035,
+      "action_probs": {
+        "serving": 0.2189498394727707,
+        "hitting": 0.06163537874817848,
+        "moving": 0.3795952796936035,
+        "pick_ball": 0.20056958496570587,
+        "rest": 0.13924990594387054
+      }
+    },
+    {
+      "sample_id": "7255_029_00895276",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6487987041473389,
+      "action_probs": {
+        "serving": 0.11943547427654266,
+        "hitting": 0.018923435360193253,
+        "moving": 0.19211620092391968,
+        "pick_ball": 0.6487987041473389,
+        "rest": 0.02072615548968315
+      }
+    },
+    {
+      "sample_id": "7255_009_00895476",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.38677623867988586,
+      "action_probs": {
+        "serving": 0.11423175036907196,
+        "hitting": 0.04421599209308624,
+        "moving": 0.25129011273384094,
+        "pick_ball": 0.38677623867988586,
+        "rest": 0.20348592102527618
+      }
+    },
+    {
+      "sample_id": "7255_032_00895500",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4977854788303375,
+      "action_probs": {
+        "serving": 0.13100381195545197,
+        "hitting": 0.04554642736911774,
+        "moving": 0.4977854788303375,
+        "pick_ball": 0.3165131211280823,
+        "rest": 0.009151164442300797
+      }
+    },
+    {
+      "sample_id": "7255_016_00895676",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6371678709983826,
+      "action_probs": {
+        "serving": 0.10723775625228882,
+        "hitting": 0.04371732100844383,
+        "moving": 0.03979828581213951,
+        "pick_ball": 0.17207874357700348,
+        "rest": 0.6371678709983826
+      }
+    },
+    {
+      "sample_id": "7255_019_00895676",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3941265046596527,
+      "action_probs": {
+        "serving": 0.16577178239822388,
+        "hitting": 0.0485827773809433,
+        "moving": 0.38244786858558655,
+        "pick_ball": 0.3941265046596527,
+        "rest": 0.009071087464690208
+      }
+    },
+    {
+      "sample_id": "7255_009_00896010",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.2894260287284851,
+      "action_probs": {
+        "serving": 0.1564684361219406,
+        "hitting": 0.06413374096155167,
+        "moving": 0.27240562438964844,
+        "pick_ball": 0.21756617724895477,
+        "rest": 0.2894260287284851
+      }
+    },
+    {
+      "sample_id": "7255_032_00896034",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.30716001987457275,
+      "action_probs": {
+        "serving": 0.14374080300331116,
+        "hitting": 0.06429622322320938,
+        "moving": 0.2430877387523651,
+        "pick_ball": 0.2417152374982834,
+        "rest": 0.30716001987457275
+      }
+    },
+    {
+      "sample_id": "7255_016_00896210",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6024859547615051,
+      "action_probs": {
+        "serving": 0.12448469549417496,
+        "hitting": 0.052230603992938995,
+        "moving": 0.022973807528614998,
+        "pick_ball": 0.19782491028308868,
+        "rest": 0.6024859547615051
+      }
+    },
+    {
+      "sample_id": "7255_019_00896210",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.31040698289871216,
+      "action_probs": {
+        "serving": 0.13733923435211182,
+        "hitting": 0.08414952456951141,
+        "moving": 0.17364440858364105,
+        "pick_ball": 0.31040698289871216,
+        "rest": 0.29445987939834595
+      }
+    },
+    {
+      "sample_id": "7255_009_00896543",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3209465742111206,
+      "action_probs": {
+        "serving": 0.14527033269405365,
+        "hitting": 0.07565303146839142,
+        "moving": 0.3209465742111206,
+        "pick_ball": 0.20199459791183472,
+        "rest": 0.2561354637145996
+      }
+    },
+    {
+      "sample_id": "7255_032_00896567",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.37799784541130066,
+      "action_probs": {
+        "serving": 0.24354016780853271,
+        "hitting": 0.05877885967493057,
+        "moving": 0.37799784541130066,
+        "pick_ball": 0.30787307024002075,
+        "rest": 0.011810027994215488
+      }
+    },
+    {
+      "sample_id": "7255_016_00896743",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5865195393562317,
+      "action_probs": {
+        "serving": 0.12915410101413727,
+        "hitting": 0.054939087480306625,
+        "moving": 0.041015081107616425,
+        "pick_ball": 0.1883721500635147,
+        "rest": 0.5865195393562317
+      }
+    },
+    {
+      "sample_id": "7255_019_00896743",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4824669659137726,
+      "action_probs": {
+        "serving": 0.23704811930656433,
+        "hitting": 0.19993415474891663,
+        "moving": 0.05355013534426689,
+        "pick_ball": 0.4824669659137726,
+        "rest": 0.027000602334737778
+      }
+    },
+    {
+      "sample_id": "7255_009_00897077",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5033657550811768,
+      "action_probs": {
+        "serving": 0.14732679724693298,
+        "hitting": 0.0796053484082222,
+        "moving": 0.5033657550811768,
+        "pick_ball": 0.23872612416744232,
+        "rest": 0.030976038426160812
+      }
+    },
+    {
+      "sample_id": "7255_032_00897101",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.8283979892730713,
+      "action_probs": {
+        "serving": 0.8283979892730713,
+        "hitting": 0.026775501668453217,
+        "moving": 0.011440610513091087,
+        "pick_ball": 0.11586832255125046,
+        "rest": 0.017517678439617157
+      }
+    },
+    {
+      "sample_id": "7255_016_00897277",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5187408924102783,
+      "action_probs": {
+        "serving": 0.12406150996685028,
+        "hitting": 0.04794805869460106,
+        "moving": 0.057326361536979675,
+        "pick_ball": 0.25192323327064514,
+        "rest": 0.5187408924102783
+      }
+    },
+    {
+      "sample_id": "7255_019_00897277",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.7855227589607239,
+      "action_probs": {
+        "serving": 0.7855227589607239,
+        "hitting": 0.08698520809412003,
+        "moving": 0.014890908263623714,
+        "pick_ball": 0.0974830836057663,
+        "rest": 0.015118039213120937
+      }
+    },
+    {
+      "sample_id": "7255_009_00897610",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.33196088671684265,
+      "action_probs": {
+        "serving": 0.1273500770330429,
+        "hitting": 0.06044457107782364,
+        "moving": 0.3079090416431427,
+        "pick_ball": 0.1723354309797287,
+        "rest": 0.33196088671684265
+      }
+    },
+    {
+      "sample_id": "7255_032_00897634",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.46311041712760925,
+      "action_probs": {
+        "serving": 0.46311041712760925,
+        "hitting": 0.15322640538215637,
+        "moving": 0.018142251297831535,
+        "pick_ball": 0.2016819566488266,
+        "rest": 0.16383887827396393
+      }
+    },
+    {
+      "sample_id": "7255_030_00897677",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5189816355705261,
+      "action_probs": {
+        "serving": 0.11507822573184967,
+        "hitting": 0.04300751909613609,
+        "moving": 0.02644461579620838,
+        "pick_ball": 0.2964880168437958,
+        "rest": 0.5189816355705261
+      }
+    },
+    {
+      "sample_id": "7255_016_00897810",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4393773376941681,
+      "action_probs": {
+        "serving": 0.12240774184465408,
+        "hitting": 0.03945726528763771,
+        "moving": 0.04193692281842232,
+        "pick_ball": 0.3568207025527954,
+        "rest": 0.4393773376941681
+      }
+    },
+    {
+      "sample_id": "7255_019_00897810",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.40666061639785767,
+      "action_probs": {
+        "serving": 0.40666061639785767,
+        "hitting": 0.17193929851055145,
+        "moving": 0.1271316111087799,
+        "pick_ball": 0.25508925318717957,
+        "rest": 0.03917917236685753
+      }
+    },
+    {
+      "sample_id": "7255_009_00898144",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5246914029121399,
+      "action_probs": {
+        "serving": 0.14104388654232025,
+        "hitting": 0.07570981234312057,
+        "moving": 0.5246914029121399,
+        "pick_ball": 0.22037462890148163,
+        "rest": 0.03818026930093765
+      }
+    },
+    {
+      "sample_id": "7255_032_00898168",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9620779752731323,
+      "action_probs": {
+        "serving": 0.9620779752731323,
+        "hitting": 0.013813361525535583,
+        "moving": 0.0005954523803666234,
+        "pick_ball": 0.02311612293124199,
+        "rest": 0.0003970791876781732
+      }
+    },
+    {
+      "sample_id": "7255_033_00898301",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9088504910469055,
+      "action_probs": {
+        "serving": 0.9088504910469055,
+        "hitting": 0.01320793479681015,
+        "moving": 0.016933053731918335,
+        "pick_ball": 0.05736396089196205,
+        "rest": 0.003644536715000868
+      }
+    },
+    {
+      "sample_id": "7255_016_00898344",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5394086837768555,
+      "action_probs": {
+        "serving": 0.11933229118585587,
+        "hitting": 0.045677367597818375,
+        "moving": 0.024049459025263786,
+        "pick_ball": 0.27153217792510986,
+        "rest": 0.5394086837768555
+      }
+    },
+    {
+      "sample_id": "7255_019_00898344",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.46125054359436035,
+      "action_probs": {
+        "serving": 0.46125054359436035,
+        "hitting": 0.06658293306827545,
+        "moving": 0.2874196767807007,
+        "pick_ball": 0.173635333776474,
+        "rest": 0.011111474595963955
+      }
+    },
+    {
+      "sample_id": "7255_030_00898544",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5417518019676208,
+      "action_probs": {
+        "serving": 0.11844612658023834,
+        "hitting": 0.04200243577361107,
+        "moving": 0.019754603505134583,
+        "pick_ball": 0.27804499864578247,
+        "rest": 0.5417518019676208
+      }
+    },
+    {
+      "sample_id": "7255_009_00898677",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.40492600202560425,
+      "action_probs": {
+        "serving": 0.15874119102954865,
+        "hitting": 0.08341702818870544,
+        "moving": 0.40492600202560425,
+        "pick_ball": 0.21803396940231323,
+        "rest": 0.13488183915615082
+      }
+    },
+    {
+      "sample_id": "7255_032_00898701",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.43857792019844055,
+      "action_probs": {
+        "serving": 0.2875615954399109,
+        "hitting": 0.11931735277175903,
+        "moving": 0.43857792019844055,
+        "pick_ball": 0.1465972661972046,
+        "rest": 0.007945889607071877
+      }
+    },
+    {
+      "sample_id": "7255_016_00898877",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5680564641952515,
+      "action_probs": {
+        "serving": 0.11835728585720062,
+        "hitting": 0.04699333384633064,
+        "moving": 0.0372568778693676,
+        "pick_ball": 0.22933603823184967,
+        "rest": 0.5680564641952515
+      }
+    },
+    {
+      "sample_id": "7255_019_00898877",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9453776478767395,
+      "action_probs": {
+        "serving": 0.9453776478767395,
+        "hitting": 0.02325546182692051,
+        "moving": 0.002654123120009899,
+        "pick_ball": 0.02808259055018425,
+        "rest": 0.0006301690591499209
+      }
+    },
+    {
+      "sample_id": "7255_009_00899211",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5683931708335876,
+      "action_probs": {
+        "serving": 0.14219973981380463,
+        "hitting": 0.06805945187807083,
+        "moving": 0.04398637264966965,
+        "pick_ball": 0.17736123502254486,
+        "rest": 0.5683931708335876
+      }
+    },
+    {
+      "sample_id": "7255_030_00899278",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5493263006210327,
+      "action_probs": {
+        "serving": 0.12140694260597229,
+        "hitting": 0.044128090143203735,
+        "moving": 0.0263531431555748,
+        "pick_ball": 0.25878554582595825,
+        "rest": 0.5493263006210327
+      }
+    },
+    {
+      "sample_id": "7255_016_00899411",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5536555647850037,
+      "action_probs": {
+        "serving": 0.11809267848730087,
+        "hitting": 0.05056922882795334,
+        "moving": 0.023345014080405235,
+        "pick_ball": 0.25433748960494995,
+        "rest": 0.5536555647850037
+      }
+    },
+    {
+      "sample_id": "7255_019_00899411",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.7058014273643494,
+      "action_probs": {
+        "serving": 0.7058014273643494,
+        "hitting": 0.0076366509310901165,
+        "moving": 0.00899783056229353,
+        "pick_ball": 0.2618785798549652,
+        "rest": 0.015685493126511574
+      }
+    },
+    {
+      "sample_id": "7255_034_00899635",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5201869606971741,
+      "action_probs": {
+        "serving": 0.15888454020023346,
+        "hitting": 0.06453347951173782,
+        "moving": 0.06679884344339371,
+        "pick_ball": 0.18959614634513855,
+        "rest": 0.5201869606971741
+      }
+    },
+    {
+      "sample_id": "7255_009_00899744",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.2776704728603363,
+      "action_probs": {
+        "serving": 0.17681072652339935,
+        "hitting": 0.07312638312578201,
+        "moving": 0.25835320353507996,
+        "pick_ball": 0.21403922140598297,
+        "rest": 0.2776704728603363
+      }
+    },
+    {
+      "sample_id": "7255_031_00899878",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.353633314371109,
+      "action_probs": {
+        "serving": 0.16744761168956757,
+        "hitting": 0.07026928663253784,
+        "moving": 0.2049179971218109,
+        "pick_ball": 0.20373179018497467,
+        "rest": 0.353633314371109
+      }
+    },
+    {
+      "sample_id": "7255_016_00899945",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.546968400478363,
+      "action_probs": {
+        "serving": 0.11997325718402863,
+        "hitting": 0.0507497638463974,
+        "moving": 0.02886323258280754,
+        "pick_ball": 0.2534453272819519,
+        "rest": 0.546968400478363
+      }
+    },
+    {
+      "sample_id": "7255_019_00899945",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.33330482244491577,
+      "action_probs": {
+        "serving": 0.305538147687912,
+        "hitting": 0.07361728698015213,
+        "moving": 0.33330482244491577,
+        "pick_ball": 0.19335368275642395,
+        "rest": 0.09418608248233795
+      }
+    },
+    {
+      "sample_id": "7255_030_00900145",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4244983494281769,
+      "action_probs": {
+        "serving": 0.12853194773197174,
+        "hitting": 0.038429394364356995,
+        "moving": 0.1504979431629181,
+        "pick_ball": 0.2580423355102539,
+        "rest": 0.4244983494281769
+      }
+    },
+    {
+      "sample_id": "7255_009_00900278",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5032657384872437,
+      "action_probs": {
+        "serving": 0.1642926037311554,
+        "hitting": 0.06622347980737686,
+        "moving": 0.5032657384872437,
+        "pick_ball": 0.19001750648021698,
+        "rest": 0.07620067149400711
+      }
+    },
+    {
+      "sample_id": "7255_016_00900502",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5253459215164185,
+      "action_probs": {
+        "serving": 0.12057735025882721,
+        "hitting": 0.034298188984394073,
+        "moving": 0.07851853966712952,
+        "pick_ball": 0.24125997722148895,
+        "rest": 0.5253459215164185
+      }
+    },
+    {
+      "sample_id": "7255_019_00900502",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.2595300078392029,
+      "action_probs": {
+        "serving": 0.2476770281791687,
+        "hitting": 0.06762310862541199,
+        "moving": 0.2207346111536026,
+        "pick_ball": 0.20443525910377502,
+        "rest": 0.2595300078392029
+      }
+    },
+    {
+      "sample_id": "7255_009_00900836",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5855832099914551,
+      "action_probs": {
+        "serving": 0.12140382826328278,
+        "hitting": 0.06519854813814163,
+        "moving": 0.5855832099914551,
+        "pick_ball": 0.18696504831314087,
+        "rest": 0.04084935411810875
+      }
+    },
+    {
+      "sample_id": "7255_016_00901036",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5370438694953918,
+      "action_probs": {
+        "serving": 0.11808642745018005,
+        "hitting": 0.044209886342287064,
+        "moving": 0.05685102939605713,
+        "pick_ball": 0.24380886554718018,
+        "rest": 0.5370438694953918
+      }
+    },
+    {
+      "sample_id": "7255_019_00901036",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5208128094673157,
+      "action_probs": {
+        "serving": 0.196133092045784,
+        "hitting": 0.06836990267038345,
+        "moving": 0.5208128094673157,
+        "pick_ball": 0.1983884871006012,
+        "rest": 0.016295716166496277
+      }
+    },
+    {
+      "sample_id": "7255_030_00901169",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4910632073879242,
+      "action_probs": {
+        "serving": 0.1237800270318985,
+        "hitting": 0.04368874803185463,
+        "moving": 0.051149893552064896,
+        "pick_ball": 0.290318101644516,
+        "rest": 0.4910632073879242
+      }
+    },
+    {
+      "sample_id": "7255_035_00901302",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5983982086181641,
+      "action_probs": {
+        "serving": 0.13745437562465668,
+        "hitting": 0.06032053008675575,
+        "moving": 0.5983982086181641,
+        "pick_ball": 0.18099826574325562,
+        "rest": 0.022828634828329086
+      }
+    },
+    {
+      "sample_id": "7255_009_00901369",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.6264042854309082,
+      "action_probs": {
+        "serving": 0.12431272864341736,
+        "hitting": 0.05815145745873451,
+        "moving": 0.6264042854309082,
+        "pick_ball": 0.174449622631073,
+        "rest": 0.01668190397322178
+      }
+    },
+    {
+      "sample_id": "7255_016_00901569",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.42451319098472595,
+      "action_probs": {
+        "serving": 0.13000687956809998,
+        "hitting": 0.05108709633350372,
+        "moving": 0.03515790402889252,
+        "pick_ball": 0.35923492908477783,
+        "rest": 0.42451319098472595
+      }
+    },
+    {
+      "sample_id": "7255_019_00901569",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.37498727440834045,
+      "action_probs": {
+        "serving": 0.2518453001976013,
+        "hitting": 0.04762342572212219,
+        "moving": 0.37498727440834045,
+        "pick_ball": 0.27906671166419983,
+        "rest": 0.046477336436510086
+      }
+    },
+    {
+      "sample_id": "7255_036_00901769",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4999297261238098,
+      "action_probs": {
+        "serving": 0.11492660641670227,
+        "hitting": 0.04390113428235054,
+        "moving": 0.4999297261238098,
+        "pick_ball": 0.3229565918445587,
+        "rest": 0.018285958096385002
+      }
+    },
+    {
+      "sample_id": "7255_009_00901903",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "in_play",
+      "pred_pose": "hitting",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.7150596976280212,
+      "action_probs": {
+        "serving": 0.07630786299705505,
+        "hitting": 0.7150596976280212,
+        "moving": 0.02946481853723526,
+        "pick_ball": 0.14368762075901031,
+        "rest": 0.03547998145222664
+      }
+    },
+    {
+      "sample_id": "7255_037_00901969",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5180565118789673,
+      "action_probs": {
+        "serving": 0.13344062864780426,
+        "hitting": 0.07240261882543564,
+        "moving": 0.5180565118789673,
+        "pick_ball": 0.18640175461769104,
+        "rest": 0.08969848603010178
+      }
+    },
+    {
+      "sample_id": "7255_038_00902036",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3694486618041992,
+      "action_probs": {
+        "serving": 0.14191272854804993,
+        "hitting": 0.050809748470783234,
+        "moving": 0.3694486618041992,
+        "pick_ball": 0.23744133114814758,
+        "rest": 0.20038752257823944
+      }
+    },
+    {
+      "sample_id": "7255_016_00902103",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4770910441875458,
+      "action_probs": {
+        "serving": 0.12310582399368286,
+        "hitting": 0.042518697679042816,
+        "moving": 0.07041379809379578,
+        "pick_ball": 0.2868706285953522,
+        "rest": 0.4770910441875458
+      }
+    },
+    {
+      "sample_id": "7255_019_00902103",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4972703754901886,
+      "action_probs": {
+        "serving": 0.20121103525161743,
+        "hitting": 0.058669235557317734,
+        "moving": 0.4972703754901886,
+        "pick_ball": 0.21817481517791748,
+        "rest": 0.024674583226442337
+      }
+    },
+    {
+      "sample_id": "7255_009_00902436",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.46856024861335754,
+      "action_probs": {
+        "serving": 0.16463246941566467,
+        "hitting": 0.0612628348171711,
+        "moving": 0.46856024861335754,
+        "pick_ball": 0.20623256266117096,
+        "rest": 0.09931185096502304
+      }
+    },
+    {
+      "sample_id": "7255_035_00902503",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4353671371936798,
+      "action_probs": {
+        "serving": 0.11220237612724304,
+        "hitting": 0.17426756024360657,
+        "moving": 0.4353671371936798,
+        "pick_ball": 0.2405397593975067,
+        "rest": 0.03762313723564148
+      }
+    },
+    {
+      "sample_id": "7255_037_00902503",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5068733096122742,
+      "action_probs": {
+        "serving": 0.17129658162593842,
+        "hitting": 0.06225082278251648,
+        "moving": 0.5068733096122742,
+        "pick_ball": 0.19561822712421417,
+        "rest": 0.06396104395389557
+      }
+    },
+    {
+      "sample_id": "7255_019_00902636",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.47351616621017456,
+      "action_probs": {
+        "serving": 0.22778600454330444,
+        "hitting": 0.05977345630526543,
+        "moving": 0.47351616621017456,
+        "pick_ball": 0.2151627093553543,
+        "rest": 0.023761598393321037
+      }
+    },
+    {
+      "sample_id": "7255_009_00902970",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5166065096855164,
+      "action_probs": {
+        "serving": 0.15560612082481384,
+        "hitting": 0.06472135335206985,
+        "moving": 0.5166065096855164,
+        "pick_ball": 0.20934531092643738,
+        "rest": 0.05372069031000137
+      }
+    },
+    {
+      "sample_id": "7255_019_00903170",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49444013833999634,
+      "action_probs": {
+        "serving": 0.16699562966823578,
+        "hitting": 0.09986024349927902,
+        "moving": 0.49444013833999634,
+        "pick_ball": 0.21832308173179626,
+        "rest": 0.020380912348628044
+      }
+    },
+    {
+      "sample_id": "7255_019_00903703",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4863513112068176,
+      "action_probs": {
+        "serving": 0.15499036014080048,
+        "hitting": 0.08692934364080429,
+        "moving": 0.4863513112068176,
+        "pick_ball": 0.23555798828601837,
+        "rest": 0.036170974373817444
+      }
+    },
+    {
+      "sample_id": "7255_009_00903837",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5349282026290894,
+      "action_probs": {
+        "serving": 0.1460534930229187,
+        "hitting": 0.08667197823524475,
+        "moving": 0.5349282026290894,
+        "pick_ball": 0.19447767734527588,
+        "rest": 0.037868622690439224
+      }
+    },
+    {
+      "sample_id": "7255_039_00903904",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.28597861528396606,
+      "action_probs": {
+        "serving": 0.18683426082134247,
+        "hitting": 0.08402685075998306,
+        "moving": 0.28597861528396606,
+        "pick_ball": 0.2202180027961731,
+        "rest": 0.22294224798679352
+      }
+    },
+    {
+      "sample_id": "7255_009_00904370",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.48699265718460083,
+      "action_probs": {
+        "serving": 0.1651368886232376,
+        "hitting": 0.09344482421875,
+        "moving": 0.48699265718460083,
+        "pick_ball": 0.21758268773555756,
+        "rest": 0.03684299439191818
+      }
+    },
+    {
+      "sample_id": "7255_039_00904437",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5409867167472839,
+      "action_probs": {
+        "serving": 0.13715307414531708,
+        "hitting": 0.05843261256814003,
+        "moving": 0.5409867167472839,
+        "pick_ball": 0.20240385830402374,
+        "rest": 0.061023689806461334
+      }
+    },
+    {
+      "sample_id": "7255_040_00904637",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3128851652145386,
+      "action_probs": {
+        "serving": 0.16665492951869965,
+        "hitting": 0.07244633883237839,
+        "moving": 0.3128851652145386,
+        "pick_ball": 0.2548426687717438,
+        "rest": 0.193170964717865
+      }
+    },
+    {
+      "sample_id": "7255_041_00904837",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.539638340473175,
+      "action_probs": {
+        "serving": 0.150007426738739,
+        "hitting": 0.053530238568782806,
+        "moving": 0.539638340473175,
+        "pick_ball": 0.22068794071674347,
+        "rest": 0.03613612800836563
+      }
+    },
+    {
+      "sample_id": "7255_009_00904904",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5478315949440002,
+      "action_probs": {
+        "serving": 0.1596296727657318,
+        "hitting": 0.05146418511867523,
+        "moving": 0.5478315949440002,
+        "pick_ball": 0.2161426544189453,
+        "rest": 0.024931898340582848
+      }
+    },
+    {
+      "sample_id": "7255_039_00904971",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.44676318764686584,
+      "action_probs": {
+        "serving": 0.14640522003173828,
+        "hitting": 0.07291653007268906,
+        "moving": 0.44676318764686584,
+        "pick_ball": 0.24582521617412567,
+        "rest": 0.08808987587690353
+      }
+    },
+    {
+      "sample_id": "7255_040_00905371",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5523896217346191,
+      "action_probs": {
+        "serving": 0.12256287783384323,
+        "hitting": 0.05622800812125206,
+        "moving": 0.049191031605005264,
+        "pick_ball": 0.21962840855121613,
+        "rest": 0.5523896217346191
+      }
+    },
+    {
+      "sample_id": "7255_009_00905437",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5403159856796265,
+      "action_probs": {
+        "serving": 0.15577895939350128,
+        "hitting": 0.0662497952580452,
+        "moving": 0.5403159856796265,
+        "pick_ball": 0.2146846055984497,
+        "rest": 0.022970687597990036
+      }
+    },
+    {
+      "sample_id": "7255_039_00905504",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5595996379852295,
+      "action_probs": {
+        "serving": 0.1253310590982437,
+        "hitting": 0.04922845587134361,
+        "moving": 0.07171007245779037,
+        "pick_ball": 0.1941307932138443,
+        "rest": 0.5595996379852295
+      }
+    },
+    {
+      "sample_id": "7255_040_00905904",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.43523409962654114,
+      "action_probs": {
+        "serving": 0.14464262127876282,
+        "hitting": 0.0777369886636734,
+        "moving": 0.43523409962654114,
+        "pick_ball": 0.23685871064662933,
+        "rest": 0.10552754998207092
+      }
+    },
+    {
+      "sample_id": "7255_009_00905971",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6325035095214844,
+      "action_probs": {
+        "serving": 0.14282529056072235,
+        "hitting": 0.043684154748916626,
+        "moving": 0.009465581737458706,
+        "pick_ball": 0.17152148485183716,
+        "rest": 0.6325035095214844
+      }
+    },
+    {
+      "sample_id": "7255_039_00906038",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.39591413736343384,
+      "action_probs": {
+        "serving": 0.29304224252700806,
+        "hitting": 0.07754595577716827,
+        "moving": 0.05953932926058769,
+        "pick_ball": 0.17395828664302826,
+        "rest": 0.39591413736343384
+      }
+    },
+    {
+      "sample_id": "7255_042_00906104",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3862103819847107,
+      "action_probs": {
+        "serving": 0.17804785072803497,
+        "hitting": 0.050627246499061584,
+        "moving": 0.3862103819847107,
+        "pick_ball": 0.3354865610599518,
+        "rest": 0.04962795972824097
+      }
+    },
+    {
+      "sample_id": "7255_009_00906505",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6159581542015076,
+      "action_probs": {
+        "serving": 0.12834568321704865,
+        "hitting": 0.05114440992474556,
+        "moving": 0.01674588955938816,
+        "pick_ball": 0.18780580163002014,
+        "rest": 0.6159581542015076
+      }
+    },
+    {
+      "sample_id": "7255_039_00906571",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.47446051239967346,
+      "action_probs": {
+        "serving": 0.15590892732143402,
+        "hitting": 0.06620167195796967,
+        "moving": 0.47446051239967346,
+        "pick_ball": 0.24316109716892242,
+        "rest": 0.06026772782206535
+      }
+    },
+    {
+      "sample_id": "7255_040_00906705",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4722520112991333,
+      "action_probs": {
+        "serving": 0.13033486902713776,
+        "hitting": 0.054373010993003845,
+        "moving": 0.04051368683576584,
+        "pick_ball": 0.3025263845920563,
+        "rest": 0.4722520112991333
+      }
+    },
+    {
+      "sample_id": "7255_043_00906705",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.558765709400177,
+      "action_probs": {
+        "serving": 0.12044578790664673,
+        "hitting": 0.05963180959224701,
+        "moving": 0.03324393555521965,
+        "pick_ball": 0.2279127538204193,
+        "rest": 0.558765709400177
+      }
+    },
+    {
+      "sample_id": "7255_009_00907038",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5221261978149414,
+      "action_probs": {
+        "serving": 0.13982421159744263,
+        "hitting": 0.047947388142347336,
+        "moving": 0.05787251517176628,
+        "pick_ball": 0.23222969472408295,
+        "rest": 0.5221261978149414
+      }
+    },
+    {
+      "sample_id": "7255_039_00907105",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5031130909919739,
+      "action_probs": {
+        "serving": 0.1626778244972229,
+        "hitting": 0.06997661292552948,
+        "moving": 0.5031130909919739,
+        "pick_ball": 0.2247910499572754,
+        "rest": 0.03944147378206253
+      }
+    },
+    {
+      "sample_id": "7255_044_00907172",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.38864433765411377,
+      "action_probs": {
+        "serving": 0.1711827963590622,
+        "hitting": 0.05765707790851593,
+        "moving": 0.38864433765411377,
+        "pick_ball": 0.32472890615463257,
+        "rest": 0.05778687819838524
+      }
+    },
+    {
+      "sample_id": "7255_040_00907238",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.42782431840896606,
+      "action_probs": {
+        "serving": 0.0871012732386589,
+        "hitting": 0.11147162318229675,
+        "moving": 0.16033561527729034,
+        "pick_ball": 0.21326720714569092,
+        "rest": 0.42782431840896606
+      }
+    },
+    {
+      "sample_id": "7255_043_00907238",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4449862837791443,
+      "action_probs": {
+        "serving": 0.1374894380569458,
+        "hitting": 0.0696045458316803,
+        "moving": 0.13381420075893402,
+        "pick_ball": 0.21410559117794037,
+        "rest": 0.4449862837791443
+      }
+    },
+    {
+      "sample_id": "7255_009_00907572",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.54997718334198,
+      "action_probs": {
+        "serving": 0.13605089485645294,
+        "hitting": 0.046831924468278885,
+        "moving": 0.03122454136610031,
+        "pick_ball": 0.23591548204421997,
+        "rest": 0.54997718334198
+      }
+    },
+    {
+      "sample_id": "7255_039_00907638",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5556110739707947,
+      "action_probs": {
+        "serving": 0.1495959311723709,
+        "hitting": 0.067433200776577,
+        "moving": 0.5556110739707947,
+        "pick_ball": 0.21359780430793762,
+        "rest": 0.013762037269771099
+      }
+    },
+    {
+      "sample_id": "7255_009_00908105",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.7570881843566895,
+      "action_probs": {
+        "serving": 0.14403414726257324,
+        "hitting": 0.0187393706291914,
+        "moving": 0.06039286404848099,
+        "pick_ball": 0.7570881843566895,
+        "rest": 0.019745420664548874
+      }
+    },
+    {
+      "sample_id": "7255_039_00908172",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5230955481529236,
+      "action_probs": {
+        "serving": 0.15899409353733063,
+        "hitting": 0.06470231711864471,
+        "moving": 0.5230955481529236,
+        "pick_ball": 0.21344518661499023,
+        "rest": 0.03976285085082054
+      }
+    },
+    {
+      "sample_id": "7255_040_00908239",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5107942819595337,
+      "action_probs": {
+        "serving": 0.11420038342475891,
+        "hitting": 0.06772612780332565,
+        "moving": 0.11141058802604675,
+        "pick_ball": 0.1958686262369156,
+        "rest": 0.5107942819595337
+      }
+    },
+    {
+      "sample_id": "7255_009_00908639",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.40612539649009705,
+      "action_probs": {
+        "serving": 0.21168170869350433,
+        "hitting": 0.0503392331302166,
+        "moving": 0.40612539649009705,
+        "pick_ball": 0.23037639260292053,
+        "rest": 0.10147728025913239
+      }
+    },
+    {
+      "sample_id": "7255_039_00908706",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.44655871391296387,
+      "action_probs": {
+        "serving": 0.14590993523597717,
+        "hitting": 0.057683493942022324,
+        "moving": 0.44655871391296387,
+        "pick_ball": 0.2148786038160324,
+        "rest": 0.13496923446655273
+      }
+    },
+    {
+      "sample_id": "7255_045_00909106",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5859606862068176,
+      "action_probs": {
+        "serving": 0.11907880753278732,
+        "hitting": 0.05891166999936104,
+        "moving": 0.05411854758858681,
+        "pick_ball": 0.1819303035736084,
+        "rest": 0.5859606862068176
+      }
+    },
+    {
+      "sample_id": "7255_009_00909172",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4908774197101593,
+      "action_probs": {
+        "serving": 0.1527554988861084,
+        "hitting": 0.05434872955083847,
+        "moving": 0.4908774197101593,
+        "pick_ball": 0.22322526574134827,
+        "rest": 0.07879308611154556
+      }
+    },
+    {
+      "sample_id": "7255_039_00909239",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.37505704164505005,
+      "action_probs": {
+        "serving": 0.16892009973526,
+        "hitting": 0.06267207115888596,
+        "moving": 0.37505704164505005,
+        "pick_ball": 0.17328603565692902,
+        "rest": 0.22006478905677795
+      }
+    },
+    {
+      "sample_id": "7255_046_00909573",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.39128977060317993,
+      "action_probs": {
+        "serving": 0.1529816836118698,
+        "hitting": 0.06684745848178864,
+        "moving": 0.39128977060317993,
+        "pick_ball": 0.34021708369255066,
+        "rest": 0.04866401106119156
+      }
+    },
+    {
+      "sample_id": "7255_009_00909706",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5198299288749695,
+      "action_probs": {
+        "serving": 0.1623941957950592,
+        "hitting": 0.06074608489871025,
+        "moving": 0.5198299288749695,
+        "pick_ball": 0.21087931096553802,
+        "rest": 0.04615044966340065
+      }
+    },
+    {
+      "sample_id": "7255_039_00909773",
+      "session_id": "7255",
+      "true_pose": "hitting",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.37075120210647583,
+      "action_probs": {
+        "serving": 0.1498468816280365,
+        "hitting": 0.05493374168872833,
+        "moving": 0.24330291152000427,
+        "pick_ball": 0.1811652034521103,
+        "rest": 0.37075120210647583
+      }
+    },
+    {
+      "sample_id": "7255_045_00909839",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6238893866539001,
+      "action_probs": {
+        "serving": 0.1300865113735199,
+        "hitting": 0.0528186559677124,
+        "moving": 0.03300456330180168,
+        "pick_ball": 0.16020090878009796,
+        "rest": 0.6238893866539001
+      }
+    },
+    {
+      "sample_id": "7255_046_00910106",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4474394917488098,
+      "action_probs": {
+        "serving": 0.14617416262626648,
+        "hitting": 0.07114076614379883,
+        "moving": 0.4474394917488098,
+        "pick_ball": 0.2982194423675537,
+        "rest": 0.03702617809176445
+      }
+    },
+    {
+      "sample_id": "7255_047_00910173",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6076569557189941,
+      "action_probs": {
+        "serving": 0.11039472371339798,
+        "hitting": 0.05466476082801819,
+        "moving": 0.04822121933102608,
+        "pick_ball": 0.1790623664855957,
+        "rest": 0.6076569557189941
+      }
+    },
+    {
+      "sample_id": "7255_009_00910239",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.25732988119125366,
+      "action_probs": {
+        "serving": 0.2030407339334488,
+        "hitting": 0.06932210922241211,
+        "moving": 0.23541150987148285,
+        "pick_ball": 0.25732988119125366,
+        "rest": 0.2348957061767578
+      }
+    },
+    {
+      "sample_id": "7255_039_00910306",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.524570107460022,
+      "action_probs": {
+        "serving": 0.13296055793762207,
+        "hitting": 0.06630054861307144,
+        "moving": 0.524570107460022,
+        "pick_ball": 0.23006567358970642,
+        "rest": 0.04610312730073929
+      }
+    },
+    {
+      "sample_id": "7255_045_00910373",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6425215005874634,
+      "action_probs": {
+        "serving": 0.10865327715873718,
+        "hitting": 0.040001511573791504,
+        "moving": 0.05467318743467331,
+        "pick_ball": 0.1541505604982376,
+        "rest": 0.6425215005874634
+      }
+    },
+    {
+      "sample_id": "7255_046_00910640",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3553517162799835,
+      "action_probs": {
+        "serving": 0.15751324594020844,
+        "hitting": 0.0772322490811348,
+        "moving": 0.3553517162799835,
+        "pick_ball": 0.2022024542093277,
+        "rest": 0.2077002376317978
+      }
+    },
+    {
+      "sample_id": "7255_009_00910773",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.30560508370399475,
+      "action_probs": {
+        "serving": 0.18605048954486847,
+        "hitting": 0.07724153250455856,
+        "moving": 0.30560508370399475,
+        "pick_ball": 0.29188403487205505,
+        "rest": 0.13921885192394257
+      }
+    },
+    {
+      "sample_id": "7255_039_00910840",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.34990784525871277,
+      "action_probs": {
+        "serving": 0.16818322241306305,
+        "hitting": 0.06412555277347565,
+        "moving": 0.2196856141090393,
+        "pick_ball": 0.19809773564338684,
+        "rest": 0.34990784525871277
+      }
+    },
+    {
+      "sample_id": "7255_046_00911173",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4639793932437897,
+      "action_probs": {
+        "serving": 0.15341004729270935,
+        "hitting": 0.07878342270851135,
+        "moving": 0.4639793932437897,
+        "pick_ball": 0.20484313368797302,
+        "rest": 0.09898396581411362
+      }
+    },
+    {
+      "sample_id": "7255_009_00911307",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3367201089859009,
+      "action_probs": {
+        "serving": 0.17265453934669495,
+        "hitting": 0.05835003778338432,
+        "moving": 0.14210516214370728,
+        "pick_ball": 0.29017016291618347,
+        "rest": 0.3367201089859009
+      }
+    },
+    {
+      "sample_id": "7255_039_00911373",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3308446407318115,
+      "action_probs": {
+        "serving": 0.15459202229976654,
+        "hitting": 0.06612281501293182,
+        "moving": 0.3308446407318115,
+        "pick_ball": 0.21946962177753448,
+        "rest": 0.2289709597826004
+      }
+    },
+    {
+      "sample_id": "7255_046_00911707",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3305526673793793,
+      "action_probs": {
+        "serving": 0.15506456792354584,
+        "hitting": 0.07653624564409256,
+        "moving": 0.3305526673793793,
+        "pick_ball": 0.17996281385421753,
+        "rest": 0.2578836977481842
+      }
+    },
+    {
+      "sample_id": "7255_009_00911840",
+      "session_id": "7255",
+      "true_pose": "pick_ball",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5362309217453003,
+      "action_probs": {
+        "serving": 0.1305946558713913,
+        "hitting": 0.03162898123264313,
+        "moving": 0.25577738881111145,
+        "pick_ball": 0.5362309217453003,
+        "rest": 0.04576801881194115
+      }
+    },
+    {
+      "sample_id": "7255_039_00911907",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.41021299362182617,
+      "action_probs": {
+        "serving": 0.15670332312583923,
+        "hitting": 0.05822286754846573,
+        "moving": 0.14299015700817108,
+        "pick_ball": 0.231870636343956,
+        "rest": 0.41021299362182617
+      }
+    },
+    {
+      "sample_id": "7255_045_00912240",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6025922894477844,
+      "action_probs": {
+        "serving": 0.11789315938949585,
+        "hitting": 0.05519568547606468,
+        "moving": 0.02252543903887272,
+        "pick_ball": 0.20179340243339539,
+        "rest": 0.6025922894477844
+      }
+    },
+    {
+      "sample_id": "7255_046_00912240",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4971305727958679,
+      "action_probs": {
+        "serving": 0.13038542866706848,
+        "hitting": 0.06905078142881393,
+        "moving": 0.4971305727958679,
+        "pick_ball": 0.19421608746051788,
+        "rest": 0.10921712219715118
+      }
+    },
+    {
+      "sample_id": "7255_009_00912374",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3602372407913208,
+      "action_probs": {
+        "serving": 0.16675186157226562,
+        "hitting": 0.04841009899973869,
+        "moving": 0.3602372407913208,
+        "pick_ball": 0.2922300398349762,
+        "rest": 0.1323707550764084
+      }
+    },
+    {
+      "sample_id": "7255_039_00912440",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4138798713684082,
+      "action_probs": {
+        "serving": 0.1513776183128357,
+        "hitting": 0.06451048702001572,
+        "moving": 0.4138798713684082,
+        "pick_ball": 0.2472192645072937,
+        "rest": 0.1230127140879631
+      }
+    },
+    {
+      "sample_id": "7255_046_00912774",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3012677729129791,
+      "action_probs": {
+        "serving": 0.12992991507053375,
+        "hitting": 0.07352283596992493,
+        "moving": 0.27440908551216125,
+        "pick_ball": 0.3012677729129791,
+        "rest": 0.22087043523788452
+      }
+    },
+    {
+      "sample_id": "7255_009_00912907",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.380156546831131,
+      "action_probs": {
+        "serving": 0.17095166444778442,
+        "hitting": 0.07818957418203354,
+        "moving": 0.380156546831131,
+        "pick_ball": 0.25290054082870483,
+        "rest": 0.11780164390802383
+      }
+    },
+    {
+      "sample_id": "7255_039_00912974",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.28097912669181824,
+      "action_probs": {
+        "serving": 0.1628541499376297,
+        "hitting": 0.0684090256690979,
+        "moving": 0.28097912669181824,
+        "pick_ball": 0.2342188060283661,
+        "rest": 0.2535388767719269
+      }
+    },
+    {
+      "sample_id": "7255_046_00913307",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.42611122131347656,
+      "action_probs": {
+        "serving": 0.12705884873867035,
+        "hitting": 0.03941018134355545,
+        "moving": 0.3092530071735382,
+        "pick_ball": 0.42611122131347656,
+        "rest": 0.09816674143075943
+      }
+    },
+    {
+      "sample_id": "7255_009_00913441",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5054884552955627,
+      "action_probs": {
+        "serving": 0.1650225669145584,
+        "hitting": 0.09198205173015594,
+        "moving": 0.5054884552955627,
+        "pick_ball": 0.22937944531440735,
+        "rest": 0.008127491921186447
+      }
+    },
+    {
+      "sample_id": "7255_039_00913508",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.48148754239082336,
+      "action_probs": {
+        "serving": 0.1530359536409378,
+        "hitting": 0.06144297495484352,
+        "moving": 0.48148754239082336,
+        "pick_ball": 0.23851092159748077,
+        "rest": 0.06552249938249588
+      }
+    },
+    {
+      "sample_id": "7255_045_00913641",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.605862557888031,
+      "action_probs": {
+        "serving": 0.11972169578075409,
+        "hitting": 0.04807937517762184,
+        "moving": 0.040930937975645065,
+        "pick_ball": 0.18540538847446442,
+        "rest": 0.605862557888031
+      }
+    },
+    {
+      "sample_id": "7255_046_00913841",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5301177501678467,
+      "action_probs": {
+        "serving": 0.10568776726722717,
+        "hitting": 0.028003795072436333,
+        "moving": 0.27244332432746887,
+        "pick_ball": 0.5301177501678467,
+        "rest": 0.0637473315000534
+      }
+    },
+    {
+      "sample_id": "7255_009_00913974",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5696781277656555,
+      "action_probs": {
+        "serving": 0.15516039729118347,
+        "hitting": 0.060092296451330185,
+        "moving": 0.03178532049059868,
+        "pick_ball": 0.18328386545181274,
+        "rest": 0.5696781277656555
+      }
+    },
+    {
+      "sample_id": "7255_039_00914041",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5259221196174622,
+      "action_probs": {
+        "serving": 0.16114303469657898,
+        "hitting": 0.0668085366487503,
+        "moving": 0.5259221196174622,
+        "pick_ball": 0.22129610180854797,
+        "rest": 0.024830223992466927
+      }
+    },
+    {
+      "sample_id": "7255_046_00914375",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "pick_ball",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4591205418109894,
+      "action_probs": {
+        "serving": 0.10293557494878769,
+        "hitting": 0.02954506129026413,
+        "moving": 0.344126433134079,
+        "pick_ball": 0.4591205418109894,
+        "rest": 0.06427238136529922
+      }
+    },
+    {
+      "sample_id": "7255_009_00914508",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.40973255038261414,
+      "action_probs": {
+        "serving": 0.1659109890460968,
+        "hitting": 0.05717700719833374,
+        "moving": 0.14567361772060394,
+        "pick_ball": 0.22150582075119019,
+        "rest": 0.40973255038261414
+      }
+    },
+    {
+      "sample_id": "7255_039_00914575",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5329151749610901,
+      "action_probs": {
+        "serving": 0.1427375078201294,
+        "hitting": 0.06282962113618851,
+        "moving": 0.5329151749610901,
+        "pick_ball": 0.22803278267383575,
+        "rest": 0.03348489850759506
+      }
+    },
+    {
+      "sample_id": "7255_046_00914908",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3493072986602783,
+      "action_probs": {
+        "serving": 0.10530790686607361,
+        "hitting": 0.04001534357666969,
+        "moving": 0.3493072986602783,
+        "pick_ball": 0.3236672580242157,
+        "rest": 0.18170221149921417
+      }
+    },
+    {
+      "sample_id": "7255_009_00915041",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4963444173336029,
+      "action_probs": {
+        "serving": 0.21491564810276031,
+        "hitting": 0.04194251447916031,
+        "moving": 0.4963444173336029,
+        "pick_ball": 0.2296253889799118,
+        "rest": 0.017172042280435562
+      }
+    },
+    {
+      "sample_id": "7255_039_00915108",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.3395636975765228,
+      "action_probs": {
+        "serving": 0.15072743594646454,
+        "hitting": 0.0639323815703392,
+        "moving": 0.2463301420211792,
+        "pick_ball": 0.1994464099407196,
+        "rest": 0.3395636975765228
+      }
+    },
+    {
+      "sample_id": "7255_045_00915242",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5932047367095947,
+      "action_probs": {
+        "serving": 0.13490717113018036,
+        "hitting": 0.04583675414323807,
+        "moving": 0.0646684542298317,
+        "pick_ball": 0.16138292849063873,
+        "rest": 0.5932047367095947
+      }
+    },
+    {
+      "sample_id": "7255_046_00915442",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49720877408981323,
+      "action_probs": {
+        "serving": 0.14519810676574707,
+        "hitting": 0.07708214968442917,
+        "moving": 0.49720877408981323,
+        "pick_ball": 0.1880386471748352,
+        "rest": 0.09247233718633652
+      }
+    },
+    {
+      "sample_id": "7255_009_00915575",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.45748665928840637,
+      "action_probs": {
+        "serving": 0.45748665928840637,
+        "hitting": 0.05435128137469292,
+        "moving": 0.26766932010650635,
+        "pick_ball": 0.16959501802921295,
+        "rest": 0.05089777335524559
+      }
+    },
+    {
+      "sample_id": "7255_039_00915642",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5026601552963257,
+      "action_probs": {
+        "serving": 0.13766559958457947,
+        "hitting": 0.07354950904846191,
+        "moving": 0.5026601552963257,
+        "pick_ball": 0.23117969930171967,
+        "rest": 0.05494500324130058
+      }
+    },
+    {
+      "sample_id": "7255_046_00915975",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.37558457255363464,
+      "action_probs": {
+        "serving": 0.13876818120479584,
+        "hitting": 0.06890519708395004,
+        "moving": 0.37558457255363464,
+        "pick_ball": 0.28467291593551636,
+        "rest": 0.13206914067268372
+      }
+    },
+    {
+      "sample_id": "7255_009_00916109",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.8651235103607178,
+      "action_probs": {
+        "serving": 0.8651235103607178,
+        "hitting": 0.020637454465031624,
+        "moving": 0.030161019414663315,
+        "pick_ball": 0.07587790489196777,
+        "rest": 0.008200102485716343
+      }
+    },
+    {
+      "sample_id": "7255_049_00916109",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.46177223324775696,
+      "action_probs": {
+        "serving": 0.15537914633750916,
+        "hitting": 0.06675900518894196,
+        "moving": 0.46177223324775696,
+        "pick_ball": 0.21686898171901703,
+        "rest": 0.09922053664922714
+      }
+    },
+    {
+      "sample_id": "7255_039_00916175",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.32870665192604065,
+      "action_probs": {
+        "serving": 0.17180335521697998,
+        "hitting": 0.06788206845521927,
+        "moving": 0.21779519319534302,
+        "pick_ball": 0.21381278336048126,
+        "rest": 0.32870665192604065
+      }
+    },
+    {
+      "sample_id": "7255_050_00916309",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.45525431632995605,
+      "action_probs": {
+        "serving": 0.13430124521255493,
+        "hitting": 0.05287301540374756,
+        "moving": 0.45525431632995605,
+        "pick_ball": 0.2418501079082489,
+        "rest": 0.11572138220071793
+      }
+    },
+    {
+      "sample_id": "7255_046_00916509",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.42221948504447937,
+      "action_probs": {
+        "serving": 0.16154779493808746,
+        "hitting": 0.062454935163259506,
+        "moving": 0.42221948504447937,
+        "pick_ball": 0.19843368232250214,
+        "rest": 0.1553441286087036
+      }
+    },
+    {
+      "sample_id": "7255_009_00916642",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.46750110387802124,
+      "action_probs": {
+        "serving": 0.46750110387802124,
+        "hitting": 0.08722514659166336,
+        "moving": 0.30108630657196045,
+        "pick_ball": 0.14122934639453888,
+        "rest": 0.0029580993577837944
+      }
+    },
+    {
+      "sample_id": "7255_039_00916709",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5371848344802856,
+      "action_probs": {
+        "serving": 0.13289931416511536,
+        "hitting": 0.08745504170656204,
+        "moving": 0.5371848344802856,
+        "pick_ball": 0.21271991729736328,
+        "rest": 0.029740892350673676
+      }
+    },
+    {
+      "sample_id": "7255_049_00916909",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3707117438316345,
+      "action_probs": {
+        "serving": 0.1507730484008789,
+        "hitting": 0.07871104776859283,
+        "moving": 0.3707117438316345,
+        "pick_ball": 0.22835515439510345,
+        "rest": 0.1714489907026291
+      }
+    },
+    {
+      "sample_id": "7255_046_00917042",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.4938187003135681,
+      "action_probs": {
+        "serving": 0.1189943328499794,
+        "hitting": 0.046695929020643234,
+        "moving": 0.044562842696905136,
+        "pick_ball": 0.2959282100200653,
+        "rest": 0.4938187003135681
+      }
+    },
+    {
+      "sample_id": "7255_009_00917176",
+      "session_id": "7255",
+      "true_pose": "serving",
+      "true_rally_phase": "in_play",
+      "pred_pose": "serving",
+      "pred_rally_phase": "in_play",
+      "confidence": 0.9558782577514648,
+      "action_probs": {
+        "serving": 0.9558782577514648,
+        "hitting": 0.00863589532673359,
+        "moving": 0.0030139130540192127,
+        "pick_ball": 0.03076677955687046,
+        "rest": 0.001705162925645709
+      }
+    },
+    {
+      "sample_id": "7255_039_00917242",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5343143343925476,
+      "action_probs": {
+        "serving": 0.14458708465099335,
+        "hitting": 0.0675470232963562,
+        "moving": 0.06904009729623795,
+        "pick_ball": 0.18451149761676788,
+        "rest": 0.5343143343925476
+      }
+    },
+    {
+      "sample_id": "7255_050_00917376",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "in_play",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.391902893781662,
+      "action_probs": {
+        "serving": 0.12792623043060303,
+        "hitting": 0.06372226029634476,
+        "moving": 0.20245251059532166,
+        "pick_ball": 0.2139960378408432,
+        "rest": 0.391902893781662
+      }
+    },
+    {
+      "sample_id": "7255_000_00998900",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5602874159812927,
+      "action_probs": {
+        "serving": 0.14124691486358643,
+        "hitting": 0.08047037571668625,
+        "moving": 0.5602874159812927,
+        "pick_ball": 0.1987016648054123,
+        "rest": 0.019293643534183502
+      }
+    },
+    {
+      "sample_id": "7255_001_00998900",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5219911336898804,
+      "action_probs": {
+        "serving": 0.12930317223072052,
+        "hitting": 0.08660754561424255,
+        "moving": 0.5219911336898804,
+        "pick_ball": 0.2249622792005539,
+        "rest": 0.03713591769337654
+      }
+    },
+    {
+      "sample_id": "7255_003_00998900",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49128827452659607,
+      "action_probs": {
+        "serving": 0.17272956669330597,
+        "hitting": 0.08328156918287277,
+        "moving": 0.49128827452659607,
+        "pick_ball": 0.2289467602968216,
+        "rest": 0.02375384047627449
+      }
+    },
+    {
+      "sample_id": "7255_000_00999434",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5256472826004028,
+      "action_probs": {
+        "serving": 0.16580045223236084,
+        "hitting": 0.06480619311332703,
+        "moving": 0.5256472826004028,
+        "pick_ball": 0.22959601879119873,
+        "rest": 0.014150050468742847
+      }
+    },
+    {
+      "sample_id": "7255_001_00999434",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6264299750328064,
+      "action_probs": {
+        "serving": 0.13760535418987274,
+        "hitting": 0.04326486587524414,
+        "moving": 0.024196075275540352,
+        "pick_ball": 0.16850365698337555,
+        "rest": 0.6264299750328064
+      }
+    },
+    {
+      "sample_id": "7255_003_00999434",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.48737624287605286,
+      "action_probs": {
+        "serving": 0.13830281794071198,
+        "hitting": 0.047413457185029984,
+        "moving": 0.48737624287605286,
+        "pick_ball": 0.2976738512516022,
+        "rest": 0.029233623296022415
+      }
+    },
+    {
+      "sample_id": "7255_000_00999967",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49348434805870056,
+      "action_probs": {
+        "serving": 0.12639904022216797,
+        "hitting": 0.05842124670743942,
+        "moving": 0.49348434805870056,
+        "pick_ball": 0.2728096842765808,
+        "rest": 0.048885732889175415
+      }
+    },
+    {
+      "sample_id": "7255_001_00999967",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6173574328422546,
+      "action_probs": {
+        "serving": 0.1322653889656067,
+        "hitting": 0.0436551496386528,
+        "moving": 0.019525276497006416,
+        "pick_ball": 0.1871967315673828,
+        "rest": 0.6173574328422546
+      }
+    },
+    {
+      "sample_id": "7255_003_00999967",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.49585288763046265,
+      "action_probs": {
+        "serving": 0.13966484367847443,
+        "hitting": 0.06800185143947601,
+        "moving": 0.49585288763046265,
+        "pick_ball": 0.25987014174461365,
+        "rest": 0.03661029413342476
+      }
+    },
+    {
+      "sample_id": "7255_000_01000501",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.529204785823822,
+      "action_probs": {
+        "serving": 0.14238601922988892,
+        "hitting": 0.04657817259430885,
+        "moving": 0.529204785823822,
+        "pick_ball": 0.23651790618896484,
+        "rest": 0.04531312733888626
+      }
+    },
+    {
+      "sample_id": "7255_001_01000501",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5099823474884033,
+      "action_probs": {
+        "serving": 0.1656317561864853,
+        "hitting": 0.07507365196943283,
+        "moving": 0.5099823474884033,
+        "pick_ball": 0.2268800586462021,
+        "rest": 0.022432217374444008
+      }
+    },
+    {
+      "sample_id": "7255_003_01000501",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5533133745193481,
+      "action_probs": {
+        "serving": 0.13374565541744232,
+        "hitting": 0.06914661079645157,
+        "moving": 0.5533133745193481,
+        "pick_ball": 0.23353035748004913,
+        "rest": 0.01026393286883831
+      }
+    },
+    {
+      "sample_id": "7255_000_01001034",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.40368491411209106,
+      "action_probs": {
+        "serving": 0.13853468000888824,
+        "hitting": 0.05998356640338898,
+        "moving": 0.12913906574249268,
+        "pick_ball": 0.26865774393081665,
+        "rest": 0.40368491411209106
+      }
+    },
+    {
+      "sample_id": "7255_001_01001034",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.3243548572063446,
+      "action_probs": {
+        "serving": 0.16563116014003754,
+        "hitting": 0.0737246721982956,
+        "moving": 0.3243548572063446,
+        "pick_ball": 0.21372774243354797,
+        "rest": 0.2225615233182907
+      }
+    },
+    {
+      "sample_id": "7255_003_01001034",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.47222384810447693,
+      "action_probs": {
+        "serving": 0.16358983516693115,
+        "hitting": 0.06338407844305038,
+        "moving": 0.47222384810447693,
+        "pick_ball": 0.2558657228946686,
+        "rest": 0.044936537742614746
+      }
+    },
+    {
+      "sample_id": "7255_000_01001568",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4262964129447937,
+      "action_probs": {
+        "serving": 0.15288302302360535,
+        "hitting": 0.0604085773229599,
+        "moving": 0.4262964129447937,
+        "pick_ball": 0.2330281287431717,
+        "rest": 0.1273837834596634
+      }
+    },
+    {
+      "sample_id": "7255_001_01001568",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.40706783533096313,
+      "action_probs": {
+        "serving": 0.16305390000343323,
+        "hitting": 0.07627110183238983,
+        "moving": 0.40706783533096313,
+        "pick_ball": 0.22288361191749573,
+        "rest": 0.1307235211133957
+      }
+    },
+    {
+      "sample_id": "7255_003_01001568",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.42602986097335815,
+      "action_probs": {
+        "serving": 0.13799269497394562,
+        "hitting": 0.06369201838970184,
+        "moving": 0.42602986097335815,
+        "pick_ball": 0.2091248333454132,
+        "rest": 0.16316059231758118
+      }
+    },
+    {
+      "sample_id": "7255_000_01002101",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.46438145637512207,
+      "action_probs": {
+        "serving": 0.15756358206272125,
+        "hitting": 0.060408443212509155,
+        "moving": 0.46438145637512207,
+        "pick_ball": 0.22289298474788666,
+        "rest": 0.09475358575582504
+      }
+    },
+    {
+      "sample_id": "7255_001_01002101",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.5712617039680481,
+      "action_probs": {
+        "serving": 0.1473141461610794,
+        "hitting": 0.05523686110973358,
+        "moving": 0.01752079650759697,
+        "pick_ball": 0.20866645872592926,
+        "rest": 0.5712617039680481
+      }
+    },
+    {
+      "sample_id": "7255_003_01002101",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5058984756469727,
+      "action_probs": {
+        "serving": 0.1483968049287796,
+        "hitting": 0.09237783402204514,
+        "moving": 0.5058984756469727,
+        "pick_ball": 0.21663692593574524,
+        "rest": 0.036689966917037964
+      }
+    },
+    {
+      "sample_id": "7255_000_01002635",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.4582683742046356,
+      "action_probs": {
+        "serving": 0.168107271194458,
+        "hitting": 0.051862288266420364,
+        "moving": 0.4582683742046356,
+        "pick_ball": 0.24967238306999207,
+        "rest": 0.07208959758281708
+      }
+    },
+    {
+      "sample_id": "7255_001_01002635",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "rest",
+      "pred_rally_phase": "dead_time",
+      "confidence": 0.6216081380844116,
+      "action_probs": {
+        "serving": 0.13199204206466675,
+        "hitting": 0.05308767780661583,
+        "moving": 0.022813845425844193,
+        "pick_ball": 0.17049826681613922,
+        "rest": 0.6216081380844116
+      }
+    },
+    {
+      "sample_id": "7255_003_01002635",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5461974740028381,
+      "action_probs": {
+        "serving": 0.13640941679477692,
+        "hitting": 0.08760316669940948,
+        "moving": 0.5461974740028381,
+        "pick_ball": 0.1998993307352066,
+        "rest": 0.029890602454543114
+      }
+    },
+    {
+      "sample_id": "7255_004_01002702",
+      "session_id": "7255",
+      "true_pose": "moving",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.44102320075035095,
+      "action_probs": {
+        "serving": 0.1216757670044899,
+        "hitting": 0.0864170491695404,
+        "moving": 0.44102320075035095,
+        "pick_ball": 0.29585757851600647,
+        "rest": 0.05502641946077347
+      }
+    },
+    {
+      "sample_id": "7255_000_01003168",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.41413214802742004,
+      "action_probs": {
+        "serving": 0.16901826858520508,
+        "hitting": 0.061888325959444046,
+        "moving": 0.41413214802742004,
+        "pick_ball": 0.24012093245983124,
+        "rest": 0.1148403063416481
+      }
+    },
+    {
+      "sample_id": "7255_001_01003168",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.30075255036354065,
+      "action_probs": {
+        "serving": 0.18292516469955444,
+        "hitting": 0.06647951900959015,
+        "moving": 0.30075255036354065,
+        "pick_ball": 0.24483880400657654,
+        "rest": 0.20500396192073822
+      }
+    },
+    {
+      "sample_id": "7255_003_01003168",
+      "session_id": "7255",
+      "true_pose": "rest",
+      "true_rally_phase": "dead_time",
+      "pred_pose": "moving",
+      "pred_rally_phase": "unsure",
+      "confidence": 0.5150977373123169,
+      "action_probs": {
+        "serving": 0.15099436044692993,
+        "hitting": 0.07421019673347473,
+        "moving": 0.5150977373123169,
+        "pick_ball": 0.2342551052570343,
+        "rest": 0.025442637503147125
+      }
+    }
+  ]
+}

@@ -39,6 +39,8 @@ class RallySegment:
 @dataclass
 class RallyDecoderConfig:
     threshold: float = 0.5
+    exit_threshold: float | None = None
+    min_off_run: int = 0
     smooth_window: int = 5
     min_duration: float = 8.0
     pre_buffer: float = 2.0
@@ -54,11 +56,45 @@ def smooth_probabilities(probs: np.ndarray, window: int = 5) -> np.ndarray:
     return np.convolve(probs.astype(np.float32), kernel, mode="same")
 
 
+def _active_mask_with_hysteresis(
+    probs: np.ndarray,
+    *,
+    threshold: float,
+    exit_threshold: float | None = None,
+    min_off_run: int = 0,
+) -> np.ndarray:
+    """Stateful enter/exit thresholds to avoid brief prob dips ending a rally."""
+    exit_t = threshold if exit_threshold is None else exit_threshold
+    active = np.zeros(len(probs), dtype=bool)
+    in_segment = False
+    off_run = 0
+    for i, prob in enumerate(probs):
+        if not in_segment:
+            if prob >= threshold:
+                in_segment = True
+                off_run = 0
+                active[i] = True
+            continue
+        if prob >= exit_t:
+            active[i] = True
+            off_run = 0
+            continue
+        off_run += 1
+        if min_off_run > 0 and off_run < min_off_run:
+            active[i] = True
+            continue
+        in_segment = False
+        off_run = 0
+    return active
+
+
 def decode_rally_segments(
     times: Sequence[float],
     probs: Sequence[float],
     *,
     threshold: float = 0.5,
+    exit_threshold: float | None = None,
+    min_off_run: int = 0,
     smooth_window: int = 5,
     min_duration: float = 8.0,
     pre_buffer: float = 2.0,
@@ -73,7 +109,15 @@ def decode_rally_segments(
 
     t_arr = np.asarray(times, dtype=np.float64)
     p_arr = smooth_probabilities(np.asarray(probs, dtype=np.float32), window=smooth_window)
-    active = p_arr >= threshold
+    if exit_threshold is not None or min_off_run > 0:
+        active = _active_mask_with_hysteresis(
+            p_arr,
+            threshold=threshold,
+            exit_threshold=exit_threshold,
+            min_off_run=min_off_run,
+        )
+    else:
+        active = p_arr >= threshold
 
     raw: List[Tuple[float, float]] = []
     i = 0
@@ -175,6 +219,8 @@ class RallyDecoder:
             times,
             probs,
             threshold=cfg.threshold,
+            exit_threshold=cfg.exit_threshold,
+            min_off_run=cfg.min_off_run,
             smooth_window=cfg.smooth_window,
             min_duration=cfg.min_duration,
             pre_buffer=cfg.pre_buffer,

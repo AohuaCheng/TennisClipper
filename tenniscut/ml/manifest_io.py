@@ -92,6 +92,7 @@ class LabelStore:
                 "frame_align",
                 "is_target_player",
                 "notes",
+                "relabel_reviewed",
             ):
                 if key in row:
                     target[key] = row[key]
@@ -110,6 +111,7 @@ class LabelStore:
         frame_align: Optional[str] = None,
         is_target_player: Optional[str] = None,
         notes: Optional[str] = None,
+        relabel_reviewed: Optional[bool] = None,
         flush: bool = True,
     ) -> Dict[str, Any]:
         if sample_id not in self._by_id:
@@ -141,9 +143,14 @@ class LabelStore:
             row["is_target_player"] = tp
         if notes is not None:
             row["notes"] = notes
+        if relabel_reviewed is not None:
+            row["relabel_reviewed"] = bool(relabel_reviewed)
         if flush:
             self.flush()
         return dict(row)
+
+    def mark_relabel_reviewed(self, sample_id: str, *, flush: bool = True) -> Dict[str, Any]:
+        return self.set_annotation(sample_id, relabel_reviewed=True, flush=flush)
 
     def update_qa(
         self,
@@ -184,7 +191,8 @@ class LabelStore:
             row = dict(self._by_id[sample["sample_id"]])
             has_qa = row.get("frame_align") or row.get("is_target_player")
             has_partial = row.get("action_state") or row.get("rally_phase")
-            if is_annotation_complete(row) or has_qa or has_partial:
+            has_relabel = row.get("relabel_reviewed")
+            if is_annotation_complete(row) or has_qa or has_partial or has_relabel:
                 labeled_rows.append(row)
         write_jsonl(self.labeled_path, labeled_rows)
 

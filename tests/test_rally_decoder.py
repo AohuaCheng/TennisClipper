@@ -21,6 +21,25 @@ def test_decode_rally_segments_basic():
     assert segs[0].end == 2.0
 
 
+def test_decode_rally_segments_hysteresis():
+    times = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    probs = [0.9, 0.9, 0.9, 0.42, 0.45, 0.9, 0.9]
+    segs = decode_rally_segments(
+        times,
+        probs,
+        threshold=0.5,
+        exit_threshold=0.4,
+        min_off_run=2,
+        smooth_window=1,
+        min_duration=1.0,
+        pre_buffer=0.0,
+        post_buffer=0.0,
+        merge_gap=0.5,
+    )
+    assert len(segs) == 1
+    assert segs[0].end == 6.0
+
+
 def test_segment_iou_and_eval():
     pred = [{"segment_id": "p1", "start": 10.0, "end": 20.0}]
     gt = [{"segment_id": "g1", "start": 12.0, "end": 22.0}]

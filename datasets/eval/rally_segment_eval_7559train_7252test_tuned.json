@@ -1,0 +1,598 @@
+{
+  "split": "test",
+  "session_dir": "/Users/aohuacheng/Documents/Startups/TennisClipper/sessions/test_session_7252",
+  "model": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/eval/rally_set_tcn_7559.pt",
+  "action_probs_dir": null,
+  "decode_config": {
+    "threshold": 0.5,
+    "exit_threshold": null,
+    "min_off_run": 0,
+    "smooth_window": 5,
+    "min_duration": 8.0,
+    "pre_buffer": 2.0,
+    "post_buffer": 2.0,
+    "merge_gap": 1.5,
+    "max_frame_gap": 15.0
+  },
+  "sessions": {
+    "7252": {
+      "benchmark_path": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/benchmarks/7252.json",
+      "benchmark_segment_count": 6,
+      "scene_time_coverage_s": 2557.94,
+      "methods": {
+        "set_tcn": {
+          "method": "set_tcn",
+          "session_id": "7252",
+          "segment_count": 41,
+          "timeline": [
+            {
+              "segment_id": "ml_rally_0000",
+              "start": 0.0,
+              "end": 9.867,
+              "duration": 9.867,
+              "original_start": 0.0,
+              "original_end": 9.867
+            },
+            {
+              "segment_id": "ml_rally_0001",
+              "start": 11.334,
+              "end": 88.469,
+              "duration": 77.135,
+              "original_start": 11.334,
+              "original_end": 88.469
+            },
+            {
+              "segment_id": "ml_rally_0002",
+              "start": 100.336,
+              "end": 117.336,
+              "duration": 17.0,
+              "original_start": 100.336,
+              "original_end": 117.336
+            },
+            {
+              "segment_id": "ml_rally_0003",
+              "start": 119.403,
+              "end": 196.138,
+              "duration": 76.735,
+              "original_start": 119.403,
+              "original_end": 196.138
+            },
+            {
+              "segment_id": "ml_rally_0007",
+              "start": 298.6,
+              "end": 385.069,
+              "duration": 86.469,
+              "original_start": 298.6,
+              "original_end": 385.069
+            },
+            {
+              "segment_id": "ml_rally_0008",
+              "start": 398.336,
+              "end": 415.87,
+              "duration": 17.534,
+              "original_start": 398.336,
+              "original_end": 415.87
+            },
+            {
+              "segment_id": "ml_rally_0009",
+              "start": 428.203,
+              "end": 470.404,
+              "duration": 42.201,
+              "original_start": 428.203,
+              "original_end": 470.404
+            },
+            {
+              "segment_id": "ml_rally_0010",
+              "start": 469.604,
+              "end": 489.072,
+              "duration": 19.468,
+              "original_start": 469.604,
+              "original_end": 489.072
+            },
+            {
+              "segment_id": "ml_rally_0011",
+              "start": 488.338,
+              "end": 503.005,
+              "duration": 14.667,
+              "original_start": 488.338,
+              "original_end": 503.005
+            },
+            {
+              "segment_id": "ml_rally_0012",
+              "start": 501.405,
+              "end": 512.539,
+              "duration": 11.134,
+              "original_start": 501.405,
+              "original_end": 512.539
+            },
+            {
+              "segment_id": "ml_rally_0013",
+              "start": 516.539,
+              "end": 566.007,
+              "duration": 49.468,
+              "original_start": 516.539,
+              "original_end": 566.007
+            },
+            {
+              "segment_id": "ml_rally_0015",
+              "start": 570.207,
+              "end": 581.674,
+              "duration": 11.467,
+              "original_start": 570.207,
+              "original_end": 581.674
+            },
+            {
+              "segment_id": "ml_rally_0016",
+              "start": 616.134,
+              "end": 650.668,
+              "duration": 34.534,
+              "original_start": 616.134,
+              "original_end": 650.668
+            },
+            {
+              "segment_id": "ml_rally_0017",
+              "start": 649.601,
+              "end": 672.669,
+              "duration": 23.068,
+              "original_start": 649.601,
+              "original_end": 672.669
+            },
+            {
+              "segment_id": "ml_rally_0018",
+              "start": 692.136,
+              "end": 705.136,
+              "duration": 13.0,
+              "original_start": 692.136,
+              "original_end": 705.136
+            },
+            {
+              "segment_id": "ml_rally_0019",
+              "start": 709.736,
+              "end": 818.406,
+              "duration": 108.67,
+              "original_start": 709.736,
+              "original_end": 818.406
+            },
+            {
+              "segment_id": "ml_rally_0020",
+              "start": 816.539,
+              "end": 844.273,
+              "duration": 27.734,
+              "original_start": 816.539,
+              "original_end": 844.273
+            },
+            {
+              "segment_id": "ml_rally_0023",
+              "start": 977.535,
+              "end": 998.069,
+              "duration": 20.534,
+              "original_start": 977.535,
+              "original_end": 998.069
+            },
+            {
+              "segment_id": "ml_rally_0024",
+              "start": 997.469,
+              "end": 1042.47,
+              "duration": 45.001,
+              "original_start": 997.469,
+              "original_end": 1042.47
+            },
+            {
+              "segment_id": "ml_rally_0025",
+              "start": 1048.871,
+              "end": 1067.804,
+              "duration": 18.933,
+              "original_start": 1048.871,
+              "original_end": 1067.804
+            },
+            {
+              "segment_id": "ml_rally_0026",
+              "start": 1084.272,
+              "end": 1118.806,
+              "duration": 34.534,
+              "original_start": 1084.272,
+              "original_end": 1118.806
+            },
+            {
+              "segment_id": "ml_rally_0027",
+              "start": 1121.539,
+              "end": 1151.54,
+              "duration": 30.001,
+              "original_start": 1121.539,
+              "original_end": 1151.54
+            },
+            {
+              "segment_id": "ml_rally_0028",
+              "start": 1167.14,
+              "end": 1210.2,
+              "duration": 43.06,
+              "original_start": 1167.14,
+              "original_end": 1210.2
+            },
+            {
+              "segment_id": "ml_rally_0029",
+              "start": 1209.4,
+              "end": 1242.934,
+              "duration": 33.534,
+              "original_start": 1209.4,
+              "original_end": 1242.934
+            },
+            {
+              "segment_id": "ml_rally_0030",
+              "start": 1284.936,
+              "end": 1296.536,
+              "duration": 11.6,
+              "original_start": 1284.936,
+              "original_end": 1296.536
+            },
+            {
+              "segment_id": "ml_rally_0031",
+              "start": 1297.869,
+              "end": 1346.67,
+              "duration": 48.801,
+              "original_start": 1297.869,
+              "original_end": 1346.67
+            },
+            {
+              "segment_id": "ml_rally_0035",
+              "start": 1369.071,
+              "end": 1395.472,
+              "duration": 26.401,
+              "original_start": 1369.071,
+              "original_end": 1395.472
+            },
+            {
+              "segment_id": "ml_rally_0036",
+              "start": 1396.539,
+              "end": 1408.805,
+              "duration": 12.266,
+              "original_start": 1396.539,
+              "original_end": 1408.805
+            },
+            {
+              "segment_id": "ml_rally_0037",
+              "start": 1417.606,
+              "end": 1480.941,
+              "duration": 63.335,
+              "original_start": 1417.606,
+              "original_end": 1480.941
+            },
+            {
+              "segment_id": "ml_rally_0039",
+              "start": 1480.141,
+              "end": 1581.069,
+              "duration": 100.928,
+              "original_start": 1480.141,
+              "original_end": 1581.069
+            },
+            {
+              "segment_id": "ml_rally_0040",
+              "start": 1592.402,
+              "end": 1619.003,
+              "duration": 26.601,
+              "original_start": 1592.402,
+              "original_end": 1619.003
+            },
+            {
+              "segment_id": "ml_rally_0041",
+              "start": 1621.203,
+              "end": 1670.004,
+              "duration": 48.801,
+              "original_start": 1621.203,
+              "original_end": 1670.004
+            },
+            {
+              "segment_id": "ml_rally_0042",
+              "start": 1677.738,
+              "end": 1737.806,
+              "duration": 60.068,
+              "original_start": 1677.738,
+              "original_end": 1737.806
+            },
+            {
+              "segment_id": "ml_rally_0043",
+              "start": 1906.936,
+              "end": 1990.405,
+              "duration": 83.469,
+              "original_start": 1906.936,
+              "original_end": 1990.405
+            },
+            {
+              "segment_id": "ml_rally_0044",
+              "start": 1994.405,
+              "end": 2024.739,
+              "duration": 30.334,
+              "original_start": 1994.405,
+              "original_end": 2024.739
+            },
+            {
+              "segment_id": "ml_rally_0045",
+              "start": 2022.339,
+              "end": 2160.402,
+              "duration": 138.063,
+              "original_start": 2022.339,
+              "original_end": 2160.402
+            },
+            {
+              "segment_id": "ml_rally_0046",
+              "start": 2190.202,
+              "end": 2293.738,
+              "duration": 103.536,
+              "original_start": 2190.202,
+              "original_end": 2293.738
+            },
+            {
+              "segment_id": "ml_rally_0047",
+              "start": 2338.606,
+              "end": 2410.0,
+              "duration": 71.394,
+              "original_start": 2338.606,
+              "original_end": 2410.0
+            },
+            {
+              "segment_id": "ml_rally_0048",
+              "start": 2413.934,
+              "end": 2433.734,
+              "duration": 19.8,
+              "original_start": 2413.934,
+              "original_end": 2433.734
+            },
+            {
+              "segment_id": "ml_rally_0049",
+              "start": 2446.535,
+              "end": 2467.602,
+              "duration": 21.067,
+              "original_start": 2446.535,
+              "original_end": 2467.602
+            },
+            {
+              "segment_id": "ml_rally_0050",
+              "start": 2472.869,
+              "end": 2539.67,
+              "duration": 66.801,
+              "original_start": 2472.869,
+              "original_end": 2539.67
+            }
+          ],
+          "metrics": {
+            "predicted_count": 41,
+            "ground_truth_count": 6,
+            "matched_pairs": 6,
+            "rally_recall": 1.0,
+            "complete_rally_miss_rate": 0.0,
+            "false_cut_rate": 0.8537,
+            "start_mae_s": 25.2,
+            "end_mae_s": 19.86,
+            "mean_iou": 0.5684,
+            "predicted_union_s": 1788.34,
+            "ground_truth_union_s": 332.1,
+            "dead_time_in_clips": 0.8141,
+            "compression_ratio": 0.6991,
+            "pairs": [
+              {
+                "predicted_id": "ml_rally_0050",
+                "ground_truth_id": "benchmark_0005",
+                "iou": 0.9619,
+                "start_error_s": 2.13,
+                "end_error_s": 0.43
+              },
+              {
+                "predicted_id": "ml_rally_0039",
+                "ground_truth_id": "benchmark_0003",
+                "iou": 0.7332,
+                "start_error_s": 21.86,
+                "end_error_s": 5.07
+              },
+              {
+                "predicted_id": "ml_rally_0007",
+                "ground_truth_id": "benchmark_0000",
+                "iou": 0.5898,
+                "start_error_s": 4.4,
+                "end_error_s": 31.07
+              },
+              {
+                "predicted_id": "ml_rally_0028",
+                "ground_truth_id": "benchmark_0002",
+                "iou": 0.5594,
+                "start_error_s": 2.86,
+                "end_error_s": 28.8
+              },
+              {
+                "predicted_id": "ml_rally_0045",
+                "ground_truth_id": "benchmark_0004",
+                "iou": 0.3911,
+                "start_error_s": 77.66,
+                "end_error_s": 6.4
+              },
+              {
+                "predicted_id": "ml_rally_0019",
+                "ground_truth_id": "benchmark_0001",
+                "iou": 0.1748,
+                "start_error_s": 42.26,
+                "end_error_s": 47.41
+              }
+            ],
+            "missed_ground_truth": [],
+            "false_cuts": [
+              {
+                "segment_id": "ml_rally_0000",
+                "start": 0.0,
+                "end": 9.867
+              },
+              {
+                "segment_id": "ml_rally_0001",
+                "start": 11.334,
+                "end": 88.469
+              },
+              {
+                "segment_id": "ml_rally_0002",
+                "start": 100.336,
+                "end": 117.336
+              },
+              {
+                "segment_id": "ml_rally_0003",
+                "start": 119.403,
+                "end": 196.138
+              },
+              {
+                "segment_id": "ml_rally_0008",
+                "start": 398.336,
+                "end": 415.87
+              },
+              {
+                "segment_id": "ml_rally_0009",
+                "start": 428.203,
+                "end": 470.404
+              },
+              {
+                "segment_id": "ml_rally_0010",
+                "start": 469.604,
+                "end": 489.072
+              },
+              {
+                "segment_id": "ml_rally_0011",
+                "start": 488.338,
+                "end": 503.005
+              },
+              {
+                "segment_id": "ml_rally_0012",
+                "start": 501.405,
+                "end": 512.539
+              },
+              {
+                "segment_id": "ml_rally_0013",
+                "start": 516.539,
+                "end": 566.007
+              },
+              {
+                "segment_id": "ml_rally_0015",
+                "start": 570.207,
+                "end": 581.674
+              },
+              {
+                "segment_id": "ml_rally_0016",
+                "start": 616.134,
+                "end": 650.668
+              },
+              {
+                "segment_id": "ml_rally_0017",
+                "start": 649.601,
+                "end": 672.669
+              },
+              {
+                "segment_id": "ml_rally_0018",
+                "start": 692.136,
+                "end": 705.136
+              },
+              {
+                "segment_id": "ml_rally_0020",
+                "start": 816.539,
+                "end": 844.273
+              },
+              {
+                "segment_id": "ml_rally_0023",
+                "start": 977.535,
+                "end": 998.069
+              },
+              {
+                "segment_id": "ml_rally_0024",
+                "start": 997.469,
+                "end": 1042.47
+              },
+              {
+                "segment_id": "ml_rally_0025",
+                "start": 1048.871,
+                "end": 1067.804
+              },
+              {
+                "segment_id": "ml_rally_0026",
+                "start": 1084.272,
+                "end": 1118.806
+              },
+              {
+                "segment_id": "ml_rally_0027",
+                "start": 1121.539,
+                "end": 1151.54
+              },
+              {
+                "segment_id": "ml_rally_0029",
+                "start": 1209.4,
+                "end": 1242.934
+              },
+              {
+                "segment_id": "ml_rally_0030",
+                "start": 1284.936,
+                "end": 1296.536
+              },
+              {
+                "segment_id": "ml_rally_0031",
+                "start": 1297.869,
+                "end": 1346.67
+              },
+              {
+                "segment_id": "ml_rally_0035",
+                "start": 1369.071,
+                "end": 1395.472
+              },
+              {
+                "segment_id": "ml_rally_0036",
+                "start": 1396.539,
+                "end": 1408.805
+              },
+              {
+                "segment_id": "ml_rally_0037",
+                "start": 1417.606,
+                "end": 1480.941
+              },
+              {
+                "segment_id": "ml_rally_0040",
+                "start": 1592.402,
+                "end": 1619.003
+              },
+              {
+                "segment_id": "ml_rally_0041",
+                "start": 1621.203,
+                "end": 1670.004
+              },
+              {
+                "segment_id": "ml_rally_0042",
+                "start": 1677.738,
+                "end": 1737.806
+              },
+              {
+                "segment_id": "ml_rally_0043",
+                "start": 1906.936,
+                "end": 1990.405
+              },
+              {
+                "segment_id": "ml_rally_0044",
+                "start": 1994.405,
+                "end": 2024.739
+              },
+              {
+                "segment_id": "ml_rally_0046",
+                "start": 2190.202,
+                "end": 2293.738
+              },
+              {
+                "segment_id": "ml_rally_0047",
+                "start": 2338.606,
+                "end": 2410.0
+              },
+              {
+                "segment_id": "ml_rally_0048",
+                "start": 2413.934,
+                "end": 2433.734
+              },
+              {
+                "segment_id": "ml_rally_0049",
+                "start": 2446.535,
+                "end": 2467.602
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

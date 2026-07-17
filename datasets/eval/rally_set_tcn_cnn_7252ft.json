@@ -1,0 +1,21 @@
+{
+  "model": "set_tcn",
+  "input": "cnn_probs",
+  "init_checkpoint": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/eval/rally_set_tcn_cnn.pt",
+  "extra_scene_files": [
+    "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/player_actions/scene_frames/7252_cnn_benchmark_scene_frames.jsonl"
+  ],
+  "threshold": 0.3,
+  "val_metrics": {
+    "accuracy": 0.6628,
+    "precision": 0.7,
+    "recall": 0.1474,
+    "f1": 0.2435,
+    "support": 258
+  },
+  "accuracy": 0.6367,
+  "precision": 0.8932,
+  "recall": 0.4941,
+  "f1": 0.6362,
+  "support": 790
+}

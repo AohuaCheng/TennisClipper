@@ -12,8 +12,9 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from tenniscut.ml.manifest_io import load_jsonl  # noqa: E402
+from tenniscut.ml.benchmark_labels import in_play_segments  # noqa: E402
 from tenniscut.ml.export import load_benchmark_segments  # noqa: E402
+from tenniscut.ml.manifest_io import load_jsonl  # noqa: E402
 from tenniscut.ml.rally_decoder import (  # noqa: E402
     RallyDecoder,
     RallyDecoderConfig,
@@ -22,6 +23,7 @@ from tenniscut.ml.rally_decoder import (  # noqa: E402
     segments_to_timeline,
 )
 from tenniscut.ml.rally_sequence import group_scenes_by_session, load_scene_frames  # noqa: E402
+from tenniscut.ml.runtime_rally import action_probs_map_from_rows  # noqa: E402
 from tenniscut.ml.segment_eval import evaluate_segments  # noqa: E402
 
 
@@ -65,6 +67,7 @@ def _evaluate_method(
     video_duration: float | None,
     decoder: RallyDecoder | None,
     decode_config: RallyDecoderConfig,
+    trainable_only: bool = True,
 ) -> Dict[str, Any]:
     if method == "oracle_labels":
         times, probs = oracle_probabilities(scenes)
@@ -83,7 +86,11 @@ def _evaluate_method(
     elif method == "set_tcn":
         if decoder is None:
             raise ValueError("set_tcn method requires --model")
-        segments = decoder.decode_session(scenes, video_duration=video_duration)
+        segments = decoder.decode_session(
+            scenes,
+            video_duration=video_duration,
+            trainable_only=trainable_only,
+        )
     else:
         raise ValueError(f"Unknown method: {method}")
 
@@ -143,19 +150,76 @@ def main() -> None:
         help="CNN prediction cache for Set-TCN Layer1 features (required for CNN-OOF model on test)",
     )
     parser.add_argument(
+        "--session-dir",
+        type=Path,
+        default=None,
+        help="Evaluate using sessions/<id>/work/ml scene_frames + rows (dense online scan)",
+    )
+    parser.add_argument("--session-id", default=None, help="Only evaluate this session when using scene-dir split")
+    parser.add_argument(
+        "--rows-jsonl",
+        type=Path,
+        default=None,
+        help="Player rows with embedded CNN action_probs",
+    )
+    parser.add_argument(
+        "--in-play-segments",
+        type=int,
+        default=None,
+        help="Use only first N benchmark segments as rally GT",
+    )
+    parser.add_argument("--exit-threshold", type=float, default=None)
+    parser.add_argument("--min-off-run", type=int, default=0)
+    parser.add_argument("--smooth-window", type=int, default=5)
+    parser.add_argument(
+        "--decode-config-file",
+        type=Path,
+        default=None,
+        help="JSON from tune_rally_decoder.py (uses best.decode_config)",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=ROOT / "datasets/eval/rally_segment_eval.json",
     )
     args = parser.parse_args()
 
-    scene_path = args.scene_dir / f"{args.split}_scene_frames.jsonl"
-    scenes = load_scene_frames(scene_path)
-    grouped = group_scenes_by_session(scenes)
     registry = {s["session_id"]: s for s in _load_registry(args.registry)}
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+
+    if args.session_dir:
+        session_dir = args.session_dir.resolve()
+        ml_dir = session_dir / "work/ml"
+        scenes_path = ml_dir / "scene_frames.jsonl"
+        if not scenes_path.exists():
+            print(f"Missing {scenes_path}", file=sys.stderr)
+            sys.exit(1)
+        scenes = load_jsonl(scenes_path)
+        session_id = session_dir.name.removeprefix("test_session_")
+        config_path = session_dir / "config.yaml"
+        if config_path.exists():
+            import yaml
+
+            cfg = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
+            session_id = str(cfg.get("project", {}).get("name") or session_id)
+        grouped = {session_id: scenes}
+    else:
+        scene_path = args.scene_dir / f"{args.split}_scene_frames.jsonl"
+        scenes = load_scene_frames(scene_path)
+        grouped = group_scenes_by_session(scenes)
+        if args.session_id:
+            grouped = {k: v for k, v in grouped.items() if k == args.session_id}
 
     action_probs_map = None
-    if args.action_probs_dir and args.action_probs_dir.exists():
+    if args.rows_jsonl and args.rows_jsonl.exists():
+        action_probs_map = action_probs_map_from_rows(load_jsonl(args.rows_jsonl))
+        print(f"Loaded {len(action_probs_map)} CNN rows from {args.rows_jsonl}", flush=True)
+    elif args.session_dir:
+        rows_path = args.session_dir / "work/ml/player_rows_with_actions.jsonl"
+        if rows_path.exists():
+            action_probs_map = action_probs_map_from_rows(load_jsonl(rows_path))
+            print(f"Loaded {len(action_probs_map)} CNN rows from {rows_path}", flush=True)
+    elif args.action_probs_dir and args.action_probs_dir.exists():
         action_probs_map = _load_action_probs_dir(args.action_probs_dir)
         print(f"Loaded {len(action_probs_map)} CNN action prob rows from {args.action_probs_dir}", flush=True)
 
@@ -164,8 +228,18 @@ def main() -> None:
         min_duration=args.min_duration,
         pre_buffer=args.pre_buffer,
         post_buffer=args.post_buffer,
+        exit_threshold=args.exit_threshold,
+        min_off_run=args.min_off_run,
+        smooth_window=args.smooth_window,
     )
-    if args.threshold is None and args.model.with_suffix(".json").exists():
+    if args.decode_config_file and args.decode_config_file.exists():
+        tune = json.loads(args.decode_config_file.read_text(encoding="utf-8"))
+        cfg_dict = (tune.get("best") or {}).get("decode_config") or {}
+        for key, val in cfg_dict.items():
+            if hasattr(decode_config, key):
+                setattr(decode_config, key, val)
+        print(f"Loaded decode config from {args.decode_config_file}", flush=True)
+    elif args.threshold is None and args.model.with_suffix(".json").exists():
         meta = json.loads(args.model.with_suffix(".json").read_text(encoding="utf-8"))
         if "threshold" in meta:
             decode_config.threshold = float(meta["threshold"])
@@ -181,8 +255,9 @@ def main() -> None:
 
     report: Dict[str, Any] = {
         "split": args.split,
+        "session_dir": str(args.session_dir.resolve()) if args.session_dir else None,
         "model": str(args.model.resolve()) if decoder else None,
-        "action_probs_dir": str(args.action_probs_dir.resolve()) if action_probs_map else None,
+        "action_probs_dir": str(args.action_probs_dir.resolve()) if args.action_probs_dir and action_probs_map else None,
         "decode_config": decode_config.__dict__,
         "sessions": {},
     }
@@ -194,7 +269,10 @@ def main() -> None:
             print(f"Skip {session_id}: no benchmark", flush=True)
             continue
         bench_data = json.loads(bench_path.read_text(encoding="utf-8"))
-        benchmark = load_benchmark_segments(bench_path)
+        benchmark = in_play_segments(
+            load_benchmark_segments(bench_path),
+            in_play_segment_count=args.in_play_segments,
+        )
         video_duration = float(bench_data.get("original_duration") or 0.0) or None
 
         session_report: Dict[str, Any] = {
@@ -209,6 +287,8 @@ def main() -> None:
             else 0.0,
             "methods": {},
         }
+        # Online ML scan scene frames are not QA-complete; include all frames when --session-dir.
+        trainable_only = args.session_dir is None
         for method in args.methods:
             session_report["methods"][method] = _evaluate_method(
                 method=method,
@@ -218,6 +298,7 @@ def main() -> None:
                 video_duration=video_duration,
                 decoder=decoder,
                 decode_config=decode_config,
+                trainable_only=trainable_only,
             )
             m = session_report["methods"][method]["metrics"]
             print(

@@ -1,0 +1,17 @@
+{
+  "checkpoint": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/eval/efficientnet_b2_expanded_action_classifier.pt",
+  "manifest": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/player_actions/manifests/train_labeled.jsonl",
+  "backbone": "efficientnet_b2",
+  "crop_mode": "expanded_crop",
+  "image_size": 256,
+  "layer1_only": true,
+  "min_confidence": 0.8,
+  "metrics_pose": {
+    "accuracy": 0.9901,
+    "macro_f1": 0.9912,
+    "support": 1723
+  },
+  "accuracy": 0.9901,
+  "macro_f1": 0.9912,
+  "support": 1723
+}

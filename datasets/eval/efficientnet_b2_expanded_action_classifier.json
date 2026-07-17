@@ -1,0 +1,224 @@
+{
+  "backbone": "efficientnet_b2",
+  "crop_mode": "expanded_crop",
+  "expand": 1.4,
+  "image_size": 256,
+  "dropout": 0.3,
+  "label_smoothing": 0.1,
+  "labels": [
+    "serving",
+    "hitting",
+    "moving",
+    "pick_ball",
+    "rest"
+  ],
+  "layer1_only": true,
+  "min_confidence": 0.8,
+  "train_samples": 1723,
+  "val_samples": 326,
+  "test_samples": 200,
+  "train_label_counts": {
+    "rest": 625,
+    "moving": 853,
+    "hitting": 139,
+    "pick_ball": 44,
+    "serving": 62
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.8302,
+      "train_acc": 0.3453,
+      "val_acc": 0.2239,
+      "val_macro_f1": 0.2576
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.5491,
+      "train_acc": 0.5525,
+      "val_acc": 0.2699,
+      "val_macro_f1": 0.2446
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.4065,
+      "train_acc": 0.6611,
+      "val_acc": 0.5123,
+      "val_macro_f1": 0.3849
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.3035,
+      "train_acc": 0.7551,
+      "val_acc": 0.4325,
+      "val_macro_f1": 0.367
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.2213,
+      "train_acc": 0.8166,
+      "val_acc": 0.5092,
+      "val_macro_f1": 0.4107
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.1875,
+      "train_acc": 0.8445,
+      "val_acc": 0.5184,
+      "val_macro_f1": 0.4128
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.1118,
+      "train_acc": 0.8822,
+      "val_acc": 0.638,
+      "val_macro_f1": 0.4464
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.1158,
+      "train_acc": 0.906,
+      "val_acc": 0.6319,
+      "val_macro_f1": 0.4956
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0904,
+      "train_acc": 0.9292,
+      "val_acc": 0.6442,
+      "val_macro_f1": 0.4728
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.1037,
+      "train_acc": 0.9304,
+      "val_acc": 0.6442,
+      "val_macro_f1": 0.5283
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.0596,
+      "train_acc": 0.9547,
+      "val_acc": 0.6442,
+      "val_macro_f1": 0.4793
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.0443,
+      "train_acc": 0.9675,
+      "val_acc": 0.6963,
+      "val_macro_f1": 0.56
+    },
+    {
+      "epoch": 13,
+      "train_loss": 1.0393,
+      "train_acc": 0.9675,
+      "val_acc": 0.6319,
+      "val_macro_f1": 0.4244
+    },
+    {
+      "epoch": 14,
+      "train_loss": 1.0489,
+      "train_acc": 0.9733,
+      "val_acc": 0.6411,
+      "val_macro_f1": 0.4832
+    },
+    {
+      "epoch": 15,
+      "train_loss": 1.045,
+      "train_acc": 0.9785,
+      "val_acc": 0.6687,
+      "val_macro_f1": 0.4857
+    },
+    {
+      "epoch": 16,
+      "train_loss": 1.0492,
+      "train_acc": 0.9861,
+      "val_acc": 0.6687,
+      "val_macro_f1": 0.5006
+    },
+    {
+      "epoch": 17,
+      "train_loss": 1.0263,
+      "train_acc": 0.9843,
+      "val_acc": 0.6656,
+      "val_macro_f1": 0.4789
+    },
+    {
+      "epoch": 18,
+      "train_loss": 1.0371,
+      "train_acc": 0.9849,
+      "val_acc": 0.6626,
+      "val_macro_f1": 0.4671
+    }
+  ],
+  "best_val_macro_f1": 0.56,
+  "val_metrics": {
+    "accuracy": 0.6963,
+    "macro_f1": 0.56,
+    "support": 326,
+    "per_class_recall": {
+      "serving": {
+        "support": 31,
+        "recall": 0.7419
+      },
+      "hitting": {
+        "support": 9,
+        "recall": 0.1111
+      },
+      "moving": {
+        "support": 122,
+        "recall": 0.7787
+      },
+      "pick_ball": {
+        "support": 9,
+        "recall": 0.5556
+      },
+      "rest": {
+        "support": 155,
+        "recall": 0.6645
+      }
+    },
+    "pred_distribution": {
+      "serving": 24,
+      "rest": 132,
+      "pick_ball": 20,
+      "moving": 149,
+      "hitting": 1
+    }
+  },
+  "test_metrics": {
+    "accuracy": 0.825,
+    "macro_f1": 0.8118,
+    "support": 200,
+    "per_class_recall": {
+      "serving": {
+        "support": 15,
+        "recall": 0.8667
+      },
+      "hitting": {
+        "support": 20,
+        "recall": 0.7
+      },
+      "moving": {
+        "support": 90,
+        "recall": 0.8222
+      },
+      "pick_ball": {
+        "support": 25,
+        "recall": 0.84
+      },
+      "rest": {
+        "support": 50,
+        "recall": 0.86
+      }
+    },
+    "pred_distribution": {
+      "moving": 85,
+      "hitting": 17,
+      "serving": 18,
+      "rest": 56,
+      "pick_ball": 24
+    }
+  }
+}
