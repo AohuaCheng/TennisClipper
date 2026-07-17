@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-"""Build stratified VLM evaluation manifest from labeled player-action data."""
+"""Build stratified action-classifier evaluation manifest from labeled data."""
 from __future__ import annotations
 
 import argparse
 import json
 import random
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any, Dict, List
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
+from tenniscut.ml.detection_validity import derive_detection_validity, is_layer1_eval_row
 from tenniscut.ml.labels import (
-    DEAD_TIME_POSES,
-    IN_PLAY_POSES,
     get_pose,
     get_rally_phase,
     is_annotation_complete,
@@ -25,7 +27,6 @@ DEFAULT_SOURCES = (
     "test_labeled.jsonl",
 )
 
-# Targets within each half of a balanced set (size=200 -> 100 per group).
 DEAD_SUBTARGETS = {"rest": 50, "pick_ball": 25, "moving": 25}
 IN_PLAY_SUBTARGETS = {"serving": 15, "hitting": 20, "moving": 65}
 
@@ -39,11 +40,18 @@ def _qa_excluded(row: Dict[str, Any]) -> bool:
 
 
 def load_labeled_rows(
-    manifests_dir: Path, sources: List[str]
-) -> tuple[List[Dict[str, Any]], int]:
+    manifests_dir: Path,
+    sources: List[str],
+    *,
+    layer1_only: bool = True,
+    min_confidence: float = 0.8,
+) -> tuple[List[Dict[str, Any]], Dict[str, int]]:
     rows: List[Dict[str, Any]] = []
-    excluded_qa = 0
-    skipped_incomplete = 0
+    stats = {
+        "excluded_qa": 0,
+        "skipped_incomplete": 0,
+        "excluded_not_layer1": 0,
+    }
     for name in sources:
         path = manifests_dir / name
         if not path.exists():
@@ -55,13 +63,18 @@ def load_labeled_rows(
                     continue
                 row = json.loads(line)
                 if _qa_excluded(row):
-                    excluded_qa += 1
+                    stats["excluded_qa"] += 1
                     continue
                 if not is_annotation_complete(row):
-                    skipped_incomplete += 1
+                    stats["skipped_incomplete"] += 1
+                    continue
+                if layer1_only and not is_layer1_eval_row(
+                    row, min_confidence=min_confidence
+                ):
+                    stats["excluded_not_layer1"] += 1
                     continue
                 rows.append(row)
-    return rows, excluded_qa
+    return rows, stats
 
 
 def _sample_group(
@@ -167,7 +180,7 @@ def build_stratified_manifest(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build stratified VLM eval manifest")
+    parser = argparse.ArgumentParser(description="Build stratified action eval manifest")
     parser.add_argument(
         "--manifests-dir",
         type=Path,
@@ -182,15 +195,41 @@ def main() -> None:
     parser.add_argument("--size", type=int, default=200)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
+        "--layer1-only",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Keep court_player + frame_align=same + label_confidence>=min-confidence (default: on)",
+    )
+    parser.add_argument(
+        "--min-confidence",
+        type=float,
+        default=0.8,
+        help="Minimum label_confidence when --layer1-only is enabled",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "datasets" / "player_actions" / "manifests" / "vlm_eval_stratified.jsonl",
+        default=ROOT
+        / "datasets"
+        / "player_actions"
+        / "manifests"
+        / "action_eval_stratified.jsonl",
     )
     args = parser.parse_args()
 
-    rows, excluded = load_labeled_rows(args.manifests_dir, args.sources)
+    rows, load_stats = load_labeled_rows(
+        args.manifests_dir,
+        args.sources,
+        layer1_only=args.layer1_only,
+        min_confidence=args.min_confidence,
+    )
     selected, meta = build_stratified_manifest(rows, size=args.size, seed=args.seed)
-    meta["excluded_qa_samples"] = excluded
+    meta["load_stats"] = load_stats
+    meta["layer1_only"] = args.layer1_only
+    meta["min_confidence"] = args.min_confidence
+    meta["detection_validity_counts"] = dict(
+        Counter(derive_detection_validity(r) for r in rows)
+    )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with open(args.output, "w", encoding="utf-8") as f:

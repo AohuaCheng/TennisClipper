@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene_frame.schema.json",
+  "title": "SceneFrame",
+  "type": "object",
+  "required": ["scene_frame_id", "session_id", "frame_index", "t", "players", "rally_phase"],
+  "properties": {
+    "scene_frame_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "frame_index": { "type": "integer", "minimum": 0 },
+    "t": { "type": "number" },
+    "split": { "enum": ["train", "val", "test"] },
+    "court_type": { "enum": ["indoor_hard", "outdoor_hard", "outdoor_clay"] },
+    "match_type": { "enum": ["singles", "doubles"] },
+    "segment_id": { "type": "string" },
+    "in_rally_hint": { "type": "boolean" },
+    "players": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sample_id", "track_id", "bbox", "action_state", "detection_validity"],
+        "properties": {
+          "sample_id": { "type": "string" },
+          "track_id": { "type": "integer" },
+          "bbox": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 },
+          "bbox_cx": { "type": "number" },
+          "bbox_cy": { "type": "number" },
+          "bbox_w": { "type": "number" },
+          "bbox_h": { "type": "number" },
+          "role": { "enum": ["near", "far", "unknown"] },
+          "action_state": { "type": "string" },
+          "detection_validity": {
+            "enum": ["court_player", "other_person", "non_person", "unsure"]
+          },
+          "is_target_player": { "enum": ["yes", "no", "unsure"] },
+          "label_confidence": { "type": "number" }
+        }
+      }
+    },
+    "n_players": { "type": "integer" },
+    "n_court_players": { "type": "integer" },
+    "n_invalid_detections": { "type": "integer" },
+    "rally_phase": { "enum": ["in_play", "dead_time", "unsure"] },
+    "label_confidence": { "type": "number" },
+    "qa_conflict": { "type": "boolean" },
+    "is_complete": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

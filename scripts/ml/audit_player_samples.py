@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.ml.build_vlm_error_gallery import _html_gallery, collect_group_errors
+from scripts.ml.build_action_error_gallery import _html_gallery
 from tenniscut.ml.corpus import load_registry
 from tenniscut.ml.frame_io import render_full_frame_jpg
 

@@ -148,7 +148,7 @@ def discover_manifests(manifests_dir: Path, *, splits_only: bool) -> List[Path]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Rule-based annotation prefill (no VLM)")
+    parser = argparse.ArgumentParser(description="Rule-based annotation prefill")
     parser.add_argument("--manifest", type=Path, default=None)
     parser.add_argument("--all", action="store_true", help="All *_unlabeled.jsonl manifests")
     parser.add_argument(

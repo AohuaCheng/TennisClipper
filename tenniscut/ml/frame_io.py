@@ -114,6 +114,96 @@ def save_frame_jpg(frame: np.ndarray, path: Path, *, quality: int = 92) -> None:
     Image.fromarray(rgb).save(path, quality=quality)
 
 
+def expand_bbox(bbox: list[float], scale: float = 1.4) -> list[float]:
+    """Expand normalized bbox around center by ``scale``."""
+    x1, y1, x2, y2 = bbox[:4]
+    cx = (x1 + x2) / 2.0
+    cy = (y1 + y2) / 2.0
+    w = (x2 - x1) * scale
+    h = (y2 - y1) * scale
+    return [
+        max(0.0, cx - w / 2),
+        max(0.0, cy - h / 2),
+        min(1.0, cx + w / 2),
+        min(1.0, cy + h / 2),
+    ]
+
+
+def crop_from_frame(
+    frame: np.ndarray,
+    bbox_norm: list[float],
+    *,
+    expand: float = 1.0,
+) -> np.ndarray:
+    """Crop normalized bbox from BGR frame; optional symmetric expand."""
+    h, w = frame.shape[:2]
+    bbox = list(bbox_norm)
+    if expand != 1.0:
+        bbox = expand_bbox(bbox, expand)
+    x1, y1, x2, y2 = bbox
+    px1 = max(0, min(w - 1, int(x1 * w)))
+    py1 = max(0, min(h - 1, int(y1 * h)))
+    px2 = max(px1 + 1, min(w, int(x2 * w)))
+    py2 = max(py1 + 1, min(h, int(y2 * h)))
+    return frame[py1:py2, px1:px2]
+
+
+def render_expanded_crop_jpg(
+    row: dict,
+    datasets_root: Path,
+    cache_path: Path,
+    *,
+    expand: float = 1.4,
+    force: bool = False,
+) -> Optional[Path]:
+    """Render expanded player crop using full_frame_plain_path when available."""
+    if cache_path.exists() and not force:
+        return cache_path
+    plain_rel = row.get("full_frame_plain_path")
+    bbox = row.get("bbox")
+    if not plain_rel or not bbox:
+        crop = datasets_root / row.get("crop_path", "")
+        return crop if crop.exists() else None
+    plain = datasets_root / plain_rel
+    if not plain.exists():
+        return None
+    frame = cv2.imread(str(plain))
+    if frame is None:
+        return None
+    crop = crop_from_frame(frame, bbox, expand=expand)
+    if crop.size == 0:
+        return None
+    save_frame_jpg(crop, cache_path)
+    return cache_path
+
+
+def render_lowres_full_frame_jpg(
+    row: dict,
+    datasets_root: Path,
+    cache_path: Path,
+    *,
+    max_width: int = 512,
+    force: bool = False,
+) -> Optional[Path]:
+    if cache_path.exists() and not force:
+        return cache_path
+    plain_rel = row.get("full_frame_plain_path")
+    if not plain_rel:
+        return None
+    plain = datasets_root / plain_rel
+    if not plain.exists():
+        return None
+    frame = cv2.imread(str(plain))
+    if frame is None:
+        return None
+    h, w = frame.shape[:2]
+    if w > max_width:
+        scale = max_width / w
+        frame = cv2.resize(frame, (max_width, max(1, int(h * scale))))
+    save_frame_jpg(frame, cache_path)
+    return cache_path
+
+
 def draw_bbox_on_frame(
     frame: np.ndarray,
     bbox_norm: list[float],

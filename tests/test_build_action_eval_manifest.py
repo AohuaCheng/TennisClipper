@@ -1,7 +1,7 @@
-"""Tests for stratified VLM eval manifest builder."""
+"""Tests for stratified action eval manifest builder."""
 from __future__ import annotations
 
-from scripts.ml.build_vlm_eval_manifest import build_stratified_manifest
+from scripts.ml.build_action_eval_manifest import build_stratified_manifest
 
 
 def _complete_row(

@@ -30,7 +30,7 @@
 
 > 旧 v1 标签（`hit_rally`、`hit_serve`、`idle` 等）已废弃，请全部按 v2 重标。
 
-## 0. 规则预填（推荐，无需 VLM）
+## 0. 规则预填（推荐）
 
 导出 crop 后，一键预填 Layer 2 + QA，你只需标 Layer 1 `action_state`：
 
@@ -52,7 +52,7 @@ python scripts/ml/prefill_annotation_defaults.py --splits-only --relabel
 | `is_target_player` | `yes`（场上球员） |
 | `action_state` | `unsure`（留给你标注） |
 
-写入 `*_labeled.jsonl`；`--relabel` 会清除旧 VLM 预标注并重置 Layer 1。
+写入 `*_labeled.jsonl`；`--relabel` 会清除旧模型预标注并重置 Layer 1。
 
 **重标前建议**：备份现有 `*_labeled.jsonl`，或直接用 `--relabel` 覆盖。
 
@@ -76,7 +76,7 @@ python scripts/ml/annotate_player_actions.py \
 
 ### 同一帧多名球员
 
-导出时 YOLO 会对**同一帧中每个被跟踪的球员**各生成一条样本（`sample_id` 含 `track_id`，如 `7252_000_...` 与 `7252_001_...` 可同帧并存）。每条 crop 只描述**该 track 对应球员**在本帧的动作；标注与 VLM 评估均按 `track_id` / `crop_path` 一一对应，不要用 full_frame 里其他球员的动作来标当前 crop。
+导出时 YOLO 会对**同一帧中每个被跟踪的球员**各生成一条样本（`sample_id` 含 `track_id`，如 `7252_000_...` 与 `7252_001_...` 可同帧并存）。每条 crop 只描述**该 track 对应球员**在本帧的动作；标注与 CNN 评估均按 `track_id` / `crop_path` 一一对应，不要用 full_frame 里其他球员的动作来标当前 crop。
 
 ## 2. 推荐顺序
 
@@ -114,23 +114,25 @@ python scripts/ml/import_labels.py \
 ## 5. 达标后
 
 ```bash
-# 构建 50/50 分层 VLM 测试集（dead_time vs in_play，200 条）
-python scripts/ml/build_vlm_eval_manifest.py --size 200
+# 构建 50/50 分层测试集（dead_time vs in_play，200 条）
+python scripts/ml/build_action_eval_manifest.py --size 200
 
-# Qwen3-VL 零样本基线（player crop，主指标 pose+rally 双层一致）
-python scripts/ml/eval_qwen_vl.py \
-  --manifest datasets/player_actions/manifests/vlm_eval_stratified.jsonl \
-  --model Qwen/Qwen3-VL-2B-Instruct \
-  --task dual \
-  --output-dir datasets/eval/qwen3_vl_2b
-
-# 错判图库（full_frame 仅作 QA 对照图，非 VLM 输入）
-python scripts/ml/build_vlm_error_gallery.py \
-  --report datasets/eval/qwen3_vl_2b/qwen3_vl.json \
-  --output-dir datasets/eval/qwen3_vl_2b
-
+# 训练 ResNet50 动作分类器
 python scripts/ml/train_action_classifier.py \
   --train-manifest datasets/player_actions/manifests/train_labeled.jsonl \
   --val-manifest datasets/player_actions/manifests/val_labeled.jsonl \
-  --output datasets/eval/resnet18_action_classifier.pt
+  --test-manifest datasets/player_actions/manifests/action_eval_stratified.jsonl \
+  --backbone resnet50 \
+  --crop-mode expanded_crop \
+  --output datasets/eval/resnet50_expanded_action_classifier.pt
+
+# 真实 test 评估 + 错判图库
+python scripts/ml/eval_action_classifier.py \
+  --checkpoint datasets/eval/resnet50_expanded_action_classifier.pt \
+  --manifest datasets/player_actions/manifests/test_labeled.jsonl \
+  --report datasets/eval/resnet50_test_report.json
+
+python scripts/ml/build_action_error_gallery.py \
+  --report datasets/eval/resnet50_test_report.json \
+  --output-dir datasets/eval/resnet50_gallery
 ```

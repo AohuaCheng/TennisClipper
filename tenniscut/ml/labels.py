@@ -188,7 +188,8 @@ def apply_annotation_prefill(row: Dict[str, Any], *, relabel: bool = False) -> D
             if normalize_target_player(out.get("is_target_player")) != "unsure":
                 continue
         out[key] = value
-    if out.get("notes", "").startswith("vlm_prelabel:"):
+    notes = out.get("notes", "")
+    if notes.startswith(("vlm_prelabel:", "cnn_prelabel:", "model_prelabel:")):
         out.pop("notes", None)
     for legacy_key in ("pose", "label"):
         out.pop(legacy_key, None)

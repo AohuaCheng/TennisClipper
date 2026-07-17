@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build VLM error analysis JSON + HTML galleries from crop eval reports."""
+"""Build CNN/action-classifier error analysis JSON + HTML galleries."""
 from __future__ import annotations
 
 import argparse
@@ -21,7 +21,7 @@ def _resolve_context_frame_path(
     datasets_root: Path,
     sample_id: str,
 ) -> str | None:
-    """Full-court frame with bbox overlay — for human QA only, not VLM input."""
+    """Full-court frame with bbox overlay — for human QA only, not model input."""
     for key in ("full_frame_path", "full_frame_plain_path"):
         rel = row.get(key)
         if rel:
@@ -105,24 +105,19 @@ def write_summary_html(
     report: Dict[str, Any],
     manifest_count: int,
 ) -> Path:
-    dual = report.get("metrics_dual", {})
-    pose = report.get("metrics_pose", {})
-    rally = report.get("metrics_rally_phase", {})
-
+    metrics = report.get("metrics_pose", report)
     html = f"""<!DOCTYPE html><html><head><meta charset='utf-8'>
-<title>Qwen3-VL-2B eval summary</title>
+<title>Action classifier eval summary</title>
 <style>body{{font-family:-apple-system,sans-serif;margin:24px;background:#111;color:#eee}}
 table{{border-collapse:collapse}} td,th{{border:1px solid #444;padding:8px 12px}}
 a{{color:#8cf}}</style></head><body>
-<h1>Qwen3-VL-2B-Instruct vs 人工标注（player crop）</h1>
-<p>样本数：{manifest_count} · 模型：{report.get('model_id','')}</p>
+<h1>Action classifier vs 人工标注（player crop）</h1>
+<p>样本数：{manifest_count} · checkpoint：{report.get('checkpoint','')}</p>
 <table>
-<tr><th>输入</th><th>dual acc</th><th>action acc</th><th>phase acc</th><th>n</th></tr>
-<tr><td>crop</td>
-<td>{dual.get('accuracy', 0):.1%}</td>
-<td>{pose.get('accuracy', 0):.1%}</td>
-<td>{rally.get('accuracy', 0):.1%}</td>
-<td>{dual.get('support', 0)}</td></tr>
+<tr><th>macro-F1</th><th>accuracy</th><th>support</th></tr>
+<tr><td>{metrics.get('macro_f1', 0):.1%}</td>
+<td>{metrics.get('accuracy', 0):.1%}</td>
+<td>{metrics.get('support', 0)}</td></tr>
 </table>
 <h2>图库</h2>
 <ul>
@@ -135,7 +130,13 @@ a{{color:#8cf}}</style></head><body>
     return path
 
 
-def _html_gallery(title: str, errors: List[Dict[str, Any]]) -> str:
+def _html_gallery(
+    title: str,
+    errors: List[Dict[str, Any]],
+    *,
+    primary_mode: str = "eval",
+) -> str:
+    crop_label = "crop (model input)" if primary_mode == "eval" else "crop"
     lines = [
         "<!DOCTYPE html><html><head><meta charset='utf-8'>",
         f"<title>{title}</title>",
@@ -147,10 +148,12 @@ def _html_gallery(title: str, errors: List[Dict[str, Any]]) -> str:
         ".tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;background:#333;margin-top:6px}",
         "</style></head><body>",
         f"<h1>{title}</h1>",
-        f"<p>错判 {len(errors)} 条（VLM 输入 = player crop）</p>",
+        f"<p>条目 {len(errors)}</p>",
     ]
     for e in errors:
-        cls = "dead" if e["true_group"] == "dead_time" else "inplay"
+        cls = "dead" if e.get("true_group") == "dead_time" else "inplay"
+        if primary_mode == "audit":
+            cls = ""
         lines.append(f"<div class='card {cls}'><div class='meta'>")
         lines.append(f"<h3>{e['sample_id']}</h3>")
         lines.append(f"<div>真值: <b>{e['true_label']}</b></div>")
@@ -160,12 +163,13 @@ def _html_gallery(title: str, errors: List[Dict[str, Any]]) -> str:
             f"<div>track_id={e.get('track_id')} role={e['role']} session={e['session_id']}</div></div>"
         )
         lines.append(
-            f"<div><div>crop (VLM input)</div><img src='file://{e['crop_path']}'></div>"
+            f"<div><div>{crop_label}</div><img src='file://{e['crop_path']}'></div>"
         )
-        if e.get("context_frame_path"):
+        context = e.get("context_frame_path") or e.get("full_frame_path")
+        if context:
             lines.append(
                 f"<div><div>context (full court, QA only)</div>"
-                f"<img src='file://{e['context_frame_path']}'></div>"
+                f"<img src='file://{context}'></div>"
             )
         lines.append("</div>")
     lines.append("</body></html>")
@@ -180,11 +184,11 @@ def _print_error_stats(errors: List[Dict[str, Any]]) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build VLM error galleries (crop)")
+    parser = argparse.ArgumentParser(description="Build action classifier error galleries")
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=ROOT / "datasets/player_actions/manifests/vlm_eval_stratified.jsonl",
+        default=ROOT / "datasets/player_actions/manifests/action_eval_stratified.jsonl",
     )
     parser.add_argument("--datasets-root", type=Path, default=ROOT / "datasets")
     parser.add_argument("--report", type=Path, required=True)
@@ -213,7 +217,7 @@ def main() -> None:
     )
     html_path = args.output_dir / f"error_gallery{suffix}.html"
     layer_label = "action" if args.layer == "pose" else args.layer
-    title = f"VLM errors (crop, {layer_label}) — {args.report.parent.name}"
+    title = f"Action classifier errors ({layer_label}) — {args.report.parent.name}"
     html_path.write_text(_html_gallery(title, errors), encoding="utf-8")
     print(f"Wrote {json_path}")
     print(f"Wrote {html_path}")

@@ -66,7 +66,11 @@
     "segment_id": { "type": "string" },
     "notes": { "type": "string" },
     "frame_align": { "enum": ["same", "different", "unsure"] },
-    "is_target_player": { "enum": ["yes", "no", "unsure"] }
+    "is_target_player": { "enum": ["yes", "no", "unsure"] },
+    "detection_validity": {
+      "enum": ["court_player", "other_person", "non_person", "unsure"],
+      "description": "Derived detection quality (optional on enriched manifests)"
+    }
   },
   "additionalProperties": false
 }

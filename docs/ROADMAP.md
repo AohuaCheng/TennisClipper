@@ -14,7 +14,7 @@
 | Phase 2 | ROI、复核、球场标定 | 🔄 部分完成 |
 | Phase 3 | 视觉击球：球员/姿态/球轨迹 | 🔄 原型已实现，精度不足 |
 | Phase 3.5 | 回合 lifecycle + ball refine | ✅ 已实现，待感知层加强 |
-| Phase 4 | ML 数据集 + 专用模型 + VLM 基线 | 🔄 进行中 |
+| Phase 4 | ML 数据集 + 专用 CNN 动作分类 | 🔄 进行中 |
 | Phase 5 | 回合标签筛选 + LLM 精筛 | ⏳ 待开始 |
 
 ---
@@ -62,7 +62,7 @@
 |---|---|---|---|
 | 4.1 | `datasets/` 脚手架 + Clipper 扫描 | #P0 | ✅ |
 | 4.2 | 球员动作标注 + 导出 crop | #P0 | ⏳ |
-| 4.3 | Qwen-VL-Chat-Int4 基线评估 | #P0 | ⏳ |
+| 4.3 | ResNet50 动作分类器训练与评估 | #P0 | ✅ |
 | 4.4 | 球检测标注 + YOLO 微调 | #P1 | ⏳ |
 | 4.5 | 接入 pipeline 下游 IoU 验证 | #P0 | ⏳ |
 | 4.6 | 回合标签: long_rally / highlight | #P1 | ⏳ |

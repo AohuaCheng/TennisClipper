@@ -219,7 +219,7 @@ python scripts/ml/scan_clipper_corpus.py --skip-benchmarks
 | Phase 2 | ROI、复核、球场标定 | 部分完成（标定已实现） |
 | Phase 3 | 视觉击球：球员/姿态/球轨迹 | 已实现原型，精度待提升 |
 | Phase 3.5 | 回合 lifecycle + ball refine | 已实现，待 ML 感知层加强 |
-| Phase 4 | ML 数据集 + 专用模型 + VLM 基线 | 进行中 |
+| Phase 4 | ML 数据集 + 专用 CNN 动作分类 | 进行中 |
 | Phase 5 | 回合标签筛选 + LLM 精筛 | 待开始 |
 
 详细路线图见 [`docs/ROADMAP.md`](./docs/ROADMAP.md)。

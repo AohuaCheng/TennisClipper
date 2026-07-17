@@ -1,0 +1,37 @@
+{
+  "splits": {
+    "train": {
+      "input_rows": 2150,
+      "scene_frames": 1784,
+      "trainable_scenes": 1486,
+      "qa_conflicts": 9,
+      "rally_phase_trainable": {
+        "dead_time": 913,
+        "in_play": 573
+      },
+      "output": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/player_actions/scene_frames/train_scene_frames.jsonl"
+    },
+    "val": {
+      "input_rows": 330,
+      "scene_frames": 260,
+      "trainable_scenes": 258,
+      "qa_conflicts": 2,
+      "rally_phase_trainable": {
+        "in_play": 95,
+        "dead_time": 163
+      },
+      "output": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/player_actions/scene_frames/val_scene_frames.jsonl"
+    },
+    "test": {
+      "input_rows": 880,
+      "scene_frames": 790,
+      "trainable_scenes": 644,
+      "qa_conflicts": 0,
+      "rally_phase_trainable": {
+        "in_play": 469,
+        "dead_time": 175
+      },
+      "output": "/Users/aohuacheng/Documents/Startups/TennisClipper/datasets/player_actions/scene_frames/test_scene_frames.jsonl"
+    }
+  }
+}

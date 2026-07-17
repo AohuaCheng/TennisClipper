@@ -20,7 +20,7 @@ datasets/
 │   ├── labels/                # 人工标注
 │   ├── prelabels/             # CV 预标注
 │   └── manifests/
-└── eval/                      # VLM / 下游评估报告（gitignore，保留 .gitkeep）
+└── eval/                      # CNN / 下游评估报告（gitignore，保留 .gitkeep）
 ```
 
 ### Git 跟踪说明
@@ -134,46 +134,48 @@ python scripts/ml/import_labels.py \
 3. Test 150 条：`test_unlabeled.jsonl`（7252 为主，留作最终评估）
 4. Val 100 条：`val_unlabeled.jsonl`
 
-## M2：VLM / 小模型评估
+## M2：CNN 动作分类器评估
 
 ```bash
-# 1) 构建分层 VLM 测试集（50% dead_time，50% in_play；按 pose 子类分层）
-python scripts/ml/build_vlm_eval_manifest.py --size 200
+# 1) 构建分层测试集（50% dead_time，50% in_play；按 pose 子类分层）
+python scripts/ml/build_action_eval_manifest.py --size 200
 
-# 2) Qwen3-VL 零样本基线（player crop，主指标 pose+rally 双层一致）
-python scripts/ml/eval_qwen_vl.py \
-  --manifest datasets/player_actions/manifests/vlm_eval_stratified.jsonl \
-  --model Qwen/Qwen3-VL-2B-Instruct \
-  --task dual \
-  --output-dir datasets/eval/qwen3_vl_2b
-
-# 错判样本 HTML 图库（manifest 中的 full_frame 仅作 QA 对照）
-python scripts/ml/build_vlm_error_gallery.py \
-  --report datasets/eval/qwen3_vl_2b/qwen3_vl.json \
-  --output-dir datasets/eval/qwen3_vl_2b
-
-# 3) ResNet18 小模型
+# 2) 训练 ResNet50 动作分类器（expanded crop，256×256）
 python scripts/ml/train_action_classifier.py \
   --train-manifest datasets/player_actions/manifests/train_labeled.jsonl \
-  --output datasets/eval/resnet18_action_classifier.pt
+  --val-manifest datasets/player_actions/manifests/val_labeled.jsonl \
+  --test-manifest datasets/player_actions/manifests/action_eval_stratified.jsonl \
+  --backbone resnet50 \
+  --crop-mode expanded_crop \
+  --output datasets/eval/resnet50_expanded_action_classifier.pt
+
+# 3) 评估（stratified + 真实 test）
+python scripts/ml/eval_action_classifier.py \
+  --checkpoint datasets/eval/resnet50_expanded_action_classifier.pt \
+  --manifest datasets/player_actions/manifests/test_labeled.jsonl \
+  --output datasets/eval/resnet50_test_eval.json \
+  --report datasets/eval/resnet50_test_report.json
+
+# 错判样本 HTML 图库
+python scripts/ml/build_action_error_gallery.py \
+  --report datasets/eval/resnet50_test_report.json \
+  --output-dir datasets/eval/resnet50_gallery
+
+# 4) 缓存 CNN 预测供 Layer2 训练
+python scripts/ml/cache_cnn_predictions.py \
+  --checkpoint datasets/eval/resnet50_expanded_action_classifier.pt \
+  --output-dir datasets/player_actions/cnn_predictions
 ```
 
-VLM 输入：**player crop**（`crop_path`），每条样本对应一个 `track_id` 的球员裁切图。同一视频帧可有多条样本（不同球员各一条）；评估时必须按 `sample_id` / `track_id` 匹配，不要用 full_frame 里其他球员的动作推断当前 crop。
+模型输入：**expanded player crop**（默认 1.4× padding），每条样本对应一个 `track_id` 的球员裁切图。同一视频帧可有多条样本（不同球员各一条）；评估时必须按 `sample_id` / `track_id` 匹配，不要用 full_frame 里其他球员的动作推断当前 crop。
 
-标注 UI 中的 `full_frame_path`（红框全场图）仅用于人工 QA，不参与 VLM 推理。
-
-评估任务（`--task`）：
-- `dual`（默认）：pose 与 rally_phase 同时正确
-- `in_play_vs_dead`：回合二分类 F1
-- `all_poses`：6 类姿态 exact match
-
-模型输出 JSON：`{"action_state":"...","rally_phase":"...","confidence":0.0-1.0}`（解析仍兼容旧字段 `pose`）
+标注 UI 中的 `full_frame_path`（红框全场图）仅用于人工 QA，不参与 CNN 推理。
 
 ## 评估指标（通过标准）
 
 | 任务 | 目标 |
 |------|------|
-| 球员 **in_play vs dead_time** F1 | ≥ 0.80（VLM 基线参考） |
-| 球员 **pose + rally 双层一致** accuracy | ≥ 0.60（VLM 基线参考） |
+| 球员 **pose macro-F1**（真实 test） | ≥ 0.35（当前 ResNet50 ≈ 0.35） |
+| 球员 **in_play vs dead_time** F1 | ≥ 0.80（Layer2 Set-TCN oracle 上限参考） |
 | 球 IoU@0.5 | ≥ 0.50 |
 | 303–354s 轨迹帧覆盖率 | ≥ 40% |
